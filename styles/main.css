@@ -73,3 +73,14 @@ form {
     color: var(--muted);
     font-size: 0.9rem;
 }
+.logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 16px;
+}
+.title {
+    margin: 0 0 20px;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
