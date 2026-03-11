@@ -15,7 +15,7 @@ function runSearch(rawQuery) {
     } else if (searchType === "maps") {
         targetUrl = "https://google.ro/maps/search/" + encodeURIComponent(query);
     } else if (searchType === "videos") {
-        targetUrl = "https://youtube.com/results?search_query=" + encodeURIComponent(query);
+        targetUrl = "https://yewtu.be/search?q=" + encodeURIComponent(query);
     } else {
         targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
     }
