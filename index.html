@@ -13,8 +13,7 @@
         rel="search"
         type="application/opensearchdescription+xml"
         title="NuciSearch"
-        href="/opensearch.xml"
-/>
+        href="/opensearch.xml"/>
 </head>
 <body>
     <main>
@@ -22,6 +21,17 @@
         <p class="title">NuciSearch</p>
 
         <form id="search-form">
+            <div class="tabs">
+                <label>
+                    <input type="radio" name="search-type" value="text" checked>
+                    Text
+                </label>
+
+                <label>
+                    <input type="radio" name="search-type" value="images">
+                    Images
+                </label>
+            </div>
             <input
                 id="query"
                 class="search-box"
@@ -30,7 +40,6 @@
                 autocomplete="off"
                 autofocus
             />
-
             <button class="search-button" type="submit">Search</button>
         </form>
     </main>
