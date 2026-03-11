@@ -2,14 +2,20 @@ const form = document.getElementById("search-form");
 const queryInput = document.getElementById("query");
 
 function runSearch(rawQuery) {
-    const query = rawQuery.trim();
 
-    if (!query) {
-        queryInput.focus();
-        return;
+    const query = rawQuery.trim();
+    if (!query) return;
+
+    const searchType = document.querySelector('input[name="search-type"]:checked').value;
+
+    let targetUrl;
+
+    if (searchType === "images") {
+        targetUrl = "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query);
+    } else {
+        targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
     }
 
-    const targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
     window.location.href = targetUrl;
 }
 

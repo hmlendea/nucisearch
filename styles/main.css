@@ -84,3 +84,14 @@ form {
     font-weight: 600;
     letter-spacing: 0.02em;
 }
+
+.tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.tabs input {
+    margin-right: 4px;
+}
