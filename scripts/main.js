@@ -14,6 +14,8 @@ function runSearch(rawQuery) {
         targetUrl = "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query);
     } else if (searchType === "maps") {
         targetUrl = "https://google.ro/maps/search/" + encodeURIComponent(query);
+    } else if (searchType === "videos") {
+        targetUrl = "https://youtube.com/results?search_query=" + encodeURIComponent(query);
     } else {
         targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
     }
