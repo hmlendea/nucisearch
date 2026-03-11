@@ -12,6 +12,8 @@ function runSearch(rawQuery) {
 
     if (searchType === "images") {
         targetUrl = "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query);
+    } else if (searchType === "maps") {
+        targetUrl = "https://google.ro/maps/search/" + encodeURIComponent(query);
     } else {
         targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
     }
