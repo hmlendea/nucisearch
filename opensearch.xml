@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>NuciSearch</ShortName>
+    <Description>Search the web with NuciSearch</Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="64" height="64" type="image/png">https://search.nuilandia.ro/assets/logo.png</Image>
+    <Url
+        type="text/html"
+        method="get"
+        template="https://search.nuilandia.ro?q={searchTerms}"
+    />
+</OpenSearchDescription>
