@@ -1,12 +1,18 @@
 const form = document.getElementById("search-form");
 const queryInput = document.getElementById("query");
 
+
+function getAliExpressUrl(query) {
+    const hyphenated = query.trim().replace(/\s+/g, "-");
+    return `https://www.aliexpress.com/w/wholesale-${hyphenated}.html?spm=a2g0o.detail.search.0`;
+}
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
+
 
 function runSearch(rawQuery) {
     const query = rawQuery.trim();
@@ -28,13 +34,16 @@ function runSearch(rawQuery) {
     } else {
         const words = query.split(/\s+/);
         if (words.length > 1) {
-            const containsEmag = words.some(w => w.toLowerCase() === "emag");
+            const containsAliexpress = words.some(w => w.toLowerCase() === "aliexpress");
             const containsYouTube = words.some(w => w.toLowerCase() === "youtube");
+            const containsEmag = words.some(w => w.toLowerCase() === "emag");
 
-            if (containsEmag) {
-                targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
+            if (containsAliexpress) {
+                targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
             } else if (containsYouTube) {
                 targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
+            } else if (containsEmag) {
+                targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
             } else {
                 targetUrl = getDuckDuckGoUrl(query);
             }
