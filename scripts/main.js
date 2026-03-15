@@ -1,45 +1,47 @@
 const form = document.getElementById("search-form");
 const queryInput = document.getElementById("query");
 
-function runSearch(rawQuery) {
+function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
+function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
+function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
+function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
+function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
+function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
 
+function runSearch(rawQuery) {
     const query = rawQuery.trim();
     if (!query) return;
 
     const searchType = document.querySelector('input[name="search-type"]:checked').value;
-
     let targetUrl;
 
     if (searchType === "images") {
-        targetUrl = "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query);
+        targetUrl = getDuckDuckGoImagesUrl(query);
     } else if (searchType === "maps") {
-        targetUrl = "https://google.ro/maps/search/" + encodeURIComponent(query);
+        targetUrl = getGoogleMapsUrl(query);
     } else if (searchType === "torrents") {
-        targetUrl = "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent");
+        targetUrl = getYandexTorrentsUrl(query);
     } else if (searchType === "videos") {
-        targetUrl = "https://yewtu.be/search?q=" + encodeURIComponent(query);
+        targetUrl = getYouTubeUrl(query);
     } else if (searchType === "text") {
-        targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+        targetUrl = getDuckDuckGoUrl(query);
     } else {
         const words = query.split(/\s+/);
-
         if (words.length > 1) {
             const containsEmag = words.some(w => w.toLowerCase() === "emag");
+            const containsYouTube = words.some(w => w.toLowerCase() === "youtube");
 
             if (containsEmag) {
-
-                const filteredWords = words.filter(w => w.toLowerCase() !== "emag");
-                const emagQuery = filteredWords.join(" ");
-
-                targetUrl = "https://emag.ro/search/" + encodeURIComponent(emagQuery);
+                targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
+            } else if (containsYouTube) {
+                targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
             } else {
-                targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+                targetUrl = getDuckDuckGoUrl(query);
             }
         } else {
-            targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+            targetUrl = getDuckDuckGoUrl(query);
         }
     }
-
     window.location.href = targetUrl;
 }
 
