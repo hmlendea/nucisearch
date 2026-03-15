@@ -18,8 +18,26 @@ function runSearch(rawQuery) {
         targetUrl = "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent");
     } else if (searchType === "videos") {
         targetUrl = "https://yewtu.be/search?q=" + encodeURIComponent(query);
-    } else {
+    } else if (searchType === "text") {
         targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+    } else {
+        const words = query.split(/\s+/);
+
+        if (words.length > 1) {
+            const containsEmag = words.some(w => w.toLowerCase() === "emag");
+
+            if (containsEmag) {
+
+                const filteredWords = words.filter(w => w.toLowerCase() !== "emag");
+                const emagQuery = filteredWords.join(" ");
+
+                targetUrl = "https://emag.ro/search/" + encodeURIComponent(emagQuery);
+            } else {
+                targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+            }
+        } else {
+            targetUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+        }
     }
 
     window.location.href = targetUrl;
