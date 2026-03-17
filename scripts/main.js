@@ -12,6 +12,7 @@ function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeU
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
+function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
@@ -45,6 +46,8 @@ function runSearch(rawQuery) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "protondb")) {
+                targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
                 targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
             } else if (words.some(w => w.toLowerCase() === "youtube")) {
