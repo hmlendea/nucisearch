@@ -14,6 +14,7 @@ function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + enco
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
+function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
@@ -54,6 +55,8 @@ function runSearch(rawQuery) {
                 targetUrl = getMinecraftWikiUrl(query.replace(/mc wiki/gi, "").trim());
             } else if (query.toLowerCase().includes("minecraft wiki")) {
                 targetUrl = getMinecraftWikiUrl(query.replace(/minecraft wiki/gi, "").trim());
+            } else if (query.toLowerCase().includes("planet minecraft")) {
+                targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
