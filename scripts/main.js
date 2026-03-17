@@ -11,6 +11,7 @@ function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=ima
 function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
+function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
 
@@ -40,10 +41,12 @@ function runSearch(rawQuery) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
             } else if (query.toLowerCase().includes("arch wiki")) {
                 targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
-            } else if (words.some(w => w.toLowerCase() === "youtube")) {
-                targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
             } else if (words.some(w => w.toLowerCase() === "emag")) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "uesp")) {
+                targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "youtube")) {
+                targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
             } else {
                 targetUrl = getDuckDuckGoUrl(query);
             }
