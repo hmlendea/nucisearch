@@ -15,6 +15,7 @@ function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + enc
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
+function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
@@ -51,10 +52,22 @@ function runSearch(rawQuery) {
                 targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
-            } else if (query.toLowerCase().includes("mc wiki")) {
-                targetUrl = getMinecraftWikiUrl(query.replace(/mc wiki/gi, "").trim());
-            } else if (query.toLowerCase().includes("minecraft wiki")) {
-                targetUrl = getMinecraftWikiUrl(query.replace(/minecraft wiki/gi, "").trim());
+            } else if (query.toLowerCase().includes("mc wiki") ||
+                       query.toLowerCase().includes("minecraft wiki")) {
+                targetUrl = getMinecraftWikiUrl(query
+                    .replace(/mc wiki/gi, "")
+                    .replace(/minecraft wiki/gi, "")
+                    .trim());
+            } else if (query.toLowerCase().includes("mc schematic") ||
+                       query.toLowerCase().includes("mc schematics") ||
+                       query.toLowerCase().includes("minecraft schematic") ||
+                       query.toLowerCase().includes("minecraft schematics")) {
+                targetUrl = getPlanetMinecraftSchematicsUrl(query
+                    .replace(/mc schematics/gi, "")
+                    .replace(/mc schematic/gi, "")
+                    .replace(/minecraft schematics/gi, "")
+                    .replace(/minecraft schematic/gi, "")
+                    .trim());
             } else if (query.toLowerCase().includes("planet minecraft")) {
                 targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
