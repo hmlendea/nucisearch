@@ -10,6 +10,7 @@ function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?se
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
+function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
@@ -44,6 +45,8 @@ function runSearch(rawQuery) {
                 targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "emag")) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "flathub")) {
+                targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
