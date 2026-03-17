@@ -6,6 +6,7 @@ function getAliExpressUrl(query) {
     const hyphenated = query.trim().replace(/\s+/g, "-");
     return `https://www.aliexpress.com/w/wholesale-${hyphenated}.html?spm=a2g0o.detail.search.0`;
 }
+function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?search=" + encodeURIComponent(query); }
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
@@ -33,16 +34,15 @@ function runSearch(rawQuery) {
         targetUrl = getDuckDuckGoUrl(query);
     } else {
         const words = query.split(/\s+/);
-        if (words.length > 1) {
-            const containsAliexpress = words.some(w => w.toLowerCase() === "aliexpress");
-            const containsYouTube = words.some(w => w.toLowerCase() === "youtube");
-            const containsEmag = words.some(w => w.toLowerCase() === "emag");
 
-            if (containsAliexpress) {
+        if (words.length >= 2) {
+            if (words.some(w => w.toLowerCase() === "aliexpress")) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
-            } else if (containsYouTube) {
+            } else if (query.toLowerCase().includes("arch wiki")) {
+                targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
+            } else if (words.some(w => w.toLowerCase() === "youtube")) {
                 targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
-            } else if (containsEmag) {
+            } else if (words.some(w => w.toLowerCase() === "emag")) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
             } else {
                 targetUrl = getDuckDuckGoUrl(query);
@@ -51,6 +51,7 @@ function runSearch(rawQuery) {
             targetUrl = getDuckDuckGoUrl(query);
         }
     }
+
     window.location.href = targetUrl;
 }
 
