@@ -8,7 +8,6 @@ function getAliExpressUrl(query) {
 }
 function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?search=" + encodeURIComponent(query); }
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
-function getDuckDuckGoUrl(query) { return "https://duckduckgo.com/?q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
@@ -20,6 +19,16 @@ function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encod
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
+
+function getTextSearch(query) {
+    const searchQuery = encodeURIComponent(query);
+    const searchEngines = [
+        `https://duckduckgo.com/?q=${searchQuery}`,
+        `https://search.brave.com/search?q=${searchQuery}`
+    ];
+
+    return searchEngines[Math.floor(Math.random() * searchEngines.length)];
+}
 
 function runSearch(rawQuery) {
     const query = rawQuery.trim();
@@ -37,7 +46,7 @@ function runSearch(rawQuery) {
     } else if (searchType === "videos") {
         targetUrl = getYouTubeUrl(query);
     } else if (searchType === "text") {
-        targetUrl = getDuckDuckGoUrl(query);
+        targetUrl = getTextSearch(query);
     } else {
         const words = query.split(/\s+/);
 
@@ -77,10 +86,10 @@ function runSearch(rawQuery) {
             } else if (words.some(w => w.toLowerCase() === "youtube")) {
                 targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
             } else {
-                targetUrl = getDuckDuckGoUrl(query);
+                targetUrl = getTextSearch(query);
             }
         } else {
-            targetUrl = getDuckDuckGoUrl(query);
+            targetUrl = getTextSearch(query);
         }
     }
 
