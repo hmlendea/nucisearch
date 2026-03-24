@@ -38,7 +38,7 @@ When using **Auto** mode, queries can be routed to specialized providers based o
 - Minecraft Wiki
 - PlanetMinecraft (resources/schematics)
 - ProtonDB
-- UESP
+- UESP *(Unofficial Elder Scrolls Pages - the TES wiki)*
 - YouTube (via yewtu.be)
 
 # Browser Integration
