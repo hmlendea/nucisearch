@@ -24,7 +24,7 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
 - Query parameter support (`?q=`)
 - Works as a browser search provider
 
-### Auto Integrations
+## Auto Integrations
 
 When using **Auto** mode, queries can be routed to specialized providers based on keywords:
 
