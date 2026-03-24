@@ -15,18 +15,37 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
 - Self-hostable static site
 - OpenSearch support (can be installed as a browser search engine)
 - Multiple search modes:
-  - **Text** → DuckDuckGo
+  - **Auto** → keyword-based routing or fallback text search
+  - **Text** → randomized web search (Brave / DuckDuckGo / Qwant / Startpage)
   - **Images** → DuckDuckGo Image Search
+  - **Torrents** → Yandex search with "Torrent" suffix
   - **Videos** → Yewtu.be (YouTube privacy frontend)
   - **Locations** → Google Maps
 - Query parameter support (`?q=`)
 - Works as a browser search provider
 
+## Auto Integrations
+
+When using **Auto** mode, queries can be routed to specialized providers based on keywords:
+
+- Altex
+- AliExpress
+- ArchWiki
+- eMAG
+- evoMAG
+- Flathub
+- IMDb (via LibreMDb)
+- Minecraft Wiki
+- PlanetMinecraft (resources/schematics)
+- ProtonDB
+- UESP *(Unofficial Elder Scrolls Pages - the TES wiki)*
+- YouTube (via yewtu.be)
+
 # Browser Integration
 
 NuciSearch supports **OpenSearch**, allowing it to be installed as a search engine in browsers.
 
-OpenSearch description: https://search.nucilandia.ro/opensearch.xml
+OpenSearch description: https://search.nuilandia.ro/opensearch.xml
 
 # Self-Hosting
 
