@@ -24,8 +24,9 @@ function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIC
 function getTextSearch(query) {
     const searchQuery = encodeURIComponent(query);
     const searchEngines = [
+        `https://search.brave.com/search?q=${searchQuery}`,
         `https://duckduckgo.com/?q=${searchQuery}`,
-        `https://search.brave.com/search?q=${searchQuery}`
+        `https://qwant.com/?q=${searchQuery}`,
     ];
 
     return searchEngines[Math.floor(Math.random() * searchEngines.length)];
