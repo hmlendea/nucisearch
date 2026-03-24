@@ -27,6 +27,7 @@ function getTextSearch(query) {
         `https://search.brave.com/search?q=${searchQuery}`,
         `https://duckduckgo.com/?q=${searchQuery}`,
         `https://qwant.com/?q=${searchQuery}`,
+        `https://startpage.com/do/search?q=${searchQuery}`,
     ];
 
     return searchEngines[Math.floor(Math.random() * searchEngines.length)];
