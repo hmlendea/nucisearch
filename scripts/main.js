@@ -6,6 +6,7 @@ function getAliExpressUrl(query) {
     const hyphenated = query.trim().replace(/\s+/g, "-");
     return `https://www.aliexpress.com/w/wholesale-${hyphenated}.html?spm=a2g0o.detail.search.0`;
 }
+function getAltexUrl(query) { return "https://altex.ro/cauta/?q=" + encodeURIComponent(query); }
 function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?search=" + encodeURIComponent(query); }
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
@@ -53,6 +54,8 @@ function runSearch(rawQuery) {
         if (words.length >= 2) {
             if (words.some(w => w.toLowerCase() === "aliexpress")) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
+            } else if (query.toLowerCase().includes("altex")) {
+                targetUrl = getAltexUrl(query.replace(/altex/gi, "").trim());
             } else if (query.toLowerCase().includes("arch wiki")) {
                 targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "emag")) {
