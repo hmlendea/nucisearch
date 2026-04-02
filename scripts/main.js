@@ -18,6 +18,7 @@ function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" +
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
+function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
@@ -54,7 +55,10 @@ function runSearch(rawQuery) {
     } else {
         const words = query.split(/\s+/);
 
-        if (words.length >= 2) {
+        if (/^US[0-9]{7}$/.test(query)) {
+            targetUrl = getRallyUrl(query);
+        }
+        else if (words.length >= 2) {
             if (words.some(w => w.toLowerCase() === "aliexpress")) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
             } else if (query.toLowerCase().includes("altex")) {
