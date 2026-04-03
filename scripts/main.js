@@ -61,7 +61,7 @@ function runSearch(rawQuery) {
     } else {
         const words = query.split(/\s+/);
 
-        if (/^(?:US|F)[0-9]{6,8}$/.test(query)) {
+        if (/^(?:DE|US|F)[0-9]{6,8}$/.test(query)) {
             targetUrl = getRallyUrl(query);
         }
         else if (words.length >= 2) {
