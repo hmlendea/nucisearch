@@ -36,10 +36,16 @@ function getTextSearch(query) {
 }
 
 function runSearch(rawQuery) {
-    const query = rawQuery.trim();
+    const query = rawQuery
+        .normalize("NFKC")
+        .replace(/[\u200B-\u200D\uFEFF]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
     if (!query) return;
 
-    const searchType = document.querySelector('input[name="search-type"]:checked').value;
+    const searchTypeElement = document.querySelector('input[name="search-type"]:checked');
+    const searchType = searchTypeElement ? searchTypeElement.value : "auto";
     let targetUrl;
 
     if (searchType === "images") {
