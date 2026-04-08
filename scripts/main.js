@@ -13,8 +13,9 @@ function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURICompone
 function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
-function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
+function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
+function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
@@ -82,6 +83,8 @@ function runSearch(rawQuery) {
                 targetUrl = getIkeaUrl(words.filter(w => w.toLowerCase() !== "ikea").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "jysk")) {
+                targetUrl = getJyskUrl(words.filter(w => w.toLowerCase() !== "jysk").join(" "));
             } else if (query.toLowerCase().includes("mc wiki") ||
                        query.toLowerCase().includes("minecraft wiki")) {
                 targetUrl = getMinecraftWikiUrl(query
