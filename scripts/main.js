@@ -14,6 +14,7 @@ function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComp
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
+function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
@@ -77,6 +78,8 @@ function runSearch(rawQuery) {
                 targetUrl = getEvomagUrl(words.filter(w => w.toLowerCase() !== "evomag").join(" "));
             } else if (words.some(w => w.toLowerCase() === "flathub")) {
                 targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "ikea")) {
+                targetUrl = getIkeaUrl(words.filter(w => w.toLowerCase() !== "ikea").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
             } else if (query.toLowerCase().includes("mc wiki") ||
