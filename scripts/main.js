@@ -34,17 +34,31 @@ function getPlayStoreUrl(query) { return "https://play.google.com/store/search?q
 function getPlexUrl(query) { return "https://app.plex.tv/desktop/#!/search?pivot=top&query=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
+function getRedditUrl(query) {
+    const searchQuery = encodeURIComponent(query);
+    const instances = [
+        `https://red.artemislena.eu/search?q=${searchQuery}`,
+        `https://redlib.catsarch.com/search?q=${searchQuery}`,
+        `https://redlib.cow.rip/search?q=${searchQuery}`,
+        `https://redlib.nadeko.net/search?q=${searchQuery}`,
+        `https://redlib.perennialte.ch/search?q=${searchQuery}`,
+        `https://redlib.privadency.com/search?q=${searchQuery}`,
+        `https://snoo.habedieeh.re/search?q=${searchQuery}`
+    ];
+
+    return instances[Math.floor(Math.random() * instances.length)];
+}
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getVintedUrl(query) { return "https://vinted.com/catalog?search_text=" + encodeURIComponent(query); }
 function getWikiPediaUrl(query) {
     const searchQuery = encodeURIComponent(query);
-    const searchEngines = [
+    const instances = [
         `https://ro.wikipedia.org/w/index.php?search=${searchQuery}`,
         `https://wikiless.tiekoetter.com/w/index.php?search=${searchQuery}`
     ];
 
-    return searchEngines[Math.floor(Math.random() * searchEngines.length)];
+    return instances[Math.floor(Math.random() * instances.length)];
 }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
@@ -159,6 +173,8 @@ function runSearch(rawQuery) {
                 targetUrl = getPlexUrl(words.filter(w => w.toLowerCase() !== "plex").join(" "));
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "reddit")) {
+                targetUrl = getRedditUrl(words.filter(w => w.toLowerCase() !== "reddit").join(" "));
             } else if (words.some(w => w.toLowerCase() === "steamdb")) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
