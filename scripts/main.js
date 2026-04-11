@@ -34,6 +34,7 @@ function getPlayStoreUrl(query) { return "https://play.google.com/store/search?q
 function getPlexUrl(query) { return "https://app.plex.tv/desktop/#!/search?pivot=top&query=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
+function getRedditUrl(query) { return "https://reddit.com/search/?q=" + encodeURIComponent(query); }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getVintedUrl(query) { return "https://vinted.com/catalog?search_text=" + encodeURIComponent(query); }
@@ -159,6 +160,8 @@ function runSearch(rawQuery) {
                 targetUrl = getPlexUrl(words.filter(w => w.toLowerCase() !== "plex").join(" "));
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "reddit")) {
+                targetUrl = getRedditUrl(words.filter(w => w.toLowerCase() !== "reddit").join(" "));
             } else if (words.some(w => w.toLowerCase() === "steamdb")) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
