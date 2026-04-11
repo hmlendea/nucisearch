@@ -23,6 +23,7 @@ function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + enc
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIComponent(query); }
+function getLeroyMerlinUrl(query) { return "https://leroymerlin.ro/produse/search/" + encodeURIComponent(query); }
 function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
@@ -124,6 +125,8 @@ function runSearch(rawQuery) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "jysk")) {
                 targetUrl = getJyskUrl(words.filter(w => w.toLowerCase() !== "jysk").join(" "));
+            } else if (query.toLowerCase().includes("leroy merlin")) {
+                targetUrl = getLeroyMerlinUrl(query.replace(/leroy merlin/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "lidl")) {
                 targetUrl = getLidlUrl(words.filter(w => w.toLowerCase() !== "lidl").join(" "));
             } else if (query.toLowerCase().includes("mc wiki") ||
