@@ -25,6 +25,15 @@ function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encod
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
+function getWikiPediaUrl(query) {
+    const searchQuery = encodeURIComponent(query);
+    const searchEngines = [
+        `https://ro.wikipedia.org/w/index.php?search=${searchQuery}`,
+        `https://wikiless.tiekoetter.com/w/index.php?search=${searchQuery}`
+    ];
+
+    return searchEngines[Math.floor(Math.random() * searchEngines.length)];
+}
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
 
@@ -116,6 +125,8 @@ function runSearch(rawQuery) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
                 targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "wikipedia")) {
+                targetUrl = getWikiPediaUrl(words.filter(w => w.toLowerCase() !== "wikipedia").join(" "));
             } else if (words.some(w => w.toLowerCase() === "youtube")) {
                 targetUrl = getYouTubeUrl(words.filter(w => w.toLowerCase() !== "youtube").join(" "));
             } else {
