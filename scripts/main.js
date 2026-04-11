@@ -18,6 +18,7 @@ function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encode
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
+function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
@@ -115,6 +116,8 @@ function runSearch(rawQuery) {
                     .replace(/minecraft schematics/gi, "")
                     .replace(/minecraft schematic/gi, "")
                     .trim());
+            } else if (words.some(w => w.toLowerCase() === "olx")) {
+                targetUrl = getOlxUrl(words.filter(w => w.toLowerCase() !== "olx").join(" "));
             } else if (words.some(w => w.toLowerCase() === "pcgarage")) {
                 targetUrl = getPcGarageUrl(words.filter(w => w.toLowerCase() !== "pcgarage").join(" "));
             } else if (query.toLowerCase().includes("planet minecraft")) {
