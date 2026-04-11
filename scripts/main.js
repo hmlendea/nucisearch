@@ -37,13 +37,13 @@ function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywo
 function getRedditUrl(query) {
     const searchQuery = encodeURIComponent(query);
     const instances = [
-        `https://snoo.habedieeh.re/search?q=${searchQuery}`,
-        `https://redlib.catsarch.com/search?q=${searchQuery}`,
-        `https://redlib.perennialte.ch/search?q=${searchQuery}`,
         `https://red.artemislena.eu/search?q=${searchQuery}`,
+        `https://redlib.catsarch.com/search?q=${searchQuery}`,
         `https://redlib.cow.rip/search?q=${searchQuery}`,
         `https://redlib.nadeko.net/search?q=${searchQuery}`,
-        `https://redlib.privadency.com/search?q=${searchQuery}`
+        `https://redlib.perennialte.ch/search?q=${searchQuery}`,
+        `https://redlib.privadency.com/search?q=${searchQuery}`,
+        `https://snoo.habedieeh.re/search?q=${searchQuery}`
     ];
 
     return instances[Math.floor(Math.random() * instances.length)];
