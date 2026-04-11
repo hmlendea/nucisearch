@@ -8,6 +8,7 @@ function getAliExpressUrl(query) {
 }
 function getAltexUrl(query) { return "https://altex.ro/cauta/?q=" + encodeURIComponent(query); }
 function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?search=" + encodeURIComponent(query); }
+function getAuchanUrl(query) { return "https://auchan.ro/" + encodeURIComponent(query); }
 function getCarturestiUrl(query) { return "https://carturesti.ro/product/search/" + encodeURIComponent(query); }
 function getDecathlonUrl(query) { return "https://decathlon.ro/search?Ntt=" + encodeURIComponent(query); }
 function getDexOnlineUrl(query) { return "https://dexonline.ro/definitie/" + encodeURIComponent(query); }
@@ -93,6 +94,8 @@ function runSearch(rawQuery) {
                 targetUrl = getAltexUrl(query.replace(/altex/gi, "").trim());
             } else if (query.toLowerCase().includes("arch wiki")) {
                 targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
+            } else if (words.some(w => w.toLowerCase() === "auchan")) {
+                targetUrl = getAuchanUrl(words.filter(w => w.toLowerCase() !== "auchan").join(" "));
             } else if (words.some(w => w.toLowerCase() === "carturesti")) {
                 targetUrl = getCarturestiUrl(words.filter(w => w.toLowerCase() !== "carturesti").join(" "));
             } else if (words.some(w => w.toLowerCase() === "decathlon")) {
