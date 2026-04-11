@@ -23,6 +23,7 @@ function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/reso
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
+function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
@@ -111,6 +112,8 @@ function runSearch(rawQuery) {
                 targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "steamdb")) {
+                targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
                 targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
             } else if (words.some(w => w.toLowerCase() === "youtube")) {
