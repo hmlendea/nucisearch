@@ -31,6 +31,7 @@ function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encod
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
+function getVintedUrl(query) { return "https://vinted.com/catalog?search_text=" + encodeURIComponent(query); }
 function getWikiPediaUrl(query) {
     const searchQuery = encodeURIComponent(query);
     const searchEngines = [
@@ -145,6 +146,8 @@ function runSearch(rawQuery) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "uesp")) {
                 targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "vinted")) {
+                targetUrl = getVintedUrl(words.filter(w => w.toLowerCase() !== "vinted").join(" "));
             } else if (words.some(w => w.toLowerCase() === "wikipedia")) {
                 targetUrl = getWikiPediaUrl(words.filter(w => w.toLowerCase() !== "wikipedia").join(" "));
             } else if (words.some(w => w.toLowerCase() === "youtube")) {
