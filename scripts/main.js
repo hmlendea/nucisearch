@@ -29,6 +29,7 @@ function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURICompo
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
+function getPlayStoreUrl(query) { return "https://play.google.com/store/search?q=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
@@ -146,6 +147,10 @@ function runSearch(rawQuery) {
                 targetUrl = getPcGarageUrl(words.filter(w => w.toLowerCase() !== "pcgarage").join(" "));
             } else if (query.toLowerCase().includes("planet minecraft")) {
                 targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
+            } else if (query.toLowerCase().includes("play store") ||
+                       query.toLowerCase().includes("playstore")) {
+                targetUrl = getPlayStoreUrl(query.replace(/play store/gi, "")
+                                                 .replace(/playstore/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "steamdb")) {
