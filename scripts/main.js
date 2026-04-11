@@ -12,6 +12,7 @@ function getDexOnlineUrl(query) { return "https://dexonline.ro/definitie/" + enc
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComponent(query); }
+function getFdroidUrl(query) { return "https://search.f-droid.org/?q=" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
@@ -92,6 +93,10 @@ function runSearch(rawQuery) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
             } else if (words.some(w => w.toLowerCase() === "evomag")) {
                 targetUrl = getEvomagUrl(words.filter(w => w.toLowerCase() !== "evomag").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "fdroid") ||
+                       words.some(w => w.toLowerCase() === "f-droid")) {
+                targetUrl = getFdroidUrl(words.filter(w => w.toLowerCase() !== "fdroid" &&
+                                                           w.toLowerCase() !== "f-droid").join(" "));
             } else if (words.some(w => w.toLowerCase() === "flathub")) {
                 targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
             } else if (words.some(w => w.toLowerCase() === "ikea")) {
