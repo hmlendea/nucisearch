@@ -16,6 +16,7 @@ function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=ima
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComponent(query); }
 function getFdroidUrl(query) { return "https://search.f-droid.org/?q=" + encodeURIComponent(query); }
+function getFirefoxExtensionsUrl(query) { return "https://addons.mozilla.org/en-US/firefox/search/?q=" + encodeURIComponent(query); }
 function getFlancoUrl(query) { return "https://flanco.ro/catalogsearch/result/?q=" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGogUrl(query) { return "https://gog.com/en/games?query=" + encodeURIComponent(query); }
@@ -127,6 +128,12 @@ function runSearch(rawQuery) {
                        words.some(w => w.toLowerCase() === "f-droid")) {
                 targetUrl = getFdroidUrl(words.filter(w => w.toLowerCase() !== "fdroid" &&
                                                            w.toLowerCase() !== "f-droid").join(" "));
+            } else if (query.toLowerCase().includes("firefox extension") ||
+                       query.toLowerCase().includes("firefox extensions")) {
+                targetUrl = getFirefoxExtensionsUrl(query
+                    .replace(/firefox extensions/gi, "")
+                    .replace(/firefox extension/gi, "")
+                    .trim());
             } else if (words.some(w => w.toLowerCase() === "flanco")) {
                 targetUrl = getFlancoUrl(words.filter(w => w.toLowerCase() !== "flanco").join(" "));
             } else if (words.some(w => w.toLowerCase() === "flathub")) {
@@ -167,8 +174,10 @@ function runSearch(rawQuery) {
                 targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
             } else if (query.toLowerCase().includes("play store") ||
                        query.toLowerCase().includes("playstore")) {
-                targetUrl = getPlayStoreUrl(query.replace(/play store/gi, "")
-                                                 .replace(/playstore/gi, "").trim());
+                targetUrl = getPlayStoreUrl(query
+                    .replace(/play store/gi, "")
+                    .replace(/playstore/gi, "")
+                    .trim());
             } else if (words.some(w => w.toLowerCase() === "plex")) {
                 targetUrl = getPlexUrl(words.filter(w => w.toLowerCase() !== "plex").join(" "));
             } else if (words.some(w => w.toLowerCase() === "protondb")) {
