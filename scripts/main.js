@@ -15,6 +15,7 @@ function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=ima
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComponent(query); }
 function getFdroidUrl(query) { return "https://search.f-droid.org/?q=" + encodeURIComponent(query); }
+function getFlancoUrl(query) { return "https://flanco.ro/catalogsearch/result/?q=" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
@@ -103,6 +104,8 @@ function runSearch(rawQuery) {
                        words.some(w => w.toLowerCase() === "f-droid")) {
                 targetUrl = getFdroidUrl(words.filter(w => w.toLowerCase() !== "fdroid" &&
                                                            w.toLowerCase() !== "f-droid").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "flanco")) {
+                targetUrl = getFlancoUrl(words.filter(w => w.toLowerCase() !== "flanco").join(" "));
             } else if (words.some(w => w.toLowerCase() === "flathub")) {
                 targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
             } else if (words.some(w => w.toLowerCase() === "ikea")) {
