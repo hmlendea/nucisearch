@@ -38,6 +38,7 @@ function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" +
 function getModDbUrl(query) { return "https://moddb.com/search?q=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
+function getOdyseeUrl(query) { return "https://odysee.com/$/search?q=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
 function getPinterestUrl(query) { return "https://pinterest.com/search/pins/?q=" + encodeURIComponent(query); }
@@ -214,6 +215,8 @@ function runSearch(rawQuery) {
                 targetUrl = getNexusModsUrl(words.filter(w => w.toLowerCase() !== "nexusmods").join(" ")
                     .replace(/nexus mods/gi, "")
                     .trim());
+            } else if (words.some(w => w.toLowerCase() === "odysee")) {
+                targetUrl = getOdyseeUrl(words.filter(w => w.toLowerCase() !== "odysee").join(" "));
             } else if (words.some(w => w.toLowerCase() === "olx")) {
                 targetUrl = getOlxUrl(words.filter(w => w.toLowerCase() !== "olx").join(" "));
             } else if (words.some(w => w.toLowerCase() === "pcgarage")) {
