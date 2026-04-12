@@ -30,6 +30,7 @@ function getInstagramUrl(query) { return "https://instagram.com/popular/" + enco
 function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIComponent(query); }
 function getLeroyMerlinUrl(query) { return "https://leroymerlin.ro/produse/search/" + encodeURIComponent(query); }
 function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURIComponent(query); }
+function getLinkedinUrl(query) { return "https://linkedin.com/search/results/all/?keywords=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
@@ -165,6 +166,8 @@ function runSearch(rawQuery) {
                 targetUrl = getLeroyMerlinUrl(query.replace(/leroy merlin/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "lidl")) {
                 targetUrl = getLidlUrl(words.filter(w => w.toLowerCase() !== "lidl").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "linkedin")) {
+                targetUrl = getLinkedinUrl(words.filter(w => w.toLowerCase() !== "linkedin").join(" "));
             } else if (query.toLowerCase().includes("mc wiki") ||
                        query.toLowerCase().includes("minecraft wiki")) {
                 targetUrl = getMinecraftWikiUrl(query
