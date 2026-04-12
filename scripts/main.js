@@ -32,6 +32,7 @@ function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIC
 function getLeroyMerlinUrl(query) { return "https://leroymerlin.ro/produse/search/" + encodeURIComponent(query); }
 function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURIComponent(query); }
 function getLinkedinUrl(query) { return "https://linkedin.com/search/results/all/?keywords=" + encodeURIComponent(query); }
+function getMinecraftHeadsUrl(query) { return "https://minecraft-heads.com/custom-heads/search?searchterm=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
@@ -179,6 +180,16 @@ function runSearch(rawQuery) {
                 targetUrl = getMinecraftWikiUrl(query
                     .replace(/mc wiki/gi, "")
                     .replace(/minecraft wiki/gi, "")
+                    .trim());
+            } else if (query.toLowerCase().includes("mc head") ||
+                       query.toLowerCase().includes("mc heads") ||
+                       query.toLowerCase().includes("minecraft head") ||
+                       query.toLowerCase().includes("minecraft heads")) {
+                targetUrl = getMinecraftHeadsUrl(query
+                    .replace(/mc heads/gi, "")
+                    .replace(/mc head/gi, "")
+                    .replace(/minecraft heads/gi, "")
+                    .replace(/minecraft head/gi, "")
                     .trim());
             } else if (query.toLowerCase().includes("mc schematic") ||
                        query.toLowerCase().includes("mc schematics") ||
