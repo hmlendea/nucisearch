@@ -12,6 +12,7 @@ function getAuchanUrl(query) { return "https://auchan.ro/" + encodeURIComponent(
 function getCarturestiUrl(query) { return "https://carturesti.ro/product/search/" + encodeURIComponent(query); }
 function getDecathlonUrl(query) { return "https://decathlon.ro/search?Ntt=" + encodeURIComponent(query); }
 function getDexOnlineUrl(query) { return "https://dexonline.ro/definitie/" + encodeURIComponent(query); }
+function getDigi24Url(query) { return "https://digi24.ro/cautare?q=" + encodeURIComponent(query); }
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
 function getEbayUrl(query) { return "https://ebay.com/sch/i.html?_nkw=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
@@ -123,6 +124,8 @@ function runSearch(rawQuery) {
                 targetUrl = getDecathlonUrl(words.filter(w => w.toLowerCase() !== "decathlon").join(" "));
             } else if (words.some(w => w.toLowerCase() === "dex")) {
                 targetUrl = getDexOnlineUrl(words.filter(w => w.toLowerCase() !== "dex").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "digi24")) {
+                targetUrl = getDigi24Url(words.filter(w => w.toLowerCase() !== "digi24").join(" "));
             } else if (words.some(w => w.toLowerCase() === "ebay")) {
                 targetUrl = getEbayUrl(words.filter(w => w.toLowerCase() !== "ebay").join(" "));
             } else if (words.some(w => w.toLowerCase() === "emag")) {
