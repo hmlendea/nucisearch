@@ -23,6 +23,7 @@ function getGogUrl(query) { return "https://gog.com/en/games?query=" + encodeURI
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
+function getInstagramUrl(query) { return "https://instagram.com/popular/" + encodeURIComponent(query); }
 function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIComponent(query); }
 function getLeroyMerlinUrl(query) { return "https://leroymerlin.ro/produse/search/" + encodeURIComponent(query); }
 function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURIComponent(query); }
@@ -144,6 +145,8 @@ function runSearch(rawQuery) {
                 targetUrl = getIkeaUrl(words.filter(w => w.toLowerCase() !== "ikea").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
                 targetUrl = getImdbUrl(words.filter(w => w.toLowerCase() !== "imdb").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "instagram")) {
+                targetUrl = getInstagramUrl(words.filter(w => w.toLowerCase() !== "instagram").join(" "));
             } else if (words.some(w => w.toLowerCase() === "jysk")) {
                 targetUrl = getJyskUrl(words.filter(w => w.toLowerCase() !== "jysk").join(" "));
             } else if (query.toLowerCase().includes("leroy merlin")) {
