@@ -33,6 +33,7 @@ function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURICom
 function getLinkedinUrl(query) { return "https://linkedin.com/search/results/all/?keywords=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
+function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
@@ -186,6 +187,11 @@ function runSearch(rawQuery) {
                     .trim());
             } else if (words.some(w => w.toLowerCase() === "netflix")) {
                 targetUrl = getNetflixUrl(words.filter(w => w.toLowerCase() !== "netflix").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "nexusmods" ||
+                                       w.toLowerCase() === "nexus mods")) {
+                targetUrl = getNexusModsUrl(words.filter(w => w.toLowerCase() !== "nexusmods").join(" ")
+                    .replace(/nexus mods/gi, "")
+                    .trim());
             } else if (words.some(w => w.toLowerCase() === "olx")) {
                 targetUrl = getOlxUrl(words.filter(w => w.toLowerCase() !== "olx").join(" "));
             } else if (words.some(w => w.toLowerCase() === "pcgarage")) {
