@@ -66,6 +66,7 @@ function getRtingsUrl(query) { return "https://rtings.com/search?q=" + encodeURI
 function getSpigotUrl(query) { return "https://spigotmc.org/search/294718421/?q=" + encodeURIComponent(query) + "&o=relevance"; }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getTripadvisorUrl(query) { return "https://tripadvisor.com/Search?q=" + encodeURIComponent(query); }
+function getTvdbUrl(query) { return "https://thetvdb.com/search?query=" + encodeURIComponent(query); }
 function getUespUrl(query) { return "https://en.uesp.net/wiki/Special:Search?search=" + encodeURIComponent(query); }
 function getVintedUrl(query) { return "https://vinted.com/catalog?search_text=" + encodeURIComponent(query); }
 function getWikiPediaUrl(query) {
@@ -245,6 +246,11 @@ function runSearch(rawQuery) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "tripadvisor")) {
                 targetUrl = getTripadvisorUrl(words.filter(w => w.toLowerCase() !== "tripadvisor").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "tvdb" ||
+                                       w.toLowerCase() === "thetvdb")) {
+                targetUrl = getTvdbUrl(
+                    words.filter(w => w.toLowerCase() !== "tvdb" &&
+                                      w.toLowerCase() !== "thetvdb").join(" "));
             } else if (query.toLowerCase().includes("uesp") ||
                        query.toLowerCase().includes("elder scrolls wiki") ||
                        query.toLowerCase().includes("eso wiki") ||
