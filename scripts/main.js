@@ -30,6 +30,7 @@ function getJyskUrl(query) { return "https://jysk.ro/search?query=" + encodeURIC
 function getLeroyMerlinUrl(query) { return "https://leroymerlin.ro/produse/search/" + encodeURIComponent(query); }
 function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
+function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
@@ -176,6 +177,8 @@ function runSearch(rawQuery) {
                     .replace(/minecraft schematics/gi, "")
                     .replace(/minecraft schematic/gi, "")
                     .trim());
+            } else if (words.some(w => w.toLowerCase() === "netflix")) {
+                targetUrl = getNetflixUrl(words.filter(w => w.toLowerCase() !== "netflix").join(" "));
             } else if (words.some(w => w.toLowerCase() === "olx")) {
                 targetUrl = getOlxUrl(words.filter(w => w.toLowerCase() !== "olx").join(" "));
             } else if (words.some(w => w.toLowerCase() === "pcgarage")) {
