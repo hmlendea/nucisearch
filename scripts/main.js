@@ -36,6 +36,7 @@ function getLinkedinUrl(query) { return "https://linkedin.com/search/results/all
 function getMinecraftHeadsUrl(query) { return "https://minecraft-heads.com/custom-heads/search?searchterm=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
 function getModDbUrl(query) { return "https://moddb.com/search?q=" + encodeURIComponent(query); }
+function getNameMcUrl(query) { return "https://namemc.com/search?q=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
 function getOdyseeUrl(query) { return "https://odysee.com/$/search?q=" + encodeURIComponent(query); }
@@ -209,6 +210,8 @@ function runSearch(rawQuery) {
                     .replace(/minecraft schematics/gi, "")
                     .replace(/minecraft schematic/gi, "")
                     .trim());
+            } else if (words.some(w => w.toLowerCase() === "namemc")) {
+                targetUrl = getNameMcUrl(words.filter(w => w.toLowerCase() !== "namemc").join(" "));
             } else if (words.some(w => w.toLowerCase() === "netflix")) {
                 targetUrl = getNetflixUrl(words.filter(w => w.toLowerCase() !== "netflix").join(" "));
             } else if (words.some(w => w.toLowerCase() === "nexusmods" ||
@@ -268,7 +271,6 @@ function runSearch(rawQuery) {
                     .replace(/tes wiki/gi, "")
                     .replace(/the elder scrolls wiki/gi, "")
                     .trim());
-                targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
             } else if (words.some(w => w.toLowerCase() === "vinted")) {
                 targetUrl = getVintedUrl(words.filter(w => w.toLowerCase() !== "vinted").join(" "));
             } else if (words.some(w => w.toLowerCase() === "wikipedia")) {
