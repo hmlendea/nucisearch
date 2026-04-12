@@ -22,6 +22,7 @@ function getFdroidUrl(query) { return "https://search.f-droid.org/?q=" + encodeU
 function getFirefoxExtensionsUrl(query) { return "https://addons.mozilla.org/en-US/firefox/search/?q=" + encodeURIComponent(query); }
 function getFlancoUrl(query) { return "https://flanco.ro/catalogsearch/result/?q=" + encodeURIComponent(query); }
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
+function getFlipRoUrl(query) { return "https://flip.ro/magazin/?search=" + encodeURIComponent(query); }
 function getG2aUrl(query) { return "https://g2a.com/search?query=" + encodeURIComponent(query); }
 function getGogUrl(query) { return "https://gog.com/en/games?query=" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
@@ -158,6 +159,8 @@ function runSearch(rawQuery) {
                 targetUrl = getFlancoUrl(words.filter(w => w.toLowerCase() !== "flanco").join(" "));
             } else if (words.some(w => w.toLowerCase() === "flathub")) {
                 targetUrl = getFlatHubUrl(words.filter(w => w.toLowerCase() !== "flathub").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "flip.ro")) {
+                targetUrl = getFlipRoUrl(words.filter(w => w.toLowerCase() !== "flip.ro").join(" "));
             } else if (words.some(w => w.toLowerCase() === "g2a")) {
                 targetUrl = getG2aUrl(words.filter(w => w.toLowerCase() !== "g2a").join(" "));
             } else if (words.some(w => w.toLowerCase() === "gog")) {
