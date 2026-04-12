@@ -34,6 +34,7 @@ function getLidlUrl(query) { return "https://lidl.ro/q/search?q=" + encodeURICom
 function getLinkedinUrl(query) { return "https://linkedin.com/search/results/all/?keywords=" + encodeURIComponent(query); }
 function getMinecraftHeadsUrl(query) { return "https://minecraft-heads.com/custom-heads/search?searchterm=" + encodeURIComponent(query); }
 function getMinecraftWikiUrl(query) { return "https://minecraft.wiki/?search=" + encodeURIComponent(query); }
+function getModDbUrl(query) { return "https://moddb.com/search?q=" + encodeURIComponent(query); }
 function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeURIComponent(query); }
 function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
@@ -175,6 +176,8 @@ function runSearch(rawQuery) {
                 targetUrl = getLidlUrl(words.filter(w => w.toLowerCase() !== "lidl").join(" "));
             } else if (words.some(w => w.toLowerCase() === "linkedin")) {
                 targetUrl = getLinkedinUrl(words.filter(w => w.toLowerCase() !== "linkedin").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "moddb")) {
+                targetUrl = getModDbUrl(words.filter(w => w.toLowerCase() !== "moddb").join(" "));
             } else if (query.toLowerCase().includes("mc wiki") ||
                        query.toLowerCase().includes("minecraft wiki")) {
                 targetUrl = getMinecraftWikiUrl(query
