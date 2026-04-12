@@ -56,6 +56,7 @@ function getRedditUrl(query) {
 
     return instances[Math.floor(Math.random() * instances.length)];
 }
+function getRtingsUrl(query) { return "https://rtings.com/search?q=" + encodeURIComponent(query); }
 function getSpigotUrl(query) { return "https://spigotmc.org/search/294718421/?q=" + encodeURIComponent(query) + "&o=relevance"; }
 function getSteamDbUrl(query) { return "https://steamdb.info/search/?a=all&q=" + encodeURIComponent(query); }
 function getTripadvisorUrl(query) { return "https://tripadvisor.com/Search?q=" + encodeURIComponent(query); }
@@ -210,6 +211,8 @@ function runSearch(rawQuery) {
                 targetUrl = getProtonDbUrl(words.filter(w => w.toLowerCase() !== "protondb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "reddit")) {
                 targetUrl = getRedditUrl(words.filter(w => w.toLowerCase() !== "reddit").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "rtings")) {
+                targetUrl = getRtingsUrl(words.filter(w => w.toLowerCase() !== "rtings").join(" "));
             } else if (words.some(w => w.toLowerCase() === "spigot")) {
                 targetUrl = getSpigotUrl(words.filter(w => w.toLowerCase() !== "spigot").join(" "));
             } else if (words.some(w => w.toLowerCase() === "steamdb")) {
