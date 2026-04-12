@@ -210,7 +210,23 @@ function runSearch(rawQuery) {
                 targetUrl = getSteamDbUrl(words.filter(w => w.toLowerCase() !== "steamdb").join(" "));
             } else if (words.some(w => w.toLowerCase() === "tripadvisor")) {
                 targetUrl = getTripadvisorUrl(words.filter(w => w.toLowerCase() !== "tripadvisor").join(" "));
-            } else if (words.some(w => w.toLowerCase() === "uesp")) {
+            } else if (query.toLowerCase().includes("uesp") ||
+                       query.toLowerCase().includes("elder scrolls wiki") ||
+                       query.toLowerCase().includes("eso wiki") ||
+                       query.toLowerCase().includes("morrowind wiki") ||
+                       query.toLowerCase().includes("oblivion wiki") ||
+                       query.toLowerCase().includes("skyrim wiki") ||
+                       query.toLowerCase().includes("tes wiki") ||
+                       query.toLowerCase().includes("the elder scrolls wiki")) {
+                targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" ")
+                    .replace(/elder scrolls wiki/gi, "")
+                    .replace(/eso wiki/gi, "")
+                    .replace(/morrowind wiki/gi, "")
+                    .replace(/oblivion wiki/gi, "")
+                    .replace(/skyrim wiki/gi, "")
+                    .replace(/tes wiki/gi, "")
+                    .replace(/the elder scrolls wiki/gi, "")
+                    .trim());
                 targetUrl = getUespUrl(words.filter(w => w.toLowerCase() !== "uesp").join(" "));
             } else if (words.some(w => w.toLowerCase() === "vinted")) {
                 targetUrl = getVintedUrl(words.filter(w => w.toLowerCase() !== "vinted").join(" "));
