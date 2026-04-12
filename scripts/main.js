@@ -36,6 +36,7 @@ function getNetflixUrl(query) { return "https://netflix.com/search?q=" + encodeU
 function getNexusModsUrl(query) { return "https://nexusmods.com/search?keyword=" + encodeURIComponent(query); }
 function getOlxUrl(query) { return "https://olx.ro/d/oferte/q-" + encodeURIComponent(query); }
 function getPcGarageUrl(query) { return "https://pcgarage.ro/cauta/" + encodeURIComponent(query); }
+function getPinterestUrl(query) { return "https://pinterest.com/search/pins/?q=" + encodeURIComponent(query); }
 function getPlanetMinecraftUrl(query) { return "https://planetminecraft.com/resources/?keywords=" + encodeURIComponent(query); }
 function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraft.com/projects/?keywords=" + encodeURIComponent(query); }
 function getPlayStoreUrl(query) { return "https://play.google.com/store/search?q=" + encodeURIComponent(query); }
@@ -197,6 +198,8 @@ function runSearch(rawQuery) {
                 targetUrl = getOlxUrl(words.filter(w => w.toLowerCase() !== "olx").join(" "));
             } else if (words.some(w => w.toLowerCase() === "pcgarage")) {
                 targetUrl = getPcGarageUrl(words.filter(w => w.toLowerCase() !== "pcgarage").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "pinterest")) {
+                targetUrl = getPinterestUrl(words.filter(w => w.toLowerCase() !== "pinterest").join(" "));
             } else if (query.toLowerCase().includes("planet minecraft")) {
                 targetUrl = getPlanetMinecraftUrl(query.replace(/planet minecraft/gi, "").trim());
             } else if (query.toLowerCase().includes("play store") ||
