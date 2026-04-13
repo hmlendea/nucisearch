@@ -18,6 +18,7 @@ function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=ima
 function getEbayUrl(query) { return "https://ebay.com/sch/i.html?_nkw=" + encodeURIComponent(query); }
 function getEmagUrl(query) { return "https://emag.ro/search/" + encodeURIComponent(query); }
 function getEvomagUrl(query) { return "https://evomag.ro/?sn.q=" + encodeURIComponent(query); }
+function getFacebookUrl(query) { return  getTextSearch("site:facebook.com " + query); }
 function getFdroidUrl(query) { return "https://search.f-droid.org/?q=" + encodeURIComponent(query); }
 function getFirefoxExtensionsUrl(query) { return "https://addons.mozilla.org/en-US/firefox/search/?q=" + encodeURIComponent(query); }
 function getFlancoUrl(query) { return "https://flanco.ro/catalogsearch/result/?q=" + encodeURIComponent(query); }
@@ -149,6 +150,8 @@ function runSearch(rawQuery) {
                 targetUrl = getEmagUrl(words.filter(w => w.toLowerCase() !== "emag").join(" "));
             } else if (words.some(w => w.toLowerCase() === "evomag")) {
                 targetUrl = getEvomagUrl(words.filter(w => w.toLowerCase() !== "evomag").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "facebook")) {
+                targetUrl = getFacebookUrl(words.filter(w => w.toLowerCase() !== "facebook").join(" "));
             } else if (words.some(w => w.toLowerCase() === "fdroid") ||
                        words.some(w => w.toLowerCase() === "f-droid")) {
                 targetUrl = getFdroidUrl(words.filter(w => w.toLowerCase() !== "fdroid" &&
