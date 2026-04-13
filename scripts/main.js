@@ -24,6 +24,7 @@ function getFlancoUrl(query) { return "https://flanco.ro/catalogsearch/result/?q
 function getFlatHubUrl(query) { return "https://flathub.org/apps/search/" + encodeURIComponent(query); }
 function getFlipRoUrl(query) { return "https://flip.ro/magazin/?search=" + encodeURIComponent(query); }
 function getG2aUrl(query) { return "https://g2a.com/search?query=" + encodeURIComponent(query); }
+function getGitHubUrl(query) { return  getTextSearch("site:github.com " + query); }
 function getGogUrl(query) { return "https://gog.com/en/games?query=" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
@@ -166,6 +167,8 @@ function runSearch(rawQuery) {
                 targetUrl = getFlipRoUrl(words.filter(w => w.toLowerCase() !== "flip.ro").join(" "));
             } else if (words.some(w => w.toLowerCase() === "g2a")) {
                 targetUrl = getG2aUrl(words.filter(w => w.toLowerCase() !== "g2a").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "github")) {
+                targetUrl = getGitHubUrl(words.filter(w => w.toLowerCase() !== "github").join(" "));
             } else if (words.some(w => w.toLowerCase() === "gog")) {
                 targetUrl = getGogUrl(words.filter(w => w.toLowerCase() !== "gog").join(" "));
             } else if (words.some(w => w.toLowerCase() === "ikea")) {
