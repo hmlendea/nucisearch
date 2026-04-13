@@ -7,6 +7,7 @@ function getAliExpressUrl(query) {
     return `https://www.aliexpress.com/w/wholesale-${hyphenated}.html?spm=a2g0o.detail.search.0`;
 }
 function getAltexUrl(query) { return "https://altex.ro/cauta/?q=" + encodeURIComponent(query); }
+function getAppStoreUrl(query) { return "https://apple.com/uk/search/" + encodeURIComponent(query) + "?src=globalnav"; }
 function getArchWikiUrl(query) { return "https://wiki.archlinux.org/index.php?search=" + encodeURIComponent(query); }
 function getAuchanUrl(query) { return "https://auchan.ro/" + encodeURIComponent(query); }
 function getAudibleUrl(query) { return "https://audible.com/search?advsearchKeywords=" + encodeURIComponent(query); }
@@ -130,6 +131,13 @@ function runSearch(rawQuery) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));
             } else if (query.toLowerCase().includes("altex")) {
                 targetUrl = getAltexUrl(query.replace(/altex/gi, "").trim());
+            } else if (words.some(w => w.toLowerCase() === "appstore" ||
+                                       w.toLowerCase() === "app store" ||
+                                       w.toLowerCase() === "apple store")) {
+                targetUrl = getAppStoreUrl(words.filter(w => w.toLowerCase() !== "appstore").join(" ")
+                    .replace(/app store/gi, "")
+                    .replace(/apple store/gi, "")
+                    .trim());
             } else if (query.toLowerCase().includes("arch wiki")) {
                 targetUrl = getArchWikiUrl(query.replace(/arch wiki/gi, "").trim());
             } else if (words.some(w => w.toLowerCase() === "auchan")) {
