@@ -29,6 +29,7 @@ function getG2aUrl(query) { return "https://g2a.com/search?query=" + encodeURICo
 function getGitHubUrl(query) { return  getTextSearch("site:github.com " + query); }
 function getGogUrl(query) { return "https://gog.com/en/games?query=" + encodeURIComponent(query); }
 function getGoogleMapsUrl(query) { return "https://google.ro/maps/search/" + encodeURIComponent(query); }
+function getHornbachUrl(query) { return "https://hornbach.ro/s/" + encodeURIComponent(query); }
 function getIkeaUrl(query) { return "https://ikea.com/ro/ro/search/?q=" + encodeURIComponent(query); }
 function getImdbUrl(query) { return "https://libremdb.iket.me/find?q=" + encodeURIComponent(query); }
 function getInstagramUrl(query) { return "https://instagram.com/popular/" + encodeURIComponent(query); }
@@ -183,6 +184,8 @@ function runSearch(rawQuery) {
                 targetUrl = getGitHubUrl(words.filter(w => w.toLowerCase() !== "github").join(" "));
             } else if (words.some(w => w.toLowerCase() === "gog")) {
                 targetUrl = getGogUrl(words.filter(w => w.toLowerCase() !== "gog").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "hornbach")) {
+                targetUrl = getHornbachUrl(words.filter(w => w.toLowerCase() !== "hornbach").join(" "));
             } else if (words.some(w => w.toLowerCase() === "ikea")) {
                 targetUrl = getIkeaUrl(words.filter(w => w.toLowerCase() !== "ikea").join(" "));
             } else if (words.some(w => w.toLowerCase() === "imdb")) {
