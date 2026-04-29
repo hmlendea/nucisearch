@@ -14,6 +14,7 @@ function getAudibleUrl(query) { return "https://audible.com/search?advsearchKeyw
 function getBoobpediaUrl(query) { return "https://boobpedia.com/wiki/index.php?title=Special%3ASearch&search=" + encodeURIComponent(query) + "&go=Go"; }
 function getCarturestiUrl(query) { return "https://carturesti.ro/product/search/" + encodeURIComponent(query); }
 function getDecathlonUrl(query) { return "https://decathlon.ro/search?Ntt=" + encodeURIComponent(query); }
+function getDedemanUrl(query) { return "https://dedeman.ro/ro/catalogsearch/result/v2?q=" + encodeURIComponent(query); }
 function getDexOnlineUrl(query) { return "https://dexonline.ro/definitie/" + encodeURIComponent(query); }
 function getDigi24Url(query) { return "https://digi24.ro/cautare?q=" + encodeURIComponent(query); }
 function getDuckDuckGoImagesUrl(query) { return "https://duckduckgo.com/?iax=images&ia=images&q=" + encodeURIComponent(query); }
@@ -154,6 +155,8 @@ function runSearch(rawQuery) {
                 targetUrl = getCarturestiUrl(words.filter(w => w.toLowerCase() !== "carturesti").join(" "));
             } else if (words.some(w => w.toLowerCase() === "decathlon")) {
                 targetUrl = getDecathlonUrl(words.filter(w => w.toLowerCase() !== "decathlon").join(" "));
+            } else if (words.some(w => w.toLowerCase() === "dedeman")) {
+                targetUrl = getDedemanUrl(words.filter(w => w.toLowerCase() !== "dedeman").join(" "));
             } else if (words.some(w => w.toLowerCase() === "dex")) {
                 targetUrl = getDexOnlineUrl(words.filter(w => w.toLowerCase() !== "dex").join(" "));
             } else if (words.some(w => w.toLowerCase() === "digi24")) {
