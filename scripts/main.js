@@ -54,6 +54,7 @@ function getPlanetMinecraftSchematicsUrl(query) { return "https://planetminecraf
 function getPlayStoreUrl(query) { return "https://play.google.com/store/search?q=" + encodeURIComponent(query); }
 function getPlexUrl(query) { return "https://app.plex.tv/desktop/#!/search?pivot=top&query=" + encodeURIComponent(query); }
 function getProtonDbUrl(query) { return "https://protondb.com/search?q=" + encodeURIComponent(query); }
+function getJiraUrl(query) { return "https://worldpay.atlassian.net/browse/" + encodeURIComponent(query.toUpperCase()); }
 function getRallyUrl(query) { return "https://rally1.rallydev.com/#/search?keywords=" + encodeURIComponent(query); }
 function getRedditUrl(query) {
     const searchQuery = encodeURIComponent(query);
@@ -128,7 +129,9 @@ function runSearch(rawQuery) {
     } else {
         const words = query.split(/\s+/);
 
-        if (/^(?:DE|F|US)[0-9]{6,8}$/.test(query)) {
+        if (/^(?:AAP|AV|AND|CP)-\d+$/i.test(query)) {
+            targetUrl = getJiraUrl(query);
+        } else if (/^(?:DE|F|US)[0-9]{6,8}$/.test(query)) {
             targetUrl = getRallyUrl(query);
         }
         else if (words.length >= 2) {
