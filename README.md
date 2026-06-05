@@ -35,6 +35,7 @@ When using **Auto** mode, queries are routed to specialized providers based on p
 - **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
   - Normalises `în` → `in`, `euro` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
   - Uppercases all 3-letter currency codes
+- **Fandom blacklist** — appends `-site:fandom.com` to text searches containing: `mc`, `minecraft`, `terraria`, `elder scrolls` / `elderscrolls`, `osrs`, `skyrim`, `tes`, `runescape`, `puzzle pirates` / `puzzlepirates`, `ypp`, `game of thrones`
 
 ### Keyword-triggered
 
