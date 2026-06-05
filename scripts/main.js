@@ -91,14 +91,27 @@ function getWikiPediaUrl(query) {
 function getYandexTorrentsUrl(query) { return "https://yandex.com/search/?text=" + encodeURIComponent(query + " Torrent") }
 function getYouTubeUrl(query) { return "https://yewtu.be/search?q=" + encodeURIComponent(query); }
 
+function applyQueryCustomisations(query) {
+    return applyDomainBlacklist(query);
+}
+
+function applyDomainBlacklist(query) {
+    const fandomKeywords = /\b(?:mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones)\b/i;
+    if (fandomKeywords.test(query)) {
+        query += " -site:fandom.com";
+    }
+
+    return query;
+}
+
 function getTextSearch(query) {
-    const searchQuery = encodeURIComponent(query);
-    //    `https://startpage.com/do/search?q=${searchQuery}`,
-    //    `https://qwant.com/?q=${searchQuery}`,
+    const searchQuery = encodeURIComponent(applyQueryCustomisations(query));
     const searchEngines = [
         `https://search.brave.com/search?q=${searchQuery}`,
         `https://duckduckgo.com/?q=${searchQuery}`,
     ];
+    //    `https://startpage.com/do/search?q=${searchQuery}`,
+    //    `https://qwant.com/?q=${searchQuery}`,
 
     return searchEngines[Math.floor(Math.random() * searchEngines.length)];
 }
