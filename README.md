@@ -16,7 +16,7 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
 - OpenSearch support (can be installed as a browser search engine)
 - Multiple search modes:
   - **Auto** → keyword-based routing or fallback text search
-  - **Text** → randomized web search (Brave / DuckDuckGo / Qwant / Startpage)
+  - **Text** → randomized web search (Brave / DuckDuckGo)
   - **Images** → DuckDuckGo Image Search
   - **Torrents** → Yandex search with "Torrent" suffix
   - **Videos** → Yewtu.be (YouTube privacy frontend)
@@ -26,20 +26,77 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
 
 ## Auto Integrations
 
-When using **Auto** mode, queries can be routed to specialized providers based on keywords:
+When using **Auto** mode, queries are routed to specialized providers based on pattern matching or keywords.
 
-- Altex
-- AliExpress
-- ArchWiki
-- eMAG
-- evoMAG
-- Flathub
-- IMDb (via LibreMDb)
-- Minecraft Wiki
-- PlanetMinecraft (resources/schematics)
-- ProtonDB
-- UESP *(Unofficial Elder Scrolls Pages - the TES wiki)*
-- YouTube (via yewtu.be)
+### Pattern-based (no keyword needed)
+
+- **JIRA** (Worldpay) — queries matching `AAP-NNN`, `AV-NNN`, `AND-NNN`, `CP-NNN`
+- **Rally** — queries matching `DE`, `F`, or `US` followed by 6–8 digits
+- **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
+  - Normalises `în` → `in`, `euro` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
+  - Uppercases all 3-letter currency codes
+
+### Keyword-triggered
+
+- **AliExpress** — keyword: `aliexpress`
+- **Altex** — keyword: `altex`
+- **App Store** (Apple) — keyword: `appstore`, `app store`, or `apple store`
+- **Arch Wiki** — keyword: `arch wiki`
+- **Auchan** — keyword: `auchan`
+- **Audible** — keyword: `audible`
+- **Boobpedia** — keyword: `boobpedia`
+- **Cărturești** — keyword: `carturesti`
+- **Decathlon** — keyword: `decathlon`
+- **Dedeman** — keyword: `dedeman`
+- **Dex Online** — keyword: `dex`
+- **Digi24** — keyword: `digi24`
+- **eBay** — keyword: `ebay`
+- **eMAG** — keyword: `emag`
+- **evoMAG** — keyword: `evomag`
+- **Facebook** — keyword: `facebook`
+- **F-Droid** — keyword: `fdroid` or `f-droid`
+- **Firefox Extensions** — keyword: `firefox extension` or `firefox extensions`
+- **Flanco** — keyword: `flanco`
+- **Flathub** — keyword: `flathub`
+- **Flip.ro** — keyword: `flip.ro`
+- **G2A** — keyword: `g2a`
+- **GitHub** — keyword: `github`
+- **GOG** — keyword: `gog`
+- **Hornbach** — keyword: `hornbach`
+- **IKEA** — keyword: `ikea`
+- **IMDb** (via LibreMDb) — keyword: `imdb`
+- **Instagram** — keyword: `instagram`
+- **JYSK** — keyword: `jysk`
+- **Leroy Merlin** — keyword: `leroy merlin`
+- **Lidl** — keyword: `lidl`
+- **LinkedIn** — keyword: `linkedin`
+- **Minecraft Heads** — keyword: `mc head`, `mc heads`, `minecraft head`, or `minecraft heads`
+- **Minecraft Wiki** — keyword: `mc wiki` or `minecraft wiki`
+- **ModDB** — keyword: `moddb`
+- **NameMC** — keyword: `namemc`
+- **Netflix** — keyword: `netflix`
+- **Nexus Mods** — keyword: `nexusmods` or `nexus mods`
+- **Odysee** — keyword: `odysee`
+- **OLX** — keyword: `olx`
+- **PC Garage** — keyword: `pcgarage`
+- **Pinterest** — keyword: `pinterest`
+- **PlanetMinecraft** — keyword: `planet minecraft`
+- **PlanetMinecraft Schematics** — keyword: `mc schematic(s)` or `minecraft schematic(s)`
+- **Play Store** — keyword: `play store` or `playstore`
+- **Plex** — keyword: `plex`
+- **ProtonDB** — keyword: `protondb`
+- **Reddit** (via Redlib) — keyword: `reddit`
+- **Rtings** — keyword: `rtings`
+- **Sinsay** — keyword: `sinsay`
+- **Spigot** — keyword: `spigot`
+- **Spy-Shop** — keyword: `spyshop`, `spyshop.ro`, `spy-shop`, or `spy-shop.ro`
+- **SteamDB** — keyword: `steamdb`
+- **TripAdvisor** — keyword: `tripadvisor`
+- **TVDB** — keyword: `tvdb` or `thetvdb`
+- **UESP** *(Unofficial Elder Scrolls Pages)* — keyword: `uesp`, `elder scrolls wiki`, `eso wiki`, `morrowind wiki`, `oblivion wiki`, `skyrim wiki`, `tes wiki`, or `the elder scrolls wiki`
+- **Vinted** — keyword: `vinted`
+- **Wikipedia** (via Wikiless) — keyword: `wikipedia`
+- **YouTube** (via yewtu.be) — keyword: `youtube`
 
 # Browser Integration
 

@@ -133,6 +133,15 @@ function runSearch(rawQuery) {
             targetUrl = getJiraUrl(query);
         } else if (/^(?:DE|F|US)[0-9]{6,8}$/.test(query)) {
             targetUrl = getRallyUrl(query);
+        } else if (/^\d[\d.,]*\s+\w+\s+(?:in|în|to)\s+\w+$/i.test(query)) {
+            const currencyQuery = query
+                .replace(/în/gi, "in")
+                .replace(/\b(?:lei|leu)\b/gi, "RON")
+                .replace(/\beuros?\b/gi, "EUR")
+                .replace(/\b(?:dollars?|dolari?)\b/gi, "USD")
+                .replace(/(?:lira|liră|lire)(?=\s|$)/gi, "GBP")
+                .replace(/\b[a-zA-Z]{3}\b/g, m => m.toUpperCase());
+            targetUrl = `https://duckduckgo.com/?q=${encodeURIComponent(currencyQuery)}`;
         }
         else if (words.length >= 2) {
             if (words.some(w => w.toLowerCase() === "aliexpress")) {
