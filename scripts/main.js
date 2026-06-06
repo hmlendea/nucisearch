@@ -115,9 +115,14 @@ function applyDomainBlacklist(query) {
         query += " -site:fandom.com";
     }
 
-    const neoseekerKeywords = /\b(?:terraria)\b/i;
+    const neoseekerKeywords = /\b(?:osrs|runescape|terraria)\b/i;
     if (neoseekerKeywords.test(query)) {
         query += " -site:neoseeker.com";
+    }
+
+    const strategywikiKeywords = /\b(?:osrs|runescape)\b/i;
+    if (strategywikiKeywords.test(query)) {
+        query += " -site:strategywiki.org";
     }
 
     return query;
