@@ -100,9 +100,34 @@ function applyQueryCustomisations(query) {
 }
 
 function applyDomainBlacklist(query) {
-    const fandomKeywords = /\b(?:mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones)\b/i;
+    const arcenservKeywords = /\b(?:terraria)\b/i;
+    if (arcenservKeywords.test(query)) {
+        query += " -site:arcenserv.info";
+    }
+
+    const fextralifeKeywords = /\b(?:baldur|bg3|borderlands|don\'*t\s*starve|eso|elder\s*scrolls|skyrim|tes)\b/i;
+    if (fextralifeKeywords.test(query)) {
+        query += " -site:wiki.fextralife.com";
+    }
+
+    const fandomKeywords = /\b(?:40k|baldur|bg3|don\'*t\s*starve|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b/i;
     if (fandomKeywords.test(query)) {
         query += " -site:fandom.com";
+    }
+
+    const huijiwikiKeywords = /\b(?:borderlands)\b/i;
+    if (huijiwikiKeywords.test(query)) {
+        query += " -site:huijiwiki.com";
+    }
+
+    const neoseekerKeywords = /\b(?:osrs|runescape|terraria)\b/i;
+    if (neoseekerKeywords.test(query)) {
+        query += " -site:neoseeker.com";
+    }
+
+    const strategywikiKeywords = /\b(?:osrs|runescape)\b/i;
+    if (strategywikiKeywords.test(query)) {
+        query += " -site:strategywiki.org";
     }
 
     return query;
