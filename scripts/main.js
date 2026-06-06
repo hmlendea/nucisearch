@@ -100,9 +100,19 @@ function applyQueryCustomisations(query) {
 }
 
 function applyDomainBlacklist(query) {
+    const arcenservKeywords = /\b(?:terraria)\b/i;
+    if (arcenservKeywords.test(query)) {
+        query += " -site:arcenserv.info";
+    }
+
     const fandomKeywords = /\b(?:mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones)\b/i;
     if (fandomKeywords.test(query)) {
         query += " -site:fandom.com";
+    }
+
+    const neoseekerKeywords = /\b(?:terraria)\b/i;
+    if (neoseekerKeywords.test(query)) {
+        query += " -site:neoseeker.com";
     }
 
     return query;
