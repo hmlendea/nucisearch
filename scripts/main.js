@@ -105,12 +105,12 @@ function applyDomainBlacklist(query) {
         query += " -site:arcenserv.info";
     }
 
-    const fextralifeKeywords = /\b(?:borderlands|eso|elder\s*scrolls|skyrim|tes)\b/i;
+    const fextralifeKeywords = /\b(?:baldur|bg3|borderlands|eso|elder\s*scrolls|skyrim|tes)\b/i;
     if (fextralifeKeywords.test(query)) {
         query += " -site:wiki.fextralife.com";
     }
 
-    const fandomKeywords = /\b(?:40k|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b/i;
+    const fandomKeywords = /\b(?:40k|baldur|bg3|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b/i;
     if (fandomKeywords.test(query)) {
         query += " -site:fandom.com";
     }
