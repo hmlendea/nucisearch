@@ -105,7 +105,12 @@ function applyDomainBlacklist(query) {
         query += " -site:arcenserv.info";
     }
 
-    const fandomKeywords = /\b(?:mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones)\b/i;
+    const fextralifeKeywords = /\b(?:eso|elder\s*scrolls|skyrim|tes)\b/i;
+    if (fextralifeKeywords.test(query)) {
+        query += " -site:wiki.fextralife.com";
+    }
+
+    const fandomKeywords = /\b(?:eso|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones)\b/i;
     if (fandomKeywords.test(query)) {
         query += " -site:fandom.com";
     }
