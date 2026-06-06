@@ -185,6 +185,9 @@ function runSearch(rawQuery, useReplace = false) {
                 .replace(/\b[a-zA-Z]{3}\b/g, m => m.toUpperCase());
             targetUrl = `https://duckduckgo.com/?q=${encodeURIComponent(currencyQuery)}`;
         }
+        else if (/^(?:my|current)\s+ip(?:\s+address)?$/i.test(query)) {
+            targetUrl = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
+        }
         else if (words.length >= 2) {
             if (words.some(w => w.toLowerCase() === "aliexpress")) {
                 targetUrl = getAliExpressUrl(words.filter(w => w.toLowerCase() !== "aliexpress").join(" "));

@@ -30,12 +30,13 @@ When using **Auto** mode, queries are routed to specialized providers based on p
 
 ### Pattern-based (no keyword needed)
 
-- **JIRA** (Worldpay) — queries matching `AAP-NNN`, `AV-NNN`, `AND-NNN`, `CP-NNN`
+- **JIRA** (Worldpay) — queries matching `AAP-###`, `AV-###`, `AND-###`, `CP-###`
 - **Rally** — queries matching `DE`, `F`, or `US` followed by 6–8 digits
 - **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
   - Normalises `în` → `in`, `euro` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
   - Uppercases all 3-letter currency codes
-- **Fandom blacklist** — appends `-site:fandom.com` to text searches containing: `mc`, `minecraft`, `terraria`, `elder scrolls` / `elderscrolls`, `osrs`, `skyrim`, `tes`, `runescape`, `puzzle pirates` / `puzzlepirates`, `ypp`, `game of thrones`
+- **IP address lookup** — queries `my ip`, `current ip`, `my ip address`, or `current ip address` → DuckDuckGo
+- **Wiki blacklists** — for media-related searches (video games, TV series, etc), non-primary wikis (fandom.com, wiki.fextralife.com, arcenserv.info, huijiwiki.com, neoseeker.com, strategywiki.org) are excluded in favour of the official or community-preferred wiki for that franchise, where applicable
 
 ### Keyword-triggered
 
