@@ -1,6 +1,10 @@
-const form = document.getElementById("search-form");
-const queryInput = document.getElementById("query");
-
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const queryFromUrl = params.get("q");
+    if (queryFromUrl && queryFromUrl.trim()) {
+        runSearch(queryFromUrl, true);
+    }
+})();
 
 function getAliExpressUrl(query) {
     const hyphenated = query.trim().replace(/\s+/g, "-");
@@ -116,7 +120,7 @@ function getTextSearch(query) {
     return searchEngines[Math.floor(Math.random() * searchEngines.length)];
 }
 
-function runSearch(rawQuery) {
+function runSearch(rawQuery, useReplace = false) {
     const query = rawQuery
         .normalize("NFKC")
         .replace(/[\u200B-\u200D\uFEFF]/g, "")
@@ -345,20 +349,19 @@ function runSearch(rawQuery) {
         }
     }
 
-    window.location.href = targetUrl;
+    if (useReplace) {
+        window.location.replace(targetUrl);
+    } else {
+        window.location.href = targetUrl;
+    }
 }
 
-form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    runSearch(queryInput.value);
-});
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("search-form");
+    const queryInput = document.getElementById("query");
 
-window.addEventListener("DOMContentLoaded", function () {
-    const params = new URLSearchParams(window.location.search);
-    const queryFromUrl = params.get("q");
-
-    if (queryFromUrl && queryFromUrl.trim()) {
-        queryInput.value = queryFromUrl;
-        runSearch(queryFromUrl);
-    }
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        runSearch(queryInput.value);
+    });
 });
