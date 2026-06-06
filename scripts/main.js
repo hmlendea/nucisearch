@@ -110,7 +110,7 @@ function applyDomainBlacklist(query) {
         query += " -site:wiki.fextralife.com";
     }
 
-    const fandomKeywords = /\b(?:40k|eso|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b/i;
+    const fandomKeywords = /\b(?:40k|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b/i;
     if (fandomKeywords.test(query)) {
         query += " -site:fandom.com";
     }
