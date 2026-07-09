@@ -6,4 +6,8 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NuciText.Obfuscation" Version="1.1.1" />
+  </ItemGroup>
+
 </Project>
