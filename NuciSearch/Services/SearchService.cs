@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NuciText.Obfuscation;
 
 namespace NuciSearch.Services
 {
     public sealed class SearchService() : ISearchService
     {
+        private static readonly INuciTextObfuscator obfuscator = new NuciTextObfuscator();
+
         private static readonly Regex arcenservKeywordsPattern = new(@"\b(?:terraria)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex fextralifeKeywordsPattern = new(@"\b(?:baldur|bg3|borderlands|don'*t\s*starve|eso|elder\s*scrolls|skyrim|tes)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex fandomKeywordsPattern = new(@"\b(?:40k|baldur|bg3|don'*t\s*starve|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -23,7 +26,7 @@ namespace NuciSearch.Services
 
         public string GetSearchUrl(string rawQuery, string searchType)
         {
-            string query = NormaliseQuery(rawQuery);
+            string query = NormaliseQuery(obfuscator.Deobfuscate(rawQuery));
 
             if (string.IsNullOrEmpty(query))
             {
