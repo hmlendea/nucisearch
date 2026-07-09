@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using NuciSearch.Services;
 
-namespace NuciSearch.Tests.Services
+namespace NuciSearch.UnitTests.Services
 {
     [TestFixture]
     public sealed class SearchServiceTests
