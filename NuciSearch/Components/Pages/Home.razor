@@ -1,0 +1,116 @@
+﻿@page "/"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@inject ISearchService SearchService
+@inject NavigationManager NavigationManager
+
+<PageTitle>NuciSearch</PageTitle>
+
+<main>
+    <img src="assets/logo.png" alt="NuciSearch logo" class="logo" />
+    <p class="title">NuciSearch</p>
+
+    <form @onsubmit="HandleSearch" @onsubmit:preventDefault>
+        <div class="tabs">
+            <label>
+                <input type="radio" name="search-type" value="auto"
+                    checked="@searchType.Equals("auto")"
+                    @onchange="@(() => searchType = "auto")" />
+                Auto
+            </label>
+
+            <label>
+                <input type="radio" name="search-type" value="text"
+                    checked="@searchType.Equals("text")"
+                    @onchange="@(() => searchType = "text")" />
+                Text
+            </label>
+
+            <label>
+                <input type="radio" name="search-type" value="images"
+                    checked="@searchType.Equals("images")"
+                    @onchange="@(() => searchType = "images")" />
+                Images
+            </label>
+
+            <label>
+                <input type="radio" name="search-type" value="torrents"
+                    checked="@searchType.Equals("torrents")"
+                    @onchange="@(() => searchType = "torrents")" />
+                Torrents
+            </label>
+
+            <label>
+                <input type="radio" name="search-type" value="videos"
+                    checked="@searchType.Equals("videos")"
+                    @onchange="@(() => searchType = "videos")" />
+                Videos
+            </label>
+
+            <label>
+                <input type="radio" name="search-type" value="maps"
+                    checked="@searchType.Equals("maps")"
+                    @onchange="@(() => searchType = "maps")" />
+                Locations
+            </label>
+        </div>
+
+        <input
+            @bind="searchQuery"
+            class="search-box"
+            type="text"
+            placeholder="Search for something..."
+            autocomplete="off"
+            autofocus />
+
+        <button class="search-button" type="submit">Search</button>
+    </form>
+</main>
+
+@code {
+    [SupplyParameterFromQuery(Name = "q")]
+    private string? QueryFromUrl { get; set; }
+
+    private string searchType = "auto";
+
+    private string searchQuery = string.Empty;
+
+    protected override void OnAfterRender(bool isFirstRender)
+    {
+        if (!isFirstRender)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(QueryFromUrl))
+        {
+            return;
+        }
+
+        string targetUrl = SearchService.GetSearchUrl(QueryFromUrl, searchType);
+
+        if (string.IsNullOrEmpty(targetUrl))
+        {
+            return;
+        }
+
+        NavigationManager.NavigateTo(targetUrl, new NavigationOptions { ForceLoad = true, ReplaceHistoryEntry = true });
+    }
+
+    private void HandleSearch()
+    {
+        if (string.IsNullOrWhiteSpace(searchQuery))
+        {
+            return;
+        }
+
+        string targetUrl = SearchService.GetSearchUrl(searchQuery, searchType);
+
+        if (string.IsNullOrEmpty(targetUrl))
+        {
+            return;
+        }
+
+        NavigationManager.NavigateTo(targetUrl, new NavigationOptions { ForceLoad = true });
+    }
+}
