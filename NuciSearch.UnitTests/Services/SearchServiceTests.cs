@@ -1,3 +1,4 @@
+using NuciText.Obfuscation;
 using NUnit.Framework;
 using NuciSearch.Services;
 
@@ -838,6 +839,57 @@ namespace NuciSearch.UnitTests.Services
             string result = searchService.GetSearchUrl("osrs quest guide", "text");
 
             Assert.That(result.Contains("strategywiki"));
+        }
+
+        // ── Deobfuscation ─────────────────────────────────────────────────────
+
+        [Test]
+        public void GivenObfuscatedQuery_WhenGettingSearchUrl_ThenDeobfuscatesBeforeSearching()
+        {
+            INuciTextObfuscator obfuscator = new NuciTextObfuscator(123456789);
+            NuciTextObfuscatorOptions options = new() { UseApproximateReplacements = true };
+            string obfuscatedQuery = obfuscator.Obfuscate("cats", options);
+
+            string result = searchService.GetSearchUrl(obfuscatedQuery, "auto");
+
+            Assert.That(result.StartsWith("https://search.brave.com/search?q=")
+                     || result.StartsWith("https://duckduckgo.com/?q="));
+        }
+
+        [Test]
+        public void GivenObfuscatedKeywordQuery_WhenGettingSearchUrl_ThenDeobfuscatesAndRedirects()
+        {
+            INuciTextObfuscator obfuscator = new NuciTextObfuscator(123456789);
+            NuciTextObfuscatorOptions options = new() { UseApproximateReplacements = true };
+            string obfuscatedQuery = obfuscator.Obfuscate("emag laptop", options);
+
+            string result = searchService.GetSearchUrl(obfuscatedQuery, "auto");
+
+            Assert.That(result, Is.EqualTo("https://emag.ro/search/laptop"));
+        }
+
+        [Test]
+        public void GivenObfuscatedIpAddressQuery_WhenGettingSearchUrl_ThenDeobfuscatesAndMatchesPattern()
+        {
+            INuciTextObfuscator obfuscator = new NuciTextObfuscator(123456789);
+            NuciTextObfuscatorOptions options = new() { UseApproximateReplacements = true };
+            string obfuscatedQuery = obfuscator.Obfuscate("my ip address", options);
+
+            string result = searchService.GetSearchUrl(obfuscatedQuery, "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=my%20ip%20address"));
+        }
+
+        [Test]
+        public void GivenObfuscatedQueryWithSearchType_WhenGettingSearchUrl_ThenDeobfuscatesQueryOnly()
+        {
+            INuciTextObfuscator obfuscator = new NuciTextObfuscator(123456789);
+            NuciTextObfuscatorOptions options = new() { UseApproximateReplacements = true };
+            string obfuscatedQuery = obfuscator.Obfuscate("cats", options);
+
+            string result = searchService.GetSearchUrl(obfuscatedQuery, "images");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?iax=images&ia=images&q=cats"));
         }
 
         // ── Query normalisation ───────────────────────────────────────────────
