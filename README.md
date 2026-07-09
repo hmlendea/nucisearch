@@ -1,4 +1,5 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/fund.html) [![Latest GitHub release](https://img.shields.io/github/v/release/hmlendea/nucisearch)](https://github.com/hmlendea/nucisearch/releases/latest)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
+[![Latest Release](https://img.shields.io/github/v/release/hmlendea/nucisearch)](https://github.com/hmlendea/nucisearch/releases/latest)
 
 # NuciSearch
 
@@ -23,6 +24,10 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
   - **Locations** → Google Maps
 - Query parameter support (`?q=`)
 - Works as a browser search provider
+
+## Requirements
+
+- .NET SDK/runtime with support for `net10.0`
 
 ## Auto Integrations
 
@@ -108,32 +113,60 @@ OpenSearch description: https://search.nuilandia.ro/opensearch.xml
 
 # Self-Hosting
 
-Because NuciSearch is a static site, hosting it is very simple.
+NuciSearch is an ASP.NET Core Blazor Server application targeting **.NET 10**.
 
-Any static web server will work:
-- Apache
-- Nginx
-- Caddy
-- GitHub Pages
-- other static hosting platforms
+To publish and host it:
 
-# Development
+```bash
+dotnet publish -c Release
+```
 
-This project intentionally avoids frameworks and build systems.
+The output can be deployed to any host that supports .NET 10:
+- A VPS or bare-metal server running the .NET 10 runtime
+- A reverse proxy (Nginx, Caddy, Apache) forwarding to the Kestrel process
+- A container (Docker) with the .NET 10 runtime image
+- Azure App Service or other PaaS platforms with .NET support
 
-Only standard web technologies are used:
-- HTML
-- CSS
-- JavaScript
+## Development
 
-You can edit the files directly and reload the page.
+### Build
 
-# License
+```bash
+dotnet build
+```
 
-This project is licensed under the **GPLv3 License**.
+### test
 
-See the `LICENSE` file for details.
+```bash
+dotnet test
+```
 
-# Support
+### Release
+
+The repository includes `release.sh`, which delegates to the upstream deployment script used by the project maintainer.
+
+```bash
+bash ./release.sh 1.0.0
+```
+
+This script downloads and executes an external release helper from: `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`
+
+**Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
+
+## Contributing
+
+Contributions are welcome. Please:
+- Keep changes cross-platform
+- Keep the existing public API intact unless a breaking change is intentional
+- Keep pull requests focused and consistent with the existing code style
+- Update documentation when behaviour changes
+
+## Support
 
 If you find this project useful, consider funding its development: https://hmlendea.go.ro/fund.html
+
+## License
+
+Licensed under the **GNU General Public License v3.0** or later.
+
+See [LICENSE](./LICENSE) for details.
