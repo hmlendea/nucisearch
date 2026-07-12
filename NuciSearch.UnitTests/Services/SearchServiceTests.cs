@@ -106,6 +106,48 @@ namespace NuciSearch.UnitTests.Services
                      || result.StartsWith("https://duckduckgo.com/?q="));
         }
 
+        // ── WikiData ──────────────────────────────────────────────────────────
+
+        [Test]
+        public void GivenWikiDataQuery_WhenGettingSearchUrl_ThenReturnsWikiDataUrl()
+        {
+            string result = searchService.GetSearchUrl("Q20717572", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/wiki/Q20717572"));
+        }
+
+        [Test]
+        public void GivenWikiDataQuerySingleDigit_WhenGettingSearchUrl_ThenReturnsWikiDataUrl()
+        {
+            string result = searchService.GetSearchUrl("Q1", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/wiki/Q1"));
+        }
+
+        [Test]
+        public void GivenLowercaseWikiDataQuery_WhenGettingSearchUrl_ThenReturnsWikiDataUrlUppercased()
+        {
+            string result = searchService.GetSearchUrl("q42", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/wiki/Q42"));
+        }
+
+        [Test]
+        public void GivenWikiDataKeyword_WhenGettingSearchUrl_ThenReturnsWikiDataSearchUrl()
+        {
+            string result = searchService.GetSearchUrl("wikidata Douglas Adams", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/w/index.php?search=Douglas%20Adams"));
+        }
+
+        [Test]
+        public void GivenWikiDataKeywordUpperCase_WhenGettingSearchUrl_ThenReturnsWikiDataSearchUrl()
+        {
+            string result = searchService.GetSearchUrl("WIKIDATA Douglas Adams", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/w/index.php?search=Douglas%20Adams"));
+        }
+
         // ── Jira ──────────────────────────────────────────────────────────────
 
         [Test]

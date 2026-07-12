@@ -24,6 +24,7 @@ namespace NuciSearch.Services
         private static readonly Regex zeroWidthCharactersPattern = new(@"[\u200B-\u200D\uFEFF]", RegexOptions.Compiled);
         private static readonly Regex jiraPattern = new(@"^(?:AAP|AV|AND|CP)-\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex rallyPattern = new(@"^(?:DE|F|US)[0-9]{6,8}$", RegexOptions.Compiled);
+        private static readonly Regex wikiDataPattern = new(@"^Q\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex currencyPattern = new(@"^\d[\d.,]*\s+\w+\s+(?:in|în|to)\s+\w+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex ipAddressQueryPattern = new(@"^(?:my|current)\s+ip(?:\s+address)?$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
@@ -259,6 +260,9 @@ namespace NuciSearch.Services
         private static string GetProtonDbUrl(string query)
             => $"https://protondb.com/search?q={Uri.EscapeDataString(query)}";
 
+        private static string GetWikiDataUrl(string query)
+            => $"https://wikidata.org/wiki/{Uri.EscapeDataString(query.ToUpperInvariant())}";
+
         private static string GetJiraUrl(string query)
             => $"https://worldpay.atlassian.net/browse/{Uri.EscapeDataString(query.ToUpperInvariant())}";
 
@@ -313,6 +317,9 @@ namespace NuciSearch.Services
 
             return instances[Random.Shared.Next(instances.Length)];
         }
+
+        private static string GetWikiDataSearchUrl(string query)
+            => $"https://wikidata.org/w/index.php?search={Uri.EscapeDataString(query)}";
 
         private static string GetWikiPediaUrl(string query)
         {
@@ -401,6 +408,10 @@ namespace NuciSearch.Services
             else if (rallyPattern.IsMatch(query))
             {
                 return GetRallyUrl(query);
+            }
+            else if (wikiDataPattern.IsMatch(query))
+            {
+                return GetWikiDataUrl(query);
             }
             else if (currencyPattern.IsMatch(query))
             {
@@ -721,6 +732,10 @@ namespace NuciSearch.Services
             else if (words.Any(word => word.Equals("vinted", StringComparison.OrdinalIgnoreCase)))
             {
                 return GetVintedUrl(string.Join(" ", words.Where(word => !word.Equals("vinted", StringComparison.OrdinalIgnoreCase))));
+            }
+            else if (words.Any(word => word.Equals("wikidata", StringComparison.OrdinalIgnoreCase)))
+            {
+                return GetWikiDataSearchUrl(string.Join(" ", words.Where(word => !word.Equals("wikidata", StringComparison.OrdinalIgnoreCase))));
             }
             else if (words.Any(word => word.Equals("wikipedia", StringComparison.OrdinalIgnoreCase)))
             {

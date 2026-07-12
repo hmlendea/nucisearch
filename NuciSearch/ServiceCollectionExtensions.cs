@@ -16,7 +16,7 @@ namespace NuciSearch
             configuration.Bind(nameof(NuciLoggerSettings), loggingSettings);
             services.AddSingleton(loggingSettings);
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization();
             services.AddMemoryCache();
             services.AddHttpClient("Geolocation");
 
