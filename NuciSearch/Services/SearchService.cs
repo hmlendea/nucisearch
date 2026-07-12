@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NuciLog.Core;
 using NuciText.Obfuscation;
+using NuciSearch.Logging;
 
 namespace NuciSearch.Services
 {
-    public sealed class SearchService() : ISearchService
+    public sealed class SearchService(ILogger logger) : ISearchService
     {
         private static readonly INuciTextObfuscator obfuscator = new NuciTextObfuscator();
 
@@ -26,35 +28,66 @@ namespace NuciSearch.Services
 
         public string GetSearchUrl(string rawQuery, string searchType)
         {
-            string query = NormaliseQuery(obfuscator.Deobfuscate(rawQuery));
+            IEnumerable<LogInfo> logInfos =
+            [
+                new(NuciSearchLogInfoKey.Query, rawQuery),
+                new(NuciSearchLogInfoKey.SearchType, searchType)
+            ];
 
-            if (string.IsNullOrEmpty(query))
-            {
-                return string.Empty;
-            }
+            logger.Info(NuciSearchOperation.Search, OperationStatus.Started, logInfos);
 
-            if (searchType.Equals("images", StringComparison.OrdinalIgnoreCase))
+            try
             {
-                return GetDuckDuckGoImagesUrl(query);
-            }
-            else if (searchType.Equals("maps", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetGoogleMapsUrl(query);
-            }
-            else if (searchType.Equals("torrents", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetYandexTorrentsUrl(query);
-            }
-            else if (searchType.Equals("videos", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetYouTubeUrl(query);
-            }
-            else if (searchType.Equals("text", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetTextSearch(query);
-            }
+                string query = NormaliseQuery(obfuscator.Deobfuscate(rawQuery));
 
-            return GetAutoUrl(query);
+                if (string.IsNullOrEmpty(query))
+                {
+                    logger.Info(NuciSearchOperation.Search, OperationStatus.Success, logInfos);
+                    return string.Empty;
+                }
+
+                string url;
+
+                if (searchType.Equals("images", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = GetDuckDuckGoImagesUrl(query);
+                }
+                else if (searchType.Equals("maps", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = GetGoogleMapsUrl(query);
+                }
+                else if (searchType.Equals("torrents", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = GetYandexTorrentsUrl(query);
+                }
+                else if (searchType.Equals("videos", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = GetYouTubeUrl(query);
+                }
+                else if (searchType.Equals("text", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = GetTextSearch(query);
+                }
+                else
+                {
+                    url = GetAutoUrl(query);
+                }
+
+                IEnumerable<LogInfo> successLogInfos =
+                [
+                    new(NuciSearchLogInfoKey.Query, rawQuery),
+                    new(NuciSearchLogInfoKey.SearchType, searchType),
+                    new(NuciSearchLogInfoKey.Url, url)
+                ];
+
+                logger.Info(NuciSearchOperation.Search, OperationStatus.Success, successLogInfos);
+                return url;
+            }
+            catch (Exception exception)
+            {
+                logger.Error(NuciSearchOperation.Search, OperationStatus.Failure, exception, logInfos);
+                throw;
+            }
         }
 
         private static string GetAliExpressUrl(string query)
