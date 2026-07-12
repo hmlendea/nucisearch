@@ -1,3 +1,5 @@
+using Moq;
+using NuciLog.Core;
 using NuciText.Obfuscation;
 using NUnit.Framework;
 using NuciSearch.Services;
@@ -12,7 +14,8 @@ namespace NuciSearch.UnitTests.Services
         [SetUp]
         public void SetUp()
         {
-            searchService = new SearchService();
+            Mock<ILogger> loggerMock = new();
+            searchService = new SearchService(loggerMock.Object);
         }
 
         // ── Empty / whitespace ────────────────────────────────────────────────

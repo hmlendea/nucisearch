@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NuciSearch;
 using NuciSearch.Components;
 
 namespace NuciSearch
@@ -12,9 +11,10 @@ namespace NuciSearch
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddRazorComponents()
+            builder.Services
+                .AddRazorComponents()
                 .AddInteractiveServerComponents();
-            builder.Services.AddNuciSearchServices();
+            builder.Services.AddNuciSearchServices(builder.Configuration);
 
             WebApplication app = builder.Build();
 
