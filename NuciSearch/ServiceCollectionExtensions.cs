@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NuciLog;
 using NuciLog.Configuration;
 using NuciLog.Core;
+using NuciSearch.Localisation;
 using NuciSearch.Services;
 
 namespace NuciSearch
@@ -15,7 +16,13 @@ namespace NuciSearch
             configuration.Bind(nameof(NuciLoggerSettings), loggingSettings);
             services.AddSingleton(loggingSettings);
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMemoryCache();
+            services.AddHttpClient("Geolocation");
+
             services.AddSingleton<ILogger, NuciLogger>();
+            services.AddSingleton<IGeolocationService, GeolocationService>();
+            services.AddSingleton<IpCultureProvider>();
             services.AddSingleton<ISearchService, SearchService>();
 
             return services;

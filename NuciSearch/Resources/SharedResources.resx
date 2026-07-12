@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+
+  <data name="Home_Tab_Auto" xml:space="preserve"><value>Auto</value></data>
+  <data name="Home_Tab_Text" xml:space="preserve"><value>Text</value></data>
+  <data name="Home_Tab_Images" xml:space="preserve"><value>Images</value></data>
+  <data name="Home_Tab_Torrents" xml:space="preserve"><value>Torrents</value></data>
+  <data name="Home_Tab_Videos" xml:space="preserve"><value>Videos</value></data>
+  <data name="Home_Tab_Locations" xml:space="preserve"><value>Locations</value></data>
+  <data name="Home_SearchPlaceholder" xml:space="preserve"><value>Search for something...</value></data>
+  <data name="Home_SearchButton" xml:space="preserve"><value>Search</value></data>
+
+  <data name="NotFound_Title" xml:space="preserve"><value>Not Found</value></data>
+  <data name="NotFound_Message" xml:space="preserve"><value>Sorry, the content you are looking for does not exist.</value></data>
+
+  <data name="Error_Title" xml:space="preserve"><value>Error.</value></data>
+  <data name="Error_Message" xml:space="preserve"><value>An error occurred while processing your request.</value></data>
+  <data name="Error_DevelopmentMode" xml:space="preserve"><value>Development Mode</value></data>
+  <data name="Error_DevelopmentModeDescription" xml:space="preserve"><value>Swapping to the Development environment will display more detailed information about the error that occurred.</value></data>
+  <data name="Error_DevelopmentModeWarning" xml:space="preserve"><value>The Development environment shouldn't be enabled for deployed applications. It can result in displaying sensitive information from exceptions to end users. For local debugging, enable the Development environment by setting the ASPNETCORE_ENVIRONMENT environment variable to Development and restarting the app.</value></data>
+
+  <data name="ReconnectModal_Rejoining" xml:space="preserve"><value>Rejoining the server...</value></data>
+  <data name="ReconnectModal_RejoinFailedPrefix" xml:space="preserve"><value>Rejoin failed... trying again in</value></data>
+  <data name="ReconnectModal_RejoinFailedSuffix" xml:space="preserve"><value>seconds.</value></data>
+  <data name="ReconnectModal_RejoinFailed" xml:space="preserve"><value>Failed to rejoin. Please retry or reload the page.</value></data>
+  <data name="ReconnectModal_Retry" xml:space="preserve"><value>Retry</value></data>
+  <data name="ReconnectModal_Paused" xml:space="preserve"><value>The session has been paused by the server.</value></data>
+  <data name="ReconnectModal_ResumeFailed" xml:space="preserve"><value>Failed to resume the session. Please retry or reload the page.</value></data>
+  <data name="ReconnectModal_Resume" xml:space="preserve"><value>Resume</value></data>
+
+  <data name="MainLayout_UnhandledError" xml:space="preserve"><value>An unhandled error has occurred.</value></data>
+  <data name="MainLayout_Reload" xml:space="preserve"><value>Reload</value></data>
+
+  <data name="OpenSearch_Description" xml:space="preserve"><value>Search the web with NuciSearch</value></data>
+</root>

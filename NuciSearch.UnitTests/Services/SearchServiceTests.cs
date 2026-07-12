@@ -55,11 +55,21 @@ namespace NuciSearch.UnitTests.Services
         }
 
         [Test]
-        public void GivenMapsSearchType_WhenGettingSearchUrl_ThenReturnsGoogleMapsUrl()
+        [SetUICulture("ro-RO")]
+        public void GivenMapsSearchType_WhenGettingSearchUrl_ThenReturnsGoogleRoMapsUrl()
         {
             string result = searchService.GetSearchUrl("london", "maps");
 
             Assert.That(result, Is.EqualTo("https://google.ro/maps/search/london"));
+        }
+
+        [Test]
+        [SetUICulture("en-GB")]
+        public void GivenMapsSearchType_WhenGettingSearchUrl_ThenReturnsGoogleCoUkMapsUrl()
+        {
+            string result = searchService.GetSearchUrl("london", "maps");
+
+            Assert.That(result, Is.EqualTo("https://google.co.uk/maps/search/london"));
         }
 
         [Test]
@@ -363,11 +373,21 @@ namespace NuciSearch.UnitTests.Services
         }
 
         [Test]
-        public void GivenFirefoxExtensionKeyword_WhenGettingSearchUrl_ThenReturnsFirefoxExtensionsUrl()
+        [SetUICulture("en-GB")]
+        public void GivenFirefoxExtensionKeyword_WhenGettingSearchUrl_ThenReturnsFirefoxExtensionsEnGbUrl()
         {
             string result = searchService.GetSearchUrl("firefox extension ublock", "auto");
 
-            Assert.That(result, Is.EqualTo("https://addons.mozilla.org/en-US/firefox/search/?q=ublock"));
+            Assert.That(result, Is.EqualTo("https://addons.mozilla.org/en-GB/firefox/search/?q=ublock"));
+        }
+
+        [Test]
+        [SetUICulture("ro-RO")]
+        public void GivenFirefoxExtensionKeyword_WhenGettingSearchUrl_ThenReturnsFirefoxExtensionsRoUrl()
+        {
+            string result = searchService.GetSearchUrl("firefox extension ublock", "auto");
+
+            Assert.That(result, Is.EqualTo("https://addons.mozilla.org/ro/firefox/search/?q=ublock"));
         }
 
         [Test]
@@ -427,11 +447,21 @@ namespace NuciSearch.UnitTests.Services
         }
 
         [Test]
-        public void GivenIkeaKeyword_WhenGettingSearchUrl_ThenReturnsIkeaUrl()
+        [SetUICulture("ro-RO")]
+        public void GivenIkeaKeyword_WhenGettingSearchUrl_ThenReturnsIkeaRoUrl()
         {
             string result = searchService.GetSearchUrl("ikea scaun", "auto");
 
             Assert.That(result, Is.EqualTo("https://ikea.com/ro/ro/search/?q=scaun"));
+        }
+
+        [Test]
+        [SetUICulture("en-GB")]
+        public void GivenIkeaKeyword_WhenGettingSearchUrl_ThenReturnsIkeaGbUrl()
+        {
+            string result = searchService.GetSearchUrl("ikea chair", "auto");
+
+            Assert.That(result, Is.EqualTo("https://ikea.com/gb/en/search/?q=chair"));
         }
 
         [Test]
