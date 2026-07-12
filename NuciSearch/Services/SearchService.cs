@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -145,7 +146,14 @@ namespace NuciSearch.Services
             => $"https://search.f-droid.org/?q={Uri.EscapeDataString(query)}";
 
         private static string GetFirefoxExtensionsUrl(string query)
-            => $"https://addons.mozilla.org/en-US/firefox/search/?q={Uri.EscapeDataString(query)}";
+        {
+            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            {
+                return $"https://addons.mozilla.org/ro/firefox/search/?q={Uri.EscapeDataString(query)}";
+            }
+
+            return $"https://addons.mozilla.org/en-GB/firefox/search/?q={Uri.EscapeDataString(query)}";
+        }
 
         private static string GetFlancoUrl(string query)
             => $"https://flanco.ro/catalogsearch/result/?q={Uri.EscapeDataString(query)}";
@@ -166,13 +174,27 @@ namespace NuciSearch.Services
             => $"https://gog.com/en/games?query={Uri.EscapeDataString(query)}";
 
         private static string GetGoogleMapsUrl(string query)
-            => $"https://google.ro/maps/search/{Uri.EscapeDataString(query)}";
+        {
+            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            {
+                return $"https://google.ro/maps/search/{Uri.EscapeDataString(query)}";
+            }
+
+            return $"https://google.co.uk/maps/search/{Uri.EscapeDataString(query)}";
+        }
 
         private static string GetHornbachUrl(string query)
             => $"https://hornbach.ro/s/{Uri.EscapeDataString(query)}";
 
         private static string GetIkeaUrl(string query)
-            => $"https://ikea.com/ro/ro/search/?q={Uri.EscapeDataString(query)}";
+        {
+            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            {
+                return $"https://ikea.com/ro/ro/search/?q={Uri.EscapeDataString(query)}";
+            }
+
+            return $"https://ikea.com/gb/en/search/?q={Uri.EscapeDataString(query)}";
+        }
 
         private static string GetImdbUrl(string query)
             => $"https://libremdb.iket.me/find?q={Uri.EscapeDataString(query)}";
@@ -295,9 +317,16 @@ namespace NuciSearch.Services
         private static string GetWikiPediaUrl(string query)
         {
             string encodedQuery = Uri.EscapeDataString(query);
+            string langCode = "en";
+
+            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            {
+                langCode = "ro";
+            }
+
             string[] instances = [
-                $"https://ro.wikipedia.org/w/index.php?search={encodedQuery}",
-                $"https://wikiless.tiekoetter.com/w/index.php?search={encodedQuery}",
+                $"https://{langCode}.wikipedia.org/w/index.php?search={encodedQuery}",
+                $"https://wikiless.tiekoetter.com/w/index.php?search={encodedQuery}&lang={langCode}",
             ];
 
             return instances[Random.Shared.Next(instances.Length)];

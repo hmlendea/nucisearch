@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+
+  <data name="Home_Tab_Auto" xml:space="preserve"><value>Auto</value></data>
+  <data name="Home_Tab_Text" xml:space="preserve"><value>Text</value></data>
+  <data name="Home_Tab_Images" xml:space="preserve"><value>Imagini</value></data>
+  <data name="Home_Tab_Torrents" xml:space="preserve"><value>Torente</value></data>
+  <data name="Home_Tab_Videos" xml:space="preserve"><value>Videoclipuri</value></data>
+  <data name="Home_Tab_Locations" xml:space="preserve"><value>Locații</value></data>
+  <data name="Home_SearchPlaceholder" xml:space="preserve"><value>Caută ceva...</value></data>
+  <data name="Home_SearchButton" xml:space="preserve"><value>Caută</value></data>
+
+  <data name="NotFound_Title" xml:space="preserve"><value>Negăsit</value></data>
+  <data name="NotFound_Message" xml:space="preserve"><value>Ne pare rău, conținutul căutat nu există.</value></data>
+
+  <data name="Error_Title" xml:space="preserve"><value>Eroare.</value></data>
+  <data name="Error_Message" xml:space="preserve"><value>A apărut o eroare în procesarea solicitării tale.</value></data>
+  <data name="Error_DevelopmentMode" xml:space="preserve"><value>Mod de Dezvoltare</value></data>
+  <data name="Error_DevelopmentModeDescription" xml:space="preserve"><value>Comutarea la mediul de Dezvoltare va afișa informații mai detaliate despre eroarea apărută.</value></data>
+  <data name="Error_DevelopmentModeWarning" xml:space="preserve"><value>Mediul de Dezvoltare nu ar trebui activat pentru aplicații în producție. Poate expune informații sensibile utilizatorilor finali. Pentru depanare locală, activați mediul de Dezvoltare setând variabila de mediu ASPNETCORE_ENVIRONMENT la Development și repornind aplicația.</value></data>
+
+  <data name="ReconnectModal_Rejoining" xml:space="preserve"><value>Reconectare la server...</value></data>
+  <data name="ReconnectModal_RejoinFailedPrefix" xml:space="preserve"><value>Reconectarea a eșuat... reîncercăm în</value></data>
+  <data name="ReconnectModal_RejoinFailedSuffix" xml:space="preserve"><value>secunde.</value></data>
+  <data name="ReconnectModal_RejoinFailed" xml:space="preserve"><value>Reconectarea a eșuat. Te rog reîncearcă sau reîncarcă pagina.</value></data>
+  <data name="ReconnectModal_Retry" xml:space="preserve"><value>Reîncearcă</value></data>
+  <data name="ReconnectModal_Paused" xml:space="preserve"><value>Sesiunea a fost pusă în pauză de server.</value></data>
+  <data name="ReconnectModal_ResumeFailed" xml:space="preserve"><value>Reluarea sesiunii a eșuat. Te rog reîncearcă sau reîncarcă pagina.</value></data>
+  <data name="ReconnectModal_Resume" xml:space="preserve"><value>Reia</value></data>
+
+  <data name="MainLayout_UnhandledError" xml:space="preserve"><value>A apărut o eroare neașteptată.</value></data>
+  <data name="MainLayout_Reload" xml:space="preserve"><value>Reîncarcă</value></data>
+
+  <data name="OpenSearch_Description" xml:space="preserve"><value>Caută pe web cu NuciSearch</value></data>
+</root>

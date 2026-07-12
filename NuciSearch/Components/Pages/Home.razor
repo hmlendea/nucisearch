@@ -3,6 +3,7 @@
 
 @inject ISearchService SearchService
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<SharedResources> L
 
 <PageTitle>NuciSearch</PageTitle>
 
@@ -16,42 +17,42 @@
                 <input type="radio" name="search-type" value="auto"
                     checked="@searchType.Equals("auto")"
                     @onchange="@(() => searchType = "auto")" />
-                Auto
+                @L["Home_Tab_Auto"]
             </label>
 
             <label>
                 <input type="radio" name="search-type" value="text"
                     checked="@searchType.Equals("text")"
                     @onchange="@(() => searchType = "text")" />
-                Text
+                @L["Home_Tab_Text"]
             </label>
 
             <label>
                 <input type="radio" name="search-type" value="images"
                     checked="@searchType.Equals("images")"
                     @onchange="@(() => searchType = "images")" />
-                Images
+                @L["Home_Tab_Images"]
             </label>
 
             <label>
                 <input type="radio" name="search-type" value="torrents"
                     checked="@searchType.Equals("torrents")"
                     @onchange="@(() => searchType = "torrents")" />
-                Torrents
+                @L["Home_Tab_Torrents"]
             </label>
 
             <label>
                 <input type="radio" name="search-type" value="videos"
                     checked="@searchType.Equals("videos")"
                     @onchange="@(() => searchType = "videos")" />
-                Videos
+                @L["Home_Tab_Videos"]
             </label>
 
             <label>
                 <input type="radio" name="search-type" value="maps"
                     checked="@searchType.Equals("maps")"
                     @onchange="@(() => searchType = "maps")" />
-                Locations
+                @L["Home_Tab_Locations"]
             </label>
         </div>
 
@@ -59,11 +60,11 @@
             @bind="searchQuery"
             class="search-box"
             type="text"
-            placeholder="Search for something..."
+            placeholder="@L["Home_SearchPlaceholder"]"
             autocomplete="off"
             autofocus />
 
-        <button class="search-button" type="submit">Search</button>
+        <button class="search-button" type="submit">@L["Home_SearchButton"]</button>
     </form>
 </main>
 
