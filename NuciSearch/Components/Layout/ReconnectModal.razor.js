@@ -8,12 +8,17 @@ retryButton.addEventListener("click", retry);
 const resumeButton = document.getElementById("components-resume-button");
 resumeButton.addEventListener("click", resume);
 
+let showModalTimer = null;
+
 function handleReconnectStateChanged(event) {
     if (event.detail.state === "show") {
-        reconnectModal.showModal();
+        showModalTimer = setTimeout(() => reconnectModal.showModal(), 3000);
     } else if (event.detail.state === "hide") {
+        clearTimeout(showModalTimer);
         reconnectModal.close();
     } else if (event.detail.state === "failed") {
+        clearTimeout(showModalTimer);
+        reconnectModal.showModal();
         document.addEventListener("visibilitychange", retryWhenDocumentBecomesVisible);
     } else if (event.detail.state === "rejected") {
         location.reload();
