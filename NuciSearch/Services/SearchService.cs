@@ -318,6 +318,9 @@ namespace NuciSearch.Services
             return instances[Random.Shared.Next(instances.Length)];
         }
 
+        private static string GetWikiDataSearchUrl(string query)
+            => $"https://wikidata.org/w/index.php?search={Uri.EscapeDataString(query)}";
+
         private static string GetWikiPediaUrl(string query)
         {
             string encodedQuery = Uri.EscapeDataString(query);
@@ -729,6 +732,10 @@ namespace NuciSearch.Services
             else if (words.Any(word => word.Equals("vinted", StringComparison.OrdinalIgnoreCase)))
             {
                 return GetVintedUrl(string.Join(" ", words.Where(word => !word.Equals("vinted", StringComparison.OrdinalIgnoreCase))));
+            }
+            else if (words.Any(word => word.Equals("wikidata", StringComparison.OrdinalIgnoreCase)))
+            {
+                return GetWikiDataSearchUrl(string.Join(" ", words.Where(word => !word.Equals("wikidata", StringComparison.OrdinalIgnoreCase))));
             }
             else if (words.Any(word => word.Equals("wikipedia", StringComparison.OrdinalIgnoreCase)))
             {

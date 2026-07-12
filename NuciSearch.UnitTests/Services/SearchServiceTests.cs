@@ -132,6 +132,22 @@ namespace NuciSearch.UnitTests.Services
             Assert.That(result, Is.EqualTo("https://wikidata.org/wiki/Q42"));
         }
 
+        [Test]
+        public void GivenWikiDataKeyword_WhenGettingSearchUrl_ThenReturnsWikiDataSearchUrl()
+        {
+            string result = searchService.GetSearchUrl("wikidata Douglas Adams", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/w/index.php?search=Douglas%20Adams"));
+        }
+
+        [Test]
+        public void GivenWikiDataKeywordUpperCase_WhenGettingSearchUrl_ThenReturnsWikiDataSearchUrl()
+        {
+            string result = searchService.GetSearchUrl("WIKIDATA Douglas Adams", "auto");
+
+            Assert.That(result, Is.EqualTo("https://wikidata.org/w/index.php?search=Douglas%20Adams"));
+        }
+
         // ── Jira ──────────────────────────────────────────────────────────────
 
         [Test]
