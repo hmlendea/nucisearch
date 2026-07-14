@@ -2,6 +2,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/nucisearch)](https://github.com/hmlendea/nucisearch/releases/latest)
 [![Build Status](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gnu.org/licenses/gpl-3.0)
+
 # NuciSearch
 
 A lightweight and minimalist search engine wrapper built around existing search services.
@@ -36,7 +37,7 @@ When using **Auto** mode, queries are routed to specialised providers based on p
 - **Rally** — queries matching `DE`, `F`, or `US` followed by 6–8 digits
 - **Wikidata** — queries matching `Q[digits]` (e.g. `Q42`) → Wikidata item page
 - **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
-  - Normalises `în` → `in`, `euro` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
+  - Normalises `în` → `in`, `euro`/`euros` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
   - Uppercases all 3-letter currency codes
 - **IP address lookup** — queries `my ip`, `current ip`, `my ip address`, or `current ip address` → DuckDuckGo
 - **Wiki blacklists** — for media-related searches (video games, TV series, etc.), non-primary wikis (fandom.com, wiki.fextralife.com, arcenserv.info, huijiwiki.com, neoseeker.com, strategywiki.org) are excluded in favour of the official or community-preferred wiki for that franchise, where applicable
@@ -101,7 +102,7 @@ When using **Auto** mode, queries are routed to specialised providers based on p
 - **UESP** *(Unofficial Elder Scrolls Pages)* — keyword: `uesp`, `elder scrolls wiki`, `eso wiki`, `morrowind wiki`, `oblivion wiki`, `skyrim wiki`, `tes wiki`, or `the elder scrolls wiki`
 - **Vinted** — keyword: `vinted`
 - **Wikidata** — keyword: `wikidata`
-- **Wikipedia** (via Wikiless) — keyword: `wikipedia`
+- **Wikipedia** (randomised: Wikipedia / Wikiless) — keyword: `wikipedia`
 - **YouTube** (via yewtu.be) — keyword: `youtube`
 
 ## Browser Integration
@@ -197,5 +198,5 @@ If you find this project useful, consider [funding it](https://hmlendea.go.ro/fu
 
 ## License
 
-Licensed under the GNU General Public License v3.0 or later.
+Licensed under the **GNU General Public License v3.0** or later.
 See [LICENSE](./LICENSE) for details.
