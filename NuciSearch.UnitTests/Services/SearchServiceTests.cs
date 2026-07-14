@@ -216,6 +216,30 @@ namespace NuciSearch.UnitTests.Services
             Assert.That(result, Is.EqualTo("https://rally1.rallydev.com/#/search?keywords=US12345678"));
         }
 
+        [Test]
+        public void GivenRallyDeQueryWith8Digits_WhenGettingSearchUrl_ThenReturnsRallyUrl()
+        {
+            string result = searchService.GetSearchUrl("DE12345678", "auto");
+
+            Assert.That(result, Is.EqualTo("https://rally1.rallydev.com/#/search?keywords=DE12345678"));
+        }
+
+        [Test]
+        public void GivenRallyFQueryWith6Digits_WhenGettingSearchUrl_ThenReturnsRallyUrl()
+        {
+            string result = searchService.GetSearchUrl("F123456", "auto");
+
+            Assert.That(result, Is.EqualTo("https://rally1.rallydev.com/#/search?keywords=F123456"));
+        }
+
+        [Test]
+        public void GivenRallyUsQueryWith6Digits_WhenGettingSearchUrl_ThenReturnsRallyUrl()
+        {
+            string result = searchService.GetSearchUrl("US123456", "auto");
+
+            Assert.That(result, Is.EqualTo("https://rally1.rallydev.com/#/search?keywords=US123456"));
+        }
+
         // ── Currency conversion ───────────────────────────────────────────────
 
         [Test]
@@ -250,6 +274,62 @@ namespace NuciSearch.UnitTests.Services
             Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=50%20USD%20in%20EUR"));
         }
 
+        [Test]
+        public void GivenCurrencyQueryWithRomanianInPreposition_WhenGettingSearchUrl_ThenNormalisesIn()
+        {
+            string result = searchService.GetSearchUrl("100 RON în EUR", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=100%20RON%20in%20EUR"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithEuros_WhenGettingSearchUrl_ThenNormalisesToEur()
+        {
+            string result = searchService.GetSearchUrl("50 euros in USD", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=50%20EUR%20in%20USD"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithEuro_WhenGettingSearchUrl_ThenNormalisesToEur()
+        {
+            string result = searchService.GetSearchUrl("200 euro in RON", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=200%20EUR%20in%20RON"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithLira_WhenGettingSearchUrl_ThenNormalisesToGbp()
+        {
+            string result = searchService.GetSearchUrl("100 lira in RON", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=100%20GBP%20in%20RON"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithDolari_WhenGettingSearchUrl_ThenNormalisesToUsd()
+        {
+            string result = searchService.GetSearchUrl("100 dolari in EUR", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=100%20USD%20in%20EUR"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithDecimalAmount_WhenGettingSearchUrl_ThenReturnsDuckDuckGoUrl()
+        {
+            string result = searchService.GetSearchUrl("61.3 USD in EUR", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=61.3%20USD%20in%20EUR"));
+        }
+
+        [Test]
+        public void GivenCurrencyQueryWithThousandsSeparator_WhenGettingSearchUrl_ThenReturnsDuckDuckGoUrl()
+        {
+            string result = searchService.GetSearchUrl("1,000 USD in EUR", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=1%2C000%20USD%20in%20EUR"));
+        }
+
         // ── IP address ────────────────────────────────────────────────────────
 
         [Test]
@@ -274,6 +354,30 @@ namespace NuciSearch.UnitTests.Services
             string result = searchService.GetSearchUrl("current ip", "auto");
 
             Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=current%20ip"));
+        }
+
+        [Test]
+        public void GivenCurrentIpAddressQuery_WhenGettingSearchUrl_ThenReturnsDuckDuckGoUrl()
+        {
+            string result = searchService.GetSearchUrl("current ip address", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=current%20ip%20address"));
+        }
+
+        [Test]
+        public void GivenUppercaseMyIpQuery_WhenGettingSearchUrl_ThenReturnsDuckDuckGoUrl()
+        {
+            string result = searchService.GetSearchUrl("MY IP", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=MY%20IP"));
+        }
+
+        [Test]
+        public void GivenUppercaseCurrentIpQuery_WhenGettingSearchUrl_ThenReturnsDuckDuckGoUrl()
+        {
+            string result = searchService.GetSearchUrl("CURRENT IP", "auto");
+
+            Assert.That(result, Is.EqualTo("https://duckduckgo.com/?q=CURRENT%20IP"));
         }
 
         // ── Keyword redirects ─────────────────────────────────────────────────
@@ -835,11 +939,118 @@ namespace NuciSearch.UnitTests.Services
         }
 
         [Test]
+        [SetUICulture("ro-RO")]
+        public void GivenWikipediaKeywordAndRoRoCulture_WhenGettingSearchUrl_ThenReturnsRomanianWikipediaUrl()
+        {
+            string result = searchService.GetSearchUrl("wikipedia pisica", "auto");
+
+            Assert.That(result.Contains("ro.wikipedia.org") || result.Contains("wikiless"));
+        }
+
+        [Test]
+        [SetUICulture("en-GB")]
+        public void GivenWikipediaKeywordAndEnGbCulture_WhenGettingSearchUrl_ThenReturnsEnglishWikipediaUrl()
+        {
+            string result = searchService.GetSearchUrl("wikipedia cats", "auto");
+
+            Assert.That(result.Contains("en.wikipedia.org") || result.Contains("wikiless"));
+        }
+
+        [Test]
         public void GivenYoutubeKeyword_WhenGettingSearchUrl_ThenReturnsYewtubeUrl()
         {
             string result = searchService.GetSearchUrl("youtube cats", "auto");
 
             Assert.That(result, Is.EqualTo("https://yewtu.be/search?q=cats"));
+        }
+
+        [Test]
+        public void GivenBoobpediaKeyword_WhenGettingSearchUrl_ThenReturnsBoobpediaUrl()
+        {
+            string result = searchService.GetSearchUrl("boobpedia elodia", "auto");
+
+            Assert.That(result, Is.EqualTo("https://boobpedia.com/wiki/index.php?title=Special%3ASearch&search=elodia&go=Go"));
+        }
+
+        [Test]
+        [SetUICulture("en-GB")]
+        public void GivenFirefoxExtensionsPluralKeyword_WhenGettingSearchUrl_ThenReturnsFirefoxExtensionsUrl()
+        {
+            string result = searchService.GetSearchUrl("firefox extensions ublock", "auto");
+
+            Assert.That(result, Is.EqualTo("https://addons.mozilla.org/en-GB/firefox/search/?q=ublock"));
+        }
+
+        [Test]
+        public void GivenMcHeadsPluralKeyword_WhenGettingSearchUrl_ThenReturnsMinecraftHeadsUrl()
+        {
+            string result = searchService.GetSearchUrl("mc heads dragon", "auto");
+
+            Assert.That(result, Is.EqualTo("https://minecraft-heads.com/custom-heads/search?searchterm=dragon"));
+        }
+
+        [Test]
+        public void GivenMinecraftHeadsPluralKeyword_WhenGettingSearchUrl_ThenReturnsMinecraftHeadsUrl()
+        {
+            string result = searchService.GetSearchUrl("minecraft heads dragon", "auto");
+
+            Assert.That(result, Is.EqualTo("https://minecraft-heads.com/custom-heads/search?searchterm=dragon"));
+        }
+
+        [Test]
+        public void GivenMcSchematicsPluralKeyword_WhenGettingSearchUrl_ThenReturnsPlanetMinecraftSchematicsUrl()
+        {
+            string result = searchService.GetSearchUrl("mc schematics castle", "auto");
+
+            Assert.That(result, Is.EqualTo("https://planetminecraft.com/projects/?keywords=castle"));
+        }
+
+        [Test]
+        public void GivenMinecraftSchematicsPluralKeyword_WhenGettingSearchUrl_ThenReturnsPlanetMinecraftSchematicsUrl()
+        {
+            string result = searchService.GetSearchUrl("minecraft schematics castle", "auto");
+
+            Assert.That(result, Is.EqualTo("https://planetminecraft.com/projects/?keywords=castle"));
+        }
+
+        [Test]
+        public void GivenMorrowindWikiKeyword_WhenGettingSearchUrl_ThenReturnsUespUrl()
+        {
+            string result = searchService.GetSearchUrl("morrowind wiki dunmer", "auto");
+
+            Assert.That(result, Is.EqualTo("https://en.uesp.net/wiki/Special:Search?search=dunmer"));
+        }
+
+        [Test]
+        public void GivenOblivionWikiKeyword_WhenGettingSearchUrl_ThenReturnsUespUrl()
+        {
+            string result = searchService.GetSearchUrl("oblivion wiki daedra", "auto");
+
+            Assert.That(result, Is.EqualTo("https://en.uesp.net/wiki/Special:Search?search=daedra"));
+        }
+
+        [Test]
+        public void GivenTesWikiKeyword_WhenGettingSearchUrl_ThenReturnsUespUrl()
+        {
+            string result = searchService.GetSearchUrl("tes wiki shouts", "auto");
+
+            Assert.That(result, Is.EqualTo("https://en.uesp.net/wiki/Special:Search?search=shouts"));
+        }
+
+        [Test]
+        public void GivenSpyShopRoKeyword_WhenGettingSearchUrl_ThenReturnsSpyShopUrl()
+        {
+            string result = searchService.GetSearchUrl("spy-shop.ro camera", "auto");
+
+            Assert.That(result, Is.EqualTo("https://spy-shop.ro/catalogsearch/result/?q=camera&o=relevance"));
+        }
+
+        [Test]
+        public void GivenSpyshopRoKeyword_WhenGettingSearchUrl_ThenReturnsSpyShopUrl()
+        {
+            string result = searchService.GetSearchUrl("spyshop.ro camera", "auto");
+
+            Assert.That(result, Is.EqualTo("https://spy-shop.ro/catalogsearch/result/?q=camera&o=relevance"));
         }
 
         // ── Domain blacklists ─────────────────────────────────────────────────
@@ -914,6 +1125,70 @@ namespace NuciSearch.UnitTests.Services
             string result = searchService.GetSearchUrl("osrs quest guide", "text");
 
             Assert.That(result.Contains("strategywiki"));
+        }
+
+        [Test]
+        public void GivenFactorioQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("factorio base design", "text");
+
+            Assert.That(result.Contains("fandom"));
+        }
+
+        [Test]
+        public void GivenWarhammerQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("warhammer lore", "text");
+
+            Assert.That(result.Contains("fandom"));
+        }
+
+        [Test]
+        public void GivenWh40kQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("wh40k space marine", "text");
+
+            Assert.That(result.Contains("fandom"));
+        }
+
+        [Test]
+        public void Given40kQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("40k tau build", "text");
+
+            Assert.That(result.Contains("fandom"));
+        }
+
+        [Test]
+        public void GivenSkyrimQuery_WhenGettingTextSearchUrl_ThenIncludesFextralifeBlacklist()
+        {
+            string result = searchService.GetSearchUrl("skyrim archery build", "text");
+
+            Assert.That(result.Contains("fextralife"));
+        }
+
+        [Test]
+        public void GivenSkyrimQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("skyrim archery build", "text");
+
+            Assert.That(result.Contains("fandom"));
+        }
+
+        [Test]
+        public void GivenBaldurQuery_WhenGettingTextSearchUrl_ThenIncludesFextralifeBlacklist()
+        {
+            string result = searchService.GetSearchUrl("baldur paladin guide", "text");
+
+            Assert.That(result.Contains("fextralife"));
+        }
+
+        [Test]
+        public void GivenBaldurQuery_WhenGettingTextSearchUrl_ThenIncludesFandomBlacklist()
+        {
+            string result = searchService.GetSearchUrl("baldur paladin guide", "text");
+
+            Assert.That(result.Contains("fandom"));
         }
 
         // ── Deobfuscation ─────────────────────────────────────────────────────
@@ -994,6 +1269,17 @@ namespace NuciSearch.UnitTests.Services
             string result2 = searchService.GetSearchUrl("emag laptop", "auto");
 
             Assert.That(result1, Is.EqualTo(result2));
+        }
+
+        // ── Text search fallback ──────────────────────────────────────────────
+
+        [Test]
+        public void GivenMultiWordQueryWithNoKeyword_WhenGettingSearchUrl_ThenReturnsTextSearchUrl()
+        {
+            string result = searchService.GetSearchUrl("dark souls guide", "auto");
+
+            Assert.That(result.StartsWith("https://search.brave.com/search?q=")
+                     || result.StartsWith("https://duckduckgo.com/?q="));
         }
     }
 }
