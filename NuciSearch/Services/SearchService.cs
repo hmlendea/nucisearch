@@ -14,19 +14,54 @@ namespace NuciSearch.Services
     {
         private static readonly INuciTextObfuscator obfuscator = new NuciTextObfuscator();
 
-        private static readonly Regex arcenservKeywordsPattern = new(@"\b(?:terraria)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex fextralifeKeywordsPattern = new(@"\b(?:baldur|bg3|borderlands|don'*t\s*starve|eso|elder\s*scrolls|skyrim|tes)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex fandomKeywordsPattern = new(@"\b(?:40k|baldur|bg3|don'*t\s*starve|eso|factorio|mc|minecraft|terraria|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp|game\s*of\s*thrones|warhammer|wh40k)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex huijiwikiKeywordsPattern = new(@"\b(?:borderlands)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex neoseekerKeywordsPattern = new(@"\b(?:osrs|runescape|terraria)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex strategywikiKeywordsPattern = new(@"\b(?:osrs|runescape)\b", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex arcenservKeywordsPattern = new(
+            @"\b(?:terraria)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex fextralifeKeywordsPattern = new(
+            @"\b(?:baldur|bg3|borderlands|don'*t\s*starve|eso|elder\s*scrolls|skyrim|tes)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex fandomKeywordsPattern = new(
+            @"\b(?:40k|baldur|bg3|don'*t\s*starve|eso|factorio|mc|minecraft|terraria"
+                + @"|elder\s*scrolls|osrs|skyrim|tes|runescape|puzzle\s*pirates|ypp"
+                + @"|game\s*of\s*thrones|warhammer|wh40k)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex huijiwikiKeywordsPattern = new(
+            @"\b(?:borderlands)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex neoseekerKeywordsPattern = new(
+            @"\b(?:osrs|runescape|terraria)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex strategywikiKeywordsPattern = new(
+            @"\b(?:osrs|runescape)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex whitespacePattern = new(@"\s+", RegexOptions.Compiled);
-        private static readonly Regex zeroWidthCharactersPattern = new(@"[\u200B-\u200D\uFEFF]", RegexOptions.Compiled);
-        private static readonly Regex jiraPattern = new(@"^(?:AAP|AV|AND|CP)-\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex rallyPattern = new(@"^(?:DE|F|US)[0-9]{6,8}$", RegexOptions.Compiled);
-        private static readonly Regex wikiDataPattern = new(@"^Q\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex currencyPattern = new(@"^\d[\d.,]*\s+\w+\s+(?:in|în|to)\s+\w+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex ipAddressQueryPattern = new(@"^(?:my|current)\s+ip(?:\s+address)?$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex zeroWidthCharactersPattern = new(
+            @"[\u200B-\u200D\uFEFF]", RegexOptions.Compiled);
+
+        private static readonly Regex jiraPattern = new(
+            @"^(?:AAP|AV|AND|CP)-\d+$",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex rallyPattern = new(
+            @"^(?:DE|F|US)[0-9]{6,8}$", RegexOptions.Compiled);
+
+        private static readonly Regex wikiDataPattern = new(
+            @"^Q\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex currencyPattern = new(
+            @"^\d[\d.,]*\s+\w+\s+(?:in|în|to)\s+\w+$",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex ipAddressQueryPattern = new(
+            @"^(?:my|current)\s+ip(?:\s+address)?$",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public string GetSearchUrl(string rawQuery, string searchType)
         {
@@ -50,23 +85,25 @@ namespace NuciSearch.Services
 
                 string url;
 
-                if (searchType.Equals("images", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(searchType, "images", StringComparison.OrdinalIgnoreCase))
                 {
                     url = GetDuckDuckGoImagesUrl(query);
                 }
-                else if (searchType.Equals("maps", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(searchType, "maps", StringComparison.OrdinalIgnoreCase))
                 {
                     url = GetGoogleMapsUrl(query);
                 }
-                else if (searchType.Equals("torrents", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(
+                    searchType, "torrents", StringComparison.OrdinalIgnoreCase))
                 {
                     url = GetYandexTorrentsUrl(query);
                 }
-                else if (searchType.Equals("videos", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(
+                    searchType, "videos", StringComparison.OrdinalIgnoreCase))
                 {
                     url = GetYouTubeUrl(query);
                 }
-                else if (searchType.Equals("text", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(searchType, "text", StringComparison.OrdinalIgnoreCase))
                 {
                     url = GetTextSearch(query);
                 }
@@ -82,18 +119,29 @@ namespace NuciSearch.Services
                     new(NuciSearchLogInfoKey.Url, url)
                 ];
 
-                logger.Info(NuciSearchOperation.Search, OperationStatus.Success, successLogInfos);
+                logger.Info(
+                    NuciSearchOperation.Search,
+                    OperationStatus.Success,
+                    successLogInfos);
+
                 return url;
             }
             catch (Exception exception)
             {
-                logger.Error(NuciSearchOperation.Search, OperationStatus.Failure, exception, logInfos);
+                logger.Error(
+                    NuciSearchOperation.Search,
+                    OperationStatus.Failure,
+                    exception,
+                    logInfos);
+
                 throw;
             }
         }
 
         private static string GetAliExpressUrl(string query)
-            => $"https://www.aliexpress.com/w/wholesale-{whitespacePattern.Replace(query.Trim(), "-")}.html?spm=a2g0o.detail.search.0";
+            => "https://www.aliexpress.com/w/wholesale-"
+                + whitespacePattern.Replace(query.Trim(), "-")
+                + ".html?spm=a2g0o.detail.search.0";
 
         private static string GetAltexUrl(string query)
             => $"https://altex.ro/cauta/?q={Uri.EscapeDataString(query)}";
@@ -111,7 +159,9 @@ namespace NuciSearch.Services
             => $"https://audible.com/search?advsearchKeywords={Uri.EscapeDataString(query)}";
 
         private static string GetBoobpediaUrl(string query)
-            => $"https://boobpedia.com/wiki/index.php?title=Special%3ASearch&search={Uri.EscapeDataString(query)}&go=Go";
+            => "https://boobpedia.com/wiki/index.php?title=Special%3ASearch&search="
+                + Uri.EscapeDataString(query)
+                + "&go=Go";
 
         private static string GetCarturestiUrl(string query)
             => $"https://carturesti.ro/product/search/{Uri.EscapeDataString(query)}";
@@ -148,12 +198,14 @@ namespace NuciSearch.Services
 
         private static string GetFirefoxExtensionsUrl(string query)
         {
-            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            if (string.Equals(CultureInfo.CurrentUICulture.Name, "ro-RO"))
             {
-                return $"https://addons.mozilla.org/ro/firefox/search/?q={Uri.EscapeDataString(query)}";
+                return "https://addons.mozilla.org/ro/firefox/search/?q="
+                    + Uri.EscapeDataString(query);
             }
 
-            return $"https://addons.mozilla.org/en-GB/firefox/search/?q={Uri.EscapeDataString(query)}";
+            return "https://addons.mozilla.org/en-GB/firefox/search/?q="
+                + Uri.EscapeDataString(query);
         }
 
         private static string GetFlancoUrl(string query)
@@ -176,7 +228,7 @@ namespace NuciSearch.Services
 
         private static string GetGoogleMapsUrl(string query)
         {
-            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            if (string.Equals(CultureInfo.CurrentUICulture.Name, "ro-RO"))
             {
                 return $"https://google.ro/maps/search/{Uri.EscapeDataString(query)}";
             }
@@ -189,7 +241,7 @@ namespace NuciSearch.Services
 
         private static string GetIkeaUrl(string query)
         {
-            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            if (string.Equals(CultureInfo.CurrentUICulture.Name, "ro-RO"))
             {
                 return $"https://ikea.com/ro/ro/search/?q={Uri.EscapeDataString(query)}";
             }
@@ -213,10 +265,12 @@ namespace NuciSearch.Services
             => $"https://lidl.ro/q/search?q={Uri.EscapeDataString(query)}";
 
         private static string GetLinkedinUrl(string query)
-            => $"https://linkedin.com/search/results/all/?keywords={Uri.EscapeDataString(query)}";
+            => "https://linkedin.com/search/results/all/?keywords="
+                + Uri.EscapeDataString(query);
 
         private static string GetMinecraftHeadsUrl(string query)
-            => $"https://minecraft-heads.com/custom-heads/search?searchterm={Uri.EscapeDataString(query)}";
+            => "https://minecraft-heads.com/custom-heads/search?searchterm="
+                + Uri.EscapeDataString(query);
 
         private static string GetMinecraftWikiUrl(string query)
             => $"https://minecraft.wiki/?search={Uri.EscapeDataString(query)}";
@@ -255,7 +309,8 @@ namespace NuciSearch.Services
             => $"https://play.google.com/store/search?q={Uri.EscapeDataString(query)}";
 
         private static string GetPlexUrl(string query)
-            => $"https://app.plex.tv/desktop/#!/search?pivot=top&query={Uri.EscapeDataString(query)}";
+            => "https://app.plex.tv/desktop/#!/search?pivot=top&query="
+                + Uri.EscapeDataString(query);
 
         private static string GetProtonDbUrl(string query)
             => $"https://protondb.com/search?q={Uri.EscapeDataString(query)}";
@@ -264,7 +319,8 @@ namespace NuciSearch.Services
             => $"https://wikidata.org/wiki/{Uri.EscapeDataString(query.ToUpperInvariant())}";
 
         private static string GetJiraUrl(string query)
-            => $"https://worldpay.atlassian.net/browse/{Uri.EscapeDataString(query.ToUpperInvariant())}";
+            => "https://worldpay.atlassian.net/browse/"
+                + Uri.EscapeDataString(query.ToUpperInvariant());
 
         private static string GetRallyUrl(string query)
             => $"https://rally1.rallydev.com/#/search?keywords={Uri.EscapeDataString(query)}";
@@ -276,10 +332,14 @@ namespace NuciSearch.Services
             => $"https://sinsay.com/ro/ro/?query={Uri.EscapeDataString(query)}";
 
         private static string GetSpigotUrl(string query)
-            => $"https://spigotmc.org/search/294718421/?q={Uri.EscapeDataString(query)}&o=relevance";
+            => "https://spigotmc.org/search/294718421/?q="
+                + Uri.EscapeDataString(query)
+                + "&o=relevance";
 
         private static string GetSpyShopUrl(string query)
-            => $"https://spy-shop.ro/catalogsearch/result/?q={Uri.EscapeDataString(query)}&o=relevance";
+            => "https://spy-shop.ro/catalogsearch/result/?q="
+                + Uri.EscapeDataString(query)
+                + "&o=relevance";
 
         private static string GetSteamDbUrl(string query)
             => $"https://steamdb.info/search/?a=all&q={Uri.EscapeDataString(query)}";
@@ -326,14 +386,15 @@ namespace NuciSearch.Services
             string encodedQuery = Uri.EscapeDataString(query);
             string langCode = "en";
 
-            if (CultureInfo.CurrentUICulture.Name.Equals("ro-RO"))
+            if (string.Equals(CultureInfo.CurrentUICulture.Name, "ro-RO"))
             {
                 langCode = "ro";
             }
 
             string[] instances = [
                 $"https://{langCode}.wikipedia.org/w/index.php?search={encodedQuery}",
-                $"https://wikiless.tiekoetter.com/w/index.php?search={encodedQuery}&lang={langCode}",
+                $"https://wikiless.tiekoetter.com/w/index.php?search={encodedQuery}"
+                    + $"&lang={langCode}",
             ];
 
             return instances[Random.Shared.Next(instances.Length)];
@@ -405,23 +466,28 @@ namespace NuciSearch.Services
             {
                 return GetJiraUrl(query);
             }
-            else if (rallyPattern.IsMatch(query))
+
+            if (rallyPattern.IsMatch(query))
             {
                 return GetRallyUrl(query);
             }
-            else if (wikiDataPattern.IsMatch(query))
+
+            if (wikiDataPattern.IsMatch(query))
             {
                 return GetWikiDataUrl(query);
             }
-            else if (currencyPattern.IsMatch(query))
+
+            if (currencyPattern.IsMatch(query))
             {
                 return BuildCurrencySearchUrl(query);
             }
-            else if (ipAddressQueryPattern.IsMatch(query))
+
+            if (ipAddressQueryPattern.IsMatch(query))
             {
                 return $"https://duckduckgo.com/?q={Uri.EscapeDataString(query)}";
             }
-            else if (words.Count() >= 2)
+
+            if (words.Count() >= 2)
             {
                 return GetAutoUrlForMultiWordQuery(query, words);
             }
@@ -432,321 +498,405 @@ namespace NuciSearch.Services
         private static string BuildCurrencySearchUrl(string query)
         {
             string currencyQuery = query;
-            currencyQuery = Regex.Replace(currencyQuery, @"în", "in", RegexOptions.IgnoreCase);
-            currencyQuery = Regex.Replace(currencyQuery, @"\b(?:lei|leu)\b", "RON", RegexOptions.IgnoreCase);
-            currencyQuery = Regex.Replace(currencyQuery, @"\beuros?\b", "EUR", RegexOptions.IgnoreCase);
-            currencyQuery = Regex.Replace(currencyQuery, @"\b(?:dollars?|dolari?)\b", "USD", RegexOptions.IgnoreCase);
-            currencyQuery = Regex.Replace(currencyQuery, @"(?:lira|liră|lire)(?=\s|$)", "GBP", RegexOptions.IgnoreCase);
-            currencyQuery = Regex.Replace(currencyQuery, @"\b[a-zA-Z]{3}\b", match => match.Value.ToUpperInvariant());
+            currencyQuery = Regex.Replace(
+                currencyQuery, @"în", "in", RegexOptions.IgnoreCase);
+            currencyQuery = Regex.Replace(
+                currencyQuery, @"\b(?:lei|leu)\b", "RON", RegexOptions.IgnoreCase);
+            currencyQuery = Regex.Replace(
+                currencyQuery, @"\beuros?\b", "EUR", RegexOptions.IgnoreCase);
+            currencyQuery = Regex.Replace(
+                currencyQuery,
+                @"\b(?:dollars?|dolari?)\b",
+                "USD",
+                RegexOptions.IgnoreCase);
+            currencyQuery = Regex.Replace(
+                currencyQuery,
+                @"(?:lira|liră|lire)(?=\s|$)",
+                "GBP",
+                RegexOptions.IgnoreCase);
+            currencyQuery = Regex.Replace(
+                currencyQuery,
+                @"\b[a-zA-Z]{3}\b",
+                match => match.Value.ToUpperInvariant());
 
             return $"https://duckduckgo.com/?q={Uri.EscapeDataString(currencyQuery)}";
         }
 
-        private static string GetAutoUrlForMultiWordQuery(string query, IEnumerable<string> words)
+        private static string GetAutoUrlForMultiWordQuery(
+            string query, IEnumerable<string> words)
         {
-            if (words.Any(word => word.Equals("aliexpress", StringComparison.OrdinalIgnoreCase)))
+            if (ContainsKeyword(words, "aliexpress"))
             {
-                return GetAliExpressUrl(string.Join(" ", words.Where(word => !word.Equals("aliexpress", StringComparison.OrdinalIgnoreCase))));
+                return GetAliExpressUrl(StripKeyword(words, "aliexpress"));
             }
             else if (query.Contains("altex", StringComparison.OrdinalIgnoreCase))
             {
-                return GetAltexUrl(query.Replace("altex", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
+                return GetAltexUrl(query
+                    .Replace("altex", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Trim());
             }
-            else if (words.Any(word => word.Equals("appstore", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("app store", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("apple store", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "appstore") ||
+                ContainsKeyword(words, "app store") ||
+                ContainsKeyword(words, "apple store"))
             {
-                return GetAppStoreUrl(
-                    string.Join(" ", words.Where(word => !word.Equals("appstore", StringComparison.OrdinalIgnoreCase)))
-                        .Replace("app store", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("apple store", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Trim());
+                return GetAppStoreUrl(StripKeyword(words, "appstore")
+                    .Replace("app store", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace("apple store", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Trim());
             }
             else if (query.Contains("arch wiki", StringComparison.OrdinalIgnoreCase))
             {
-                return GetArchWikiUrl(query.Replace("arch wiki", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
+                return GetArchWikiUrl(query
+                    .Replace("arch wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Trim());
             }
-            else if (words.Any(word => word.Equals("auchan", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "auchan"))
             {
-                return GetAuchanUrl(string.Join(" ", words.Where(word => !word.Equals("auchan", StringComparison.OrdinalIgnoreCase))));
+                return GetAuchanUrl(StripKeyword(words, "auchan"));
             }
-            else if (words.Any(word => word.Equals("audible", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "audible"))
             {
-                return GetAudibleUrl(string.Join(" ", words.Where(word => !word.Equals("audible", StringComparison.OrdinalIgnoreCase))));
+                return GetAudibleUrl(StripKeyword(words, "audible"));
             }
-            else if (words.Any(word => word.Equals("boobpedia", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "boobpedia"))
             {
-                return GetBoobpediaUrl(string.Join(" ", words.Where(word => !word.Equals("boobpedia", StringComparison.OrdinalIgnoreCase))));
+                return GetBoobpediaUrl(StripKeyword(words, "boobpedia"));
             }
-            else if (words.Any(word => word.Equals("carturesti", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "carturesti"))
             {
-                return GetCarturestiUrl(string.Join(" ", words.Where(word => !word.Equals("carturesti", StringComparison.OrdinalIgnoreCase))));
+                return GetCarturestiUrl(StripKeyword(words, "carturesti"));
             }
-            else if (words.Any(word => word.Equals("decathlon", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "decathlon"))
             {
-                return GetDecathlonUrl(string.Join(" ", words.Where(word => !word.Equals("decathlon", StringComparison.OrdinalIgnoreCase))));
+                return GetDecathlonUrl(StripKeyword(words, "decathlon"));
             }
-            else if (words.Any(word => word.Equals("dedeman", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "dedeman"))
             {
-                return GetDedemanUrl(string.Join(" ", words.Where(word => !word.Equals("dedeman", StringComparison.OrdinalIgnoreCase))));
+                return GetDedemanUrl(StripKeyword(words, "dedeman"));
             }
-            else if (words.Any(word => word.Equals("dex", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "dex"))
             {
-                return GetDexOnlineUrl(string.Join(" ", words.Where(word => !word.Equals("dex", StringComparison.OrdinalIgnoreCase))));
+                return GetDexOnlineUrl(StripKeyword(words, "dex"));
             }
-            else if (words.Any(word => word.Equals("digi24", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "digi24"))
             {
-                return GetDigi24Url(string.Join(" ", words.Where(word => !word.Equals("digi24", StringComparison.OrdinalIgnoreCase))));
+                return GetDigi24Url(StripKeyword(words, "digi24"));
             }
-            else if (words.Any(word => word.Equals("ebay", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "ebay"))
             {
-                return GetEbayUrl(string.Join(" ", words.Where(word => !word.Equals("ebay", StringComparison.OrdinalIgnoreCase))));
+                return GetEbayUrl(StripKeyword(words, "ebay"));
             }
-            else if (words.Any(word => word.Equals("emag", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "emag"))
             {
-                return GetEmagUrl(string.Join(" ", words.Where(word => !word.Equals("emag", StringComparison.OrdinalIgnoreCase))));
+                return GetEmagUrl(StripKeyword(words, "emag"));
             }
-            else if (words.Any(word => word.Equals("evomag", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "evomag"))
             {
-                return GetEvomagUrl(string.Join(" ", words.Where(word => !word.Equals("evomag", StringComparison.OrdinalIgnoreCase))));
+                return GetEvomagUrl(StripKeyword(words, "evomag"));
             }
-            else if (words.Any(word => word.Equals("facebook", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "facebook"))
             {
-                return GetFacebookUrl(string.Join(" ", words.Where(word => !word.Equals("facebook", StringComparison.OrdinalIgnoreCase))));
+                return GetFacebookUrl(StripKeyword(words, "facebook"));
             }
-            else if (words.Any(word => word.Equals("fdroid", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("f-droid", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "fdroid") || ContainsKeyword(words, "f-droid"))
             {
-                return GetFdroidUrl(string.Join(" ", words.Where(word => !word.Equals("fdroid", StringComparison.OrdinalIgnoreCase)
-                                                                      && !word.Equals("f-droid", StringComparison.OrdinalIgnoreCase))));
+                IEnumerable<string> remainingWords = words.Where(word =>
+                    !string.Equals(word, "fdroid", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(word, "f-droid", StringComparison.OrdinalIgnoreCase));
+
+                return GetFdroidUrl(string.Join(" ", remainingWords));
             }
             else if (query.Contains("firefox extension", StringComparison.OrdinalIgnoreCase))
             {
-                return GetFirefoxExtensionsUrl(query
-                    .Replace("firefox extensions", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Replace("firefox extension", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Trim());
+                string searchQuery = query
+                    .Replace(
+                        "firefox extensions",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "firefox extension",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Trim();
+
+                return GetFirefoxExtensionsUrl(searchQuery);
             }
-            else if (words.Any(word => word.Equals("flanco", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "flanco"))
             {
-                return GetFlancoUrl(string.Join(" ", words.Where(word => !word.Equals("flanco", StringComparison.OrdinalIgnoreCase))));
+                return GetFlancoUrl(StripKeyword(words, "flanco"));
             }
-            else if (words.Any(word => word.Equals("flathub", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "flathub"))
             {
-                return GetFlatHubUrl(string.Join(" ", words.Where(word => !word.Equals("flathub", StringComparison.OrdinalIgnoreCase))));
+                return GetFlatHubUrl(StripKeyword(words, "flathub"));
             }
-            else if (words.Any(word => word.Equals("flip.ro", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "flip.ro"))
             {
-                return GetFlipRoUrl(string.Join(" ", words.Where(word => !word.Equals("flip.ro", StringComparison.OrdinalIgnoreCase))));
+                return GetFlipRoUrl(StripKeyword(words, "flip.ro"));
             }
-            else if (words.Any(word => word.Equals("g2a", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "g2a"))
             {
-                return GetG2aUrl(string.Join(" ", words.Where(word => !word.Equals("g2a", StringComparison.OrdinalIgnoreCase))));
+                return GetG2aUrl(StripKeyword(words, "g2a"));
             }
-            else if (words.Any(word => word.Equals("github", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "github"))
             {
-                return GetGitHubUrl(string.Join(" ", words.Where(word => !word.Equals("github", StringComparison.OrdinalIgnoreCase))));
+                return GetGitHubUrl(StripKeyword(words, "github"));
             }
-            else if (words.Any(word => word.Equals("gog", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "gog"))
             {
-                return GetGogUrl(string.Join(" ", words.Where(word => !word.Equals("gog", StringComparison.OrdinalIgnoreCase))));
+                return GetGogUrl(StripKeyword(words, "gog"));
             }
-            else if (words.Any(word => word.Equals("hornbach", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "hornbach"))
             {
-                return GetHornbachUrl(string.Join(" ", words.Where(word => !word.Equals("hornbach", StringComparison.OrdinalIgnoreCase))));
+                return GetHornbachUrl(StripKeyword(words, "hornbach"));
             }
-            else if (words.Any(word => word.Equals("ikea", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "ikea"))
             {
-                return GetIkeaUrl(string.Join(" ", words.Where(word => !word.Equals("ikea", StringComparison.OrdinalIgnoreCase))));
+                return GetIkeaUrl(StripKeyword(words, "ikea"));
             }
-            else if (words.Any(word => word.Equals("imdb", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "imdb"))
             {
-                return GetImdbUrl(string.Join(" ", words.Where(word => !word.Equals("imdb", StringComparison.OrdinalIgnoreCase))));
+                return GetImdbUrl(StripKeyword(words, "imdb"));
             }
-            else if (words.Any(word => word.Equals("instagram", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "instagram"))
             {
-                return GetInstagramUrl(string.Join(" ", words.Where(word => !word.Equals("instagram", StringComparison.OrdinalIgnoreCase))));
+                return GetInstagramUrl(StripKeyword(words, "instagram"));
             }
-            else if (words.Any(word => word.Equals("jysk", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "jysk"))
             {
-                return GetJyskUrl(string.Join(" ", words.Where(word => !word.Equals("jysk", StringComparison.OrdinalIgnoreCase))));
+                return GetJyskUrl(StripKeyword(words, "jysk"));
             }
             else if (query.Contains("leroy merlin", StringComparison.OrdinalIgnoreCase))
             {
-                return GetLeroyMerlinUrl(query.Replace("leroy merlin", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
-            }
-            else if (words.Any(word => word.Equals("lidl", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetLidlUrl(string.Join(" ", words.Where(word => !word.Equals("lidl", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (words.Any(word => word.Equals("linkedin", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetLinkedinUrl(string.Join(" ", words.Where(word => !word.Equals("linkedin", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (words.Any(word => word.Equals("moddb", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetModDbUrl(string.Join(" ", words.Where(word => !word.Equals("moddb", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (query.Contains("mc wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("minecraft wiki", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetMinecraftWikiUrl(query
-                    .Replace("mc wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Replace("minecraft wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                return GetLeroyMerlinUrl(query
+                    .Replace(
+                        "leroy merlin",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
                     .Trim());
             }
-            else if (query.Contains("mc head", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("minecraft head", StringComparison.OrdinalIgnoreCase))
+            else if (ContainsKeyword(words, "lidl"))
             {
-                return GetMinecraftHeadsUrl(query
-                    .Replace("minecraft heads", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Replace("minecraft head", string.Empty, StringComparison.OrdinalIgnoreCase)
+                return GetLidlUrl(StripKeyword(words, "lidl"));
+            }
+            else if (ContainsKeyword(words, "linkedin"))
+            {
+                return GetLinkedinUrl(StripKeyword(words, "linkedin"));
+            }
+            else if (ContainsKeyword(words, "moddb"))
+            {
+                return GetModDbUrl(StripKeyword(words, "moddb"));
+            }
+            else if (query.Contains("mc wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("minecraft wiki", StringComparison.OrdinalIgnoreCase))
+            {
+                string searchQuery = query
+                    .Replace("mc wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "minecraft wiki",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Trim();
+
+                return GetMinecraftWikiUrl(searchQuery);
+            }
+            else if (query.Contains("mc head", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("minecraft head", StringComparison.OrdinalIgnoreCase))
+            {
+                string searchQuery = query
+                    .Replace(
+                        "minecraft heads",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "minecraft head",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
                     .Replace("mc heads", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Replace("mc head", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Trim());
+                    .Trim();
+
+                return GetMinecraftHeadsUrl(searchQuery);
             }
-            else if (query.Contains("mc schematic", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("minecraft schematic", StringComparison.OrdinalIgnoreCase))
+            else if (query.Contains("mc schematic", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("minecraft schematic", StringComparison.OrdinalIgnoreCase))
             {
-                return GetPlanetMinecraftSchematicsUrl(query
-                    .Replace("minecraft schematics", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Replace("minecraft schematic", string.Empty, StringComparison.OrdinalIgnoreCase)
-                    .Replace("mc schematics", string.Empty, StringComparison.OrdinalIgnoreCase)
+                string searchQuery = query
+                    .Replace(
+                        "minecraft schematics",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "minecraft schematic",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "mc schematics",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
                     .Replace("mc schematic", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Trim();
+
+                return GetPlanetMinecraftSchematicsUrl(searchQuery);
+            }
+            else if (ContainsKeyword(words, "namemc"))
+            {
+                return GetNameMcUrl(StripKeyword(words, "namemc"));
+            }
+            else if (ContainsKeyword(words, "netflix"))
+            {
+                return GetNetflixUrl(StripKeyword(words, "netflix"));
+            }
+            else if (ContainsKeyword(words, "nexusmods") ||
+                ContainsKeyword(words, "nexus mods"))
+            {
+                return GetNexusModsUrl(StripKeyword(words, "nexusmods")
+                    .Replace("nexus mods", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Trim());
             }
-            else if (words.Any(word => word.Equals("namemc", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "odysee"))
             {
-                return GetNameMcUrl(string.Join(" ", words.Where(word => !word.Equals("namemc", StringComparison.OrdinalIgnoreCase))));
+                return GetOdyseeUrl(StripKeyword(words, "odysee"));
             }
-            else if (words.Any(word => word.Equals("netflix", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "olx"))
             {
-                return GetNetflixUrl(string.Join(" ", words.Where(word => !word.Equals("netflix", StringComparison.OrdinalIgnoreCase))));
+                return GetOlxUrl(StripKeyword(words, "olx"));
             }
-            else if (words.Any(word => word.Equals("nexusmods", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("nexus mods", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "pcgarage"))
             {
-                return GetNexusModsUrl(
-                    string.Join(" ", words.Where(word => !word.Equals("nexusmods", StringComparison.OrdinalIgnoreCase)))
-                        .Replace("nexus mods", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Trim());
+                return GetPcGarageUrl(StripKeyword(words, "pcgarage"));
             }
-            else if (words.Any(word => word.Equals("odysee", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "pinterest"))
             {
-                return GetOdyseeUrl(string.Join(" ", words.Where(word => !word.Equals("odysee", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (words.Any(word => word.Equals("olx", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetOlxUrl(string.Join(" ", words.Where(word => !word.Equals("olx", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (words.Any(word => word.Equals("pcgarage", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetPcGarageUrl(string.Join(" ", words.Where(word => !word.Equals("pcgarage", StringComparison.OrdinalIgnoreCase))));
-            }
-            else if (words.Any(word => word.Equals("pinterest", StringComparison.OrdinalIgnoreCase)))
-            {
-                return GetPinterestUrl(string.Join(" ", words.Where(word => !word.Equals("pinterest", StringComparison.OrdinalIgnoreCase))));
+                return GetPinterestUrl(StripKeyword(words, "pinterest"));
             }
             else if (query.Contains("planet minecraft", StringComparison.OrdinalIgnoreCase))
             {
-                return GetPlanetMinecraftUrl(query.Replace("planet minecraft", string.Empty, StringComparison.OrdinalIgnoreCase).Trim());
+                return GetPlanetMinecraftUrl(query
+                    .Replace(
+                        "planet minecraft",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Trim());
             }
-            else if (query.Contains("play store", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("playstore", StringComparison.OrdinalIgnoreCase))
+            else if (query.Contains("play store", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("playstore", StringComparison.OrdinalIgnoreCase))
             {
                 return GetPlayStoreUrl(query
                     .Replace("play store", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Replace("playstore", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Trim());
             }
-            else if (words.Any(word => word.Equals("plex", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "plex"))
             {
-                return GetPlexUrl(string.Join(" ", words.Where(word => !word.Equals("plex", StringComparison.OrdinalIgnoreCase))));
+                return GetPlexUrl(StripKeyword(words, "plex"));
             }
-            else if (words.Any(word => word.Equals("protondb", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "protondb"))
             {
-                return GetProtonDbUrl(string.Join(" ", words.Where(word => !word.Equals("protondb", StringComparison.OrdinalIgnoreCase))));
+                return GetProtonDbUrl(StripKeyword(words, "protondb"));
             }
-            else if (words.Any(word => word.Equals("reddit", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "reddit"))
             {
-                return GetRedditUrl(string.Join(" ", words.Where(word => !word.Equals("reddit", StringComparison.OrdinalIgnoreCase))));
+                return GetRedditUrl(StripKeyword(words, "reddit"));
             }
-            else if (words.Any(word => word.Equals("rtings", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "rtings"))
             {
-                return GetRtingsUrl(string.Join(" ", words.Where(word => !word.Equals("rtings", StringComparison.OrdinalIgnoreCase))));
+                return GetRtingsUrl(StripKeyword(words, "rtings"));
             }
-            else if (words.Any(word => word.Equals("sinsay", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "sinsay"))
             {
-                return GetSinsayUrl(string.Join(" ", words.Where(word => !word.Equals("sinsay", StringComparison.OrdinalIgnoreCase))));
+                return GetSinsayUrl(StripKeyword(words, "sinsay"));
             }
-            else if (words.Any(word => word.Equals("spigot", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "spigot"))
             {
-                return GetSpigotUrl(string.Join(" ", words.Where(word => !word.Equals("spigot", StringComparison.OrdinalIgnoreCase))));
+                return GetSpigotUrl(StripKeyword(words, "spigot"));
             }
-            else if (words.Any(word => word.Equals("spyshop", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("spyshop.ro", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("spy-shop", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("spy-shop.ro", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "spyshop") ||
+                ContainsKeyword(words, "spyshop.ro") ||
+                ContainsKeyword(words, "spy-shop") ||
+                ContainsKeyword(words, "spy-shop.ro"))
             {
-                return GetSpyShopUrl(string.Join(" ", words.Where(word =>
-                    !word.Equals("spyshop", StringComparison.OrdinalIgnoreCase)
-                 && !word.Equals("spyshop.ro", StringComparison.OrdinalIgnoreCase)
-                 && !word.Equals("spy-shop", StringComparison.OrdinalIgnoreCase)
-                 && !word.Equals("spy-shop.ro", StringComparison.OrdinalIgnoreCase))));
+                IEnumerable<string> remainingWords = words.Where(word =>
+                    !string.Equals(word, "spyshop", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(word, "spyshop.ro", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(word, "spy-shop", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(word, "spy-shop.ro", StringComparison.OrdinalIgnoreCase));
+
+                return GetSpyShopUrl(string.Join(" ", remainingWords));
             }
-            else if (words.Any(word => word.Equals("steamdb", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "steamdb"))
             {
-                return GetSteamDbUrl(string.Join(" ", words.Where(word => !word.Equals("steamdb", StringComparison.OrdinalIgnoreCase))));
+                return GetSteamDbUrl(StripKeyword(words, "steamdb"));
             }
-            else if (words.Any(word => word.Equals("tripadvisor", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "tripadvisor"))
             {
-                return GetTripadvisorUrl(string.Join(" ", words.Where(word => !word.Equals("tripadvisor", StringComparison.OrdinalIgnoreCase))));
+                return GetTripadvisorUrl(StripKeyword(words, "tripadvisor"));
             }
-            else if (words.Any(word => word.Equals("tvdb", StringComparison.OrdinalIgnoreCase)
-                                    || word.Equals("thetvdb", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "tvdb") || ContainsKeyword(words, "thetvdb"))
             {
-                return GetTvdbUrl(string.Join(" ", words.Where(word =>
-                    !word.Equals("tvdb", StringComparison.OrdinalIgnoreCase)
-                 && !word.Equals("thetvdb", StringComparison.OrdinalIgnoreCase))));
+                IEnumerable<string> remainingWords = words.Where(word =>
+                    !string.Equals(word, "tvdb", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(word, "thetvdb", StringComparison.OrdinalIgnoreCase));
+
+                return GetTvdbUrl(string.Join(" ", remainingWords));
             }
-            else if (query.Contains("uesp", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("elder scrolls wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("eso wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("morrowind wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("oblivion wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("skyrim wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("tes wiki", StringComparison.OrdinalIgnoreCase)
-                  || query.Contains("the elder scrolls wiki", StringComparison.OrdinalIgnoreCase))
+            else if (query.Contains("uesp", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("elder scrolls wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("eso wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("morrowind wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("oblivion wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("skyrim wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("tes wiki", StringComparison.OrdinalIgnoreCase) ||
+                query.Contains("the elder scrolls wiki", StringComparison.OrdinalIgnoreCase))
             {
-                return GetUespUrl(
-                    string.Join(" ", words.Where(word => !word.Equals("uesp", StringComparison.OrdinalIgnoreCase)))
-                        .Replace("elder scrolls wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("eso wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("morrowind wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("oblivion wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("skyrim wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("tes wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Replace("the elder scrolls wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
-                        .Trim());
+                string searchQuery = StripKeyword(words, "uesp")
+                    .Replace(
+                        "elder scrolls wiki",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace("eso wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "morrowind wiki",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Replace("oblivion wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace("skyrim wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace("tes wiki", string.Empty, StringComparison.OrdinalIgnoreCase)
+                    .Replace(
+                        "the elder scrolls wiki",
+                        string.Empty,
+                        StringComparison.OrdinalIgnoreCase)
+                    .Trim();
+
+                return GetUespUrl(searchQuery);
             }
-            else if (words.Any(word => word.Equals("vinted", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "vinted"))
             {
-                return GetVintedUrl(string.Join(" ", words.Where(word => !word.Equals("vinted", StringComparison.OrdinalIgnoreCase))));
+                return GetVintedUrl(StripKeyword(words, "vinted"));
             }
-            else if (words.Any(word => word.Equals("wikidata", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "wikidata"))
             {
-                return GetWikiDataSearchUrl(string.Join(" ", words.Where(word => !word.Equals("wikidata", StringComparison.OrdinalIgnoreCase))));
+                return GetWikiDataSearchUrl(StripKeyword(words, "wikidata"));
             }
-            else if (words.Any(word => word.Equals("wikipedia", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "wikipedia"))
             {
-                return GetWikiPediaUrl(string.Join(" ", words.Where(word => !word.Equals("wikipedia", StringComparison.OrdinalIgnoreCase))));
+                return GetWikiPediaUrl(StripKeyword(words, "wikipedia"));
             }
-            else if (words.Any(word => word.Equals("youtube", StringComparison.OrdinalIgnoreCase)))
+            else if (ContainsKeyword(words, "youtube"))
             {
-                return GetYouTubeUrl(string.Join(" ", words.Where(word => !word.Equals("youtube", StringComparison.OrdinalIgnoreCase))));
+                return GetYouTubeUrl(StripKeyword(words, "youtube"));
             }
 
             return GetTextSearch(query);
         }
+
+        private static bool ContainsKeyword(IEnumerable<string> words, string keyword)
+            => words.Any(word =>
+                string.Equals(word, keyword, StringComparison.OrdinalIgnoreCase));
+
+        private static string StripKeyword(IEnumerable<string> words, string keyword)
+            => string.Join(
+                " ",
+                words.Where(word =>
+                    !string.Equals(word, keyword, StringComparison.OrdinalIgnoreCase)));
     }
 }

@@ -6,9 +6,11 @@ using NuciSearch.Services;
 
 namespace NuciSearch.Localisation
 {
-    public sealed class IpCultureProvider(IGeolocationService geolocationService) : IRequestCultureProvider
+    public sealed class IpCultureProvider(
+        IGeolocationService geolocationService) : IRequestCultureProvider
     {
-        public async Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
+        public async Task<ProviderCultureResult?> DetermineProviderCultureResult(
+            HttpContext httpContext)
         {
             string ipAddress = string.Empty;
 
@@ -17,7 +19,8 @@ namespace NuciSearch.Localisation
                 ipAddress = httpContext.Connection.RemoteIpAddress.ToString();
             }
 
-            if (httpContext.Request.Headers.TryGetValue("X-Forwarded-For", out StringValues forwardedFor))
+            if (httpContext.Request.Headers.TryGetValue(
+                "X-Forwarded-For", out StringValues forwardedFor))
             {
                 string firstIp = forwardedFor.ToString().Split(',')[0].Trim();
 
@@ -30,7 +33,7 @@ namespace NuciSearch.Localisation
             string countryCode = await geolocationService.GetCountryCodeAsync(ipAddress);
             string culture = "en-GB";
 
-            if (countryCode.Equals("RO"))
+            if (string.Equals(countryCode, "RO"))
             {
                 culture = "ro-RO";
             }
