@@ -8,7 +8,10 @@ using NuciSearch.Logging;
 
 namespace NuciSearch.Services
 {
-    public sealed class GeolocationService(IHttpClientFactory httpClientFactory, IMemoryCache cache, ILogger logger) : IGeolocationService
+    public sealed class GeolocationService(
+        IHttpClientFactory httpClientFactory,
+        IMemoryCache cache,
+        ILogger logger) : IGeolocationService
     {
         public async Task<string> GetCountryCodeAsync(string ipAddress)
         {
@@ -43,7 +46,10 @@ namespace NuciSearch.Services
             }
             catch (Exception exception)
             {
-                logger.Error(NuciSearchOperation.GetCountryCode, OperationStatus.Failure, exception,
+                logger.Error(
+                    NuciSearchOperation.GetCountryCode,
+                    OperationStatus.Failure,
+                    exception,
                     [new(NuciSearchLogInfoKey.IpAddress, ipAddress)]);
 
                 return "GB";
@@ -57,7 +63,7 @@ namespace NuciSearch.Services
                 return true;
             }
 
-            if (ipAddress.Equals("::1") || ipAddress.Equals("127.0.0.1"))
+            if (string.Equals(ipAddress, "::1") || string.Equals(ipAddress, "127.0.0.1"))
             {
                 return true;
             }

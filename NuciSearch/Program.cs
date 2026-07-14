@@ -36,10 +36,12 @@ namespace NuciSearch
                 options.DefaultRequestCulture = new RequestCulture("en-GB");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
-                options.RequestCultureProviders = [app.Services.GetRequiredService<IpCultureProvider>()];
+                options.RequestCultureProviders =
+                    [app.Services.GetRequiredService<IpCultureProvider>()];
             });
 
-            app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+            app.UseStatusCodePagesWithReExecute(
+                "/not-found", createScopeForStatusCodePages: true);
             app.UseAntiforgery();
 
             app.MapGet("/opensearch.xml", (IStringLocalizer<SharedResources> L) =>
@@ -54,7 +56,10 @@ namespace NuciSearch
                         <Url type="text/html" method="get" template="https://search.nuilandia.ro?q={searchTerms}" />
                     </OpenSearchDescription>
                     """;
-                return Results.Content(xml, "application/opensearchdescription+xml", System.Text.Encoding.UTF8);
+                return Results.Content(
+                    xml,
+                    "application/opensearchdescription+xml",
+                    Encoding.UTF8);
             });
 
             app.MapStaticAssets();

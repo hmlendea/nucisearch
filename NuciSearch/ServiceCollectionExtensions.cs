@@ -10,7 +10,8 @@ namespace NuciSearch
 {
     internal static class ServiceCollectionExtensions
     {
-        internal static IServiceCollection AddNuciSearchServices(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddNuciSearchServices(
+            this IServiceCollection services, IConfiguration configuration)
         {
             NuciLoggerSettings loggingSettings = new();
             configuration.Bind(nameof(NuciLoggerSettings), loggingSettings);
