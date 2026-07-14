@@ -2,23 +2,24 @@
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/nucisearch)](https://github.com/hmlendea/nucisearch/releases/latest)
 [![Build Status](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gnu.org/licenses/gpl-3.0)
+
 # NuciSearch
 
 A lightweight and minimalist search engine wrapper built around existing search services.
 
-NuciSearch provides a simple search interface that redirects queries to specialized engines such as DuckDuckGo, YouTube, or Google Maps, depending on the selected search mode.
+NuciSearch provides a simple search interface that redirects queries to specialised engines such as DuckDuckGo, YouTube, or Google Maps, depending on the selected search mode.
 
 The goal is to provide a **clean, fast, and dependency-free search page** that can be self-hosted and easily integrated with browsers via OpenSearch.
 
-# Features
+## Features
 
 - Minimal and lightweight design
 - No external dependencies
-- Self-hostable static site
+- Self-hostable
 - OpenSearch support (can be installed as a browser search engine)
 - Multiple search modes:
   - **Auto** → keyword-based routing or fallback text search
-  - **Text** → randomized web search (Brave / DuckDuckGo)
+  - **Text** → randomised web search (Brave / DuckDuckGo)
   - **Images** → DuckDuckGo Image Search
   - **Torrents** → Yandex search with "Torrent" suffix
   - **Videos** → Yewtu.be (YouTube privacy frontend)
@@ -26,23 +27,20 @@ The goal is to provide a **clean, fast, and dependency-free search page** that c
 - Query parameter support (`?q=`)
 - Works as a browser search provider
 
-## Requirements
-
-- .NET SDK/runtime with support for `net10.0`
-
 ## Auto Integrations
 
-When using **Auto** mode, queries are routed to specialized providers based on pattern matching or keywords.
+When using **Auto** mode, queries are routed to specialised providers based on pattern matching or keywords.
 
 ### Pattern-based (no keyword needed)
 
 - **JIRA** (Worldpay) — queries matching `AAP-###`, `AV-###`, `AND-###`, `CP-###`
 - **Rally** — queries matching `DE`, `F`, or `US` followed by 6–8 digits
+- **Wikidata** — queries matching `Q[digits]` (e.g. `Q42`) → Wikidata item page
 - **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
-  - Normalises `în` → `in`, `euro` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
+  - Normalises `în` → `in`, `euro`/`euros` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
   - Uppercases all 3-letter currency codes
 - **IP address lookup** — queries `my ip`, `current ip`, `my ip address`, or `current ip address` → DuckDuckGo
-- **Wiki blacklists** — for media-related searches (video games, TV series, etc), non-primary wikis (fandom.com, wiki.fextralife.com, arcenserv.info, huijiwiki.com, neoseeker.com, strategywiki.org) are excluded in favour of the official or community-preferred wiki for that franchise, where applicable
+- **Wiki blacklists** — for media-related searches (video games, TV series, etc.), non-primary wikis (fandom.com, wiki.fextralife.com, arcenserv.info, huijiwiki.com, neoseeker.com, strategywiki.org) are excluded in favour of the official or community-preferred wiki for that franchise, where applicable
 
 ### Keyword-triggered
 
@@ -103,43 +101,49 @@ When using **Auto** mode, queries are routed to specialized providers based on p
 - **TVDB** — keyword: `tvdb` or `thetvdb`
 - **UESP** *(Unofficial Elder Scrolls Pages)* — keyword: `uesp`, `elder scrolls wiki`, `eso wiki`, `morrowind wiki`, `oblivion wiki`, `skyrim wiki`, `tes wiki`, or `the elder scrolls wiki`
 - **Vinted** — keyword: `vinted`
-- **Wikipedia** (via Wikiless) — keyword: `wikipedia`
+- **Wikidata** — keyword: `wikidata`
+- **Wikipedia** (randomised: Wikipedia / Wikiless) — keyword: `wikipedia`
 - **YouTube** (via yewtu.be) — keyword: `youtube`
 
-# Browser Integration
+## Browser Integration
 
 NuciSearch supports **OpenSearch**, allowing it to be installed as a search engine in browsers.
 
 OpenSearch description: https://search.nuilandia.ro/opensearch.xml
 
-# Self-Hosting
+## Configuration
 
-NuciSearch is an ASP.NET Core Blazor Server application targeting **.NET 10**.
+All settings are loaded from `appsettings.json`. The following keys are recognised:
 
-To publish and host it:
-
-```bash
-dotnet publish -c Release
-```
-
-The output can be deployed to any host that supports .NET 10:
-- A VPS or bare-metal server running the .NET 10 runtime
-- A reverse proxy (Nginx, Caddy, Apache) forwarding to the Kestrel process
-- A container (Docker) with the .NET 10 runtime image
-- Azure App Service or other PaaS platforms with .NET support
+| Section | Key | Description |
+|---------|-----|-------------|
+| `NuciLoggerSettings` | `logFilePath` | Path to the log output file |
+| `NuciLoggerSettings` | `isFileOutputEnabled` | Whether to write logs to a file |
 
 ## Development
+
+### Requirements
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+
+All NuGet dependencies are restored automatically by `dotnet restore`.
 
 ### Build
 
 ```bash
-dotnet build
+dotnet build NuciSearch
 ```
 
-### test
+### Run
 
 ```bash
-dotnet test
+dotnet run --project NuciSearch
+```
+
+### Test
+
+```bash
+dotnet test NuciSearch.slnx
 ```
 
 ### Release
@@ -150,9 +154,35 @@ The repository includes `release.sh`, which delegates to the upstream deployment
 bash ./release.sh 1.0.0
 ```
 
-This script downloads and executes an external release helper from: `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`
+This script downloads and executes an external release helper from `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`.
 
 **Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
+
+## Project Structure
+
+The solution contains the following projects:
+
+- **NuciSearch**: The main ASP.NET Core Blazor Server application
+- **NuciSearch.UnitTests**: Unit tests for the application
+
+Key directories inside `NuciSearch/`:
+
+| Directory | Purpose |
+|-----------|---------|
+| `Components/` | Blazor components (pages and layout) |
+| `Localisation/` | IP-based culture detection |
+| `Logging/` | Logging keys and operation constants |
+| `Resources/` | Localisation resource files |
+| `Services/` | Business logic and search URL generation |
+| `wwwroot/` | Static web assets (CSS, favicon, OpenSearch XML) |
+
+### Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| `NuciLog` | Structured application logging |
+| `NuciLog.Core` | Core logging abstractions |
+| `NuciText.Obfuscation` | Query deobfuscation |
 
 ## Contributing
 
@@ -164,10 +194,9 @@ Contributions are welcome. Please:
 
 ## Support
 
-If you find this project useful, consider funding its development: https://hmlendea.go.ro/fund.html
+If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or giving a ⭐️ on GitHub!
 
 ## License
 
 Licensed under the **GNU General Public License v3.0** or later.
-
 See [LICENSE](./LICENSE) for details.
