@@ -40,6 +40,11 @@ namespace NuciSearch.Services
             @"\b(?:osrs|runescape)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex aSongOfIceAndFireWikiKeywordsPattern = new(
+            @"\b(?:asoiaf|a\s*song\s*of\s*ice\s*and\s*fire|game\s*of\s*thrones"
+                + @"|house\s*of\s*the\s*dragon)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex whitespacePattern = new(@"\s+", RegexOptions.Compiled);
 
         private static readonly Regex zeroWidthCharactersPattern = new(
@@ -433,6 +438,16 @@ namespace NuciSearch.Services
             if (strategywikiKeywordsPattern.IsMatch(query))
             {
                 query += " -site:strategywiki.org";
+            }
+
+            if (aSongOfIceAndFireWikiKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:gameofthrones.fandom.com";
+                query += " -site:hbo-tv.fandom.com";
+                query += " -site:hieloyfuego.fandom.com";
+                query += " -site:iceandfire.fandom.com";
+                query += " -site:listofdeaths.fandom.com";
+                query += " -site:wikiofthrones.com";
             }
 
             return query;
