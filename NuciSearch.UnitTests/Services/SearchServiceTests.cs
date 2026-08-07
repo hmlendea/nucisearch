@@ -919,6 +919,46 @@ namespace NuciSearch.UnitTests.Services
                 searchService.GetSearchUrl("baldur paladin guide", "text"),
                 Does.Contain("fandom"));
 
+        [Test]
+        public void GivenAsoiafWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("asoiaf wiki targaryen", "text"),
+                Does.Contain("wikiofthrones.com")
+                    .And.Contain("gameofthrones.fandom.com")
+                    .And.Contain("hbo-tv.fandom.com")
+                    .And.Contain("listofdeaths.fandom.com")
+                    .And.Contain("hieloyfuego.fandom.com"));
+
+        [Test]
+        public void GivenSongOfIceAndFireWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("a song of ice and fire wiki stark", "text"),
+                Does.Contain("wikiofthrones.com")
+                    .And.Contain("gameofthrones.fandom.com")
+                    .And.Contain("hbo-tv.fandom.com")
+                    .And.Contain("listofdeaths.fandom.com")
+                    .And.Contain("hieloyfuego.fandom.com"));
+
+        [Test]
+        public void GivenGameOfThronesWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("game of thrones wiki jon snow", "text"),
+                Does.Contain("wikiofthrones.com")
+                    .And.Contain("gameofthrones.fandom.com")
+                    .And.Contain("hbo-tv.fandom.com")
+                    .And.Contain("listofdeaths.fandom.com")
+                    .And.Contain("hieloyfuego.fandom.com"));
+
+        [Test]
+        public void GivenHouseOfTheDragonWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("house of the dragon wiki daemon", "text"),
+                Does.Contain("wikiofthrones.com")
+                    .And.Contain("gameofthrones.fandom.com")
+                    .And.Contain("hbo-tv.fandom.com")
+                    .And.Contain("listofdeaths.fandom.com")
+                    .And.Contain("hieloyfuego.fandom.com"));
+
         // ── Deobfuscation ─────────────────────────────────────────────────────
 
         [Test]
