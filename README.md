@@ -5,126 +5,91 @@
 
 # NuciSearch
 
-A lightweight and minimalist search engine wrapper built around existing search services.
+NuciSearch is a lightweight self-hosted search wrapper that routes a query to an appropriate specialised engine based on the selected mode and query pattern.
 
-NuciSearch provides a simple search interface that redirects queries to specialised engines such as DuckDuckGo, YouTube, or Google Maps, depending on the selected search mode.
+## 📑 Table of Contents
 
-The goal is to provide a **clean, fast, and dependency-free search page** that can be self-hosted and easily integrated with browsers via OpenSearch.
+- [Capabilities](#capabilities)
+- [Usage](#usage)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Localisation](#localisation)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Build](#build)
+  - [Run](#run)
+  - [Test](#test)
+  - [Release](#release)
+  - [Dependencies](#dependencies)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [Supporting the Project](#supporting-the-project)
+- [License](#license)
 
-## Features
+## ✨ Capabilities
 
-- Minimal and lightweight design
-- No external dependencies
-- Self-hostable
-- OpenSearch support (can be installed as a browser search engine)
-- Multiple search modes:
-  - **Auto** → keyword-based routing or fallback text search
-  - **Text** → randomised web search (Brave / DuckDuckGo)
-  - **Images** → DuckDuckGo Image Search
-  - **Torrents** → Yandex search with "Torrent" suffix
-  - **Videos** → Yewtu.be (YouTube privacy frontend)
-  - **Locations** → Google Maps
-- Query parameter support (`?q=`)
-- Works as a browser search provider
+- Provides `auto`, `text`, `images`, `torrents`, `videos`, and `maps` search modes
+- Performs pattern-based routing for common query formats (for example issue keys, Wikidata IDs, and currency conversion requests)
+- Integrates with browsers through OpenSearch
 
-## Auto Integrations
+## 🚀 Usage
 
-When using **Auto** mode, queries are routed to specialised providers based on pattern matching or keywords.
+Run the web application, open it in your browser, choose a search mode, and submit your query.
 
-### Pattern-based (no keyword needed)
+The application can also consume `q` from the query string and redirect automatically:
 
-- **JIRA** (Worldpay) — queries matching `AAP-###`, `AV-###`, `AND-###`, `CP-###`
-- **Rally** — queries matching `DE`, `F`, or `US` followed by 6–8 digits
-- **Wikidata** — queries matching `Q[digits]` (e.g. `Q42`) → Wikidata item page
-- **Currency exchange** — queries matching `[amount] [currency] in/to [currency]` (e.g. `100 EUR in USD`) → DuckDuckGo
-  - Normalises `în` → `in`, `euro`/`euros` → `EUR`, `lei`/`leu` → `RON`, `dollar`/`dollars`/`dolar`/`dolari` → `USD`, `lira`/`liră`/`lire` → `GBP`
-  - Uppercases all 3-letter currency codes
-- **IP address lookup** — queries `my ip`, `current ip`, `my ip address`, or `current ip address` → DuckDuckGo
-- **Wiki blacklists** — for media-related searches (video games, TV series, etc.), non-primary wikis (fandom.com, wiki.fextralife.com, arcenserv.info, huijiwiki.com, neoseeker.com, strategywiki.org) are excluded in favour of the official or community-preferred wiki for that franchise, where applicable
+```text
+https://search.nuilandia.ro/?q=minecraft%20wiki%20creeper
+```
 
-### Keyword-triggered
+OpenSearch descriptor:
 
-- **AliExpress** — keyword: `aliexpress`
-- **Altex** — keyword: `altex`
-- **App Store** (Apple) — keyword: `appstore`, `app store`, or `apple store`
-- **Arch Wiki** — keyword: `arch wiki`
-- **Auchan** — keyword: `auchan`
-- **Audible** — keyword: `audible`
-- **Boobpedia** — keyword: `boobpedia`
-- **Cărturești** — keyword: `carturesti`
-- **Decathlon** — keyword: `decathlon`
-- **Dedeman** — keyword: `dedeman`
-- **Dex Online** — keyword: `dex`
-- **Digi24** — keyword: `digi24`
-- **eBay** — keyword: `ebay`
-- **eMAG** — keyword: `emag`
-- **evoMAG** — keyword: `evomag`
-- **Facebook** — keyword: `facebook`
-- **F-Droid** — keyword: `fdroid` or `f-droid`
-- **Firefox Extensions** — keyword: `firefox extension` or `firefox extensions`
-- **Flanco** — keyword: `flanco`
-- **Flathub** — keyword: `flathub`
-- **Flip.ro** — keyword: `flip.ro`
-- **G2A** — keyword: `g2a`
-- **GitHub** — keyword: `github`
-- **GOG** — keyword: `gog`
-- **Hornbach** — keyword: `hornbach`
-- **IKEA** — keyword: `ikea`
-- **IMDb** (via LibreMDb) — keyword: `imdb`
-- **Instagram** — keyword: `instagram`
-- **JYSK** — keyword: `jysk`
-- **Leroy Merlin** — keyword: `leroy merlin`
-- **Lidl** — keyword: `lidl`
-- **LinkedIn** — keyword: `linkedin`
-- **Minecraft Heads** — keyword: `mc head`, `mc heads`, `minecraft head`, or `minecraft heads`
-- **Minecraft Wiki** — keyword: `mc wiki` or `minecraft wiki`
-- **ModDB** — keyword: `moddb`
-- **NameMC** — keyword: `namemc`
-- **Netflix** — keyword: `netflix`
-- **Nexus Mods** — keyword: `nexusmods` or `nexus mods`
-- **Odysee** — keyword: `odysee`
-- **OLX** — keyword: `olx`
-- **PC Garage** — keyword: `pcgarage`
-- **Pinterest** — keyword: `pinterest`
-- **PlanetMinecraft** — keyword: `planet minecraft`
-- **PlanetMinecraft Schematics** — keyword: `mc schematic(s)` or `minecraft schematic(s)`
-- **Play Store** — keyword: `play store` or `playstore`
-- **Plex** — keyword: `plex`
-- **ProtonDB** — keyword: `protondb`
-- **Reddit** (via Redlib) — keyword: `reddit`
-- **Rtings** — keyword: `rtings`
-- **Sinsay** — keyword: `sinsay`
-- **Spigot** — keyword: `spigot`
-- **Spy-Shop** — keyword: `spyshop`, `spyshop.ro`, `spy-shop`, or `spy-shop.ro`
-- **SteamDB** — keyword: `steamdb`
-- **TripAdvisor** — keyword: `tripadvisor`
-- **TVDB** — keyword: `tvdb` or `thetvdb`
-- **UESP** *(Unofficial Elder Scrolls Pages)* — keyword: `uesp`, `elder scrolls wiki`, `eso wiki`, `morrowind wiki`, `oblivion wiki`, `skyrim wiki`, `tes wiki`, or `the elder scrolls wiki`
-- **Vinted** — keyword: `vinted`
-- **Wikidata** — keyword: `wikidata`
-- **Wikipedia** (randomised: Wikipedia / Wikiless) — keyword: `wikipedia`
-- **YouTube** (via yewtu.be) — keyword: `youtube`
+```text
+https://search.nuilandia.ro/opensearch.xml
+```
 
-## Browser Integration
+## 🖥️ System Requirements
 
-NuciSearch supports **OpenSearch**, allowing it to be installed as a search engine in browsers.
+- **OS:** Linux, MacOS, Windows
+- **RAM:** 512 MB minimum
+- **Runtime:** ASP.NET Core runtime compatible with .NET 10
 
-OpenSearch description: https://search.nuilandia.ro/opensearch.xml
+## 📦 Installation
 
-## Configuration
+[![Obtain it from GitHub](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/github.png)](https://github.com/hmlendea/nucisearch/releases)
 
-All settings are loaded from `appsettings.json`. The following keys are recognised:
+You can deploy from the published GitHub release artefacts or execute from source using the development commands below.
+
+## ⚙️ Configuration
+
+All settings are loaded from the configuration file. The subsequent keys are recognised:
 
 | Section | Key | Description |
 |---------|-----|-------------|
+| `Logging:LogLevel` | `Default` | Default application log level |
+| `Logging:LogLevel` | `Microsoft.AspNetCore` | ASP.NET Core log level |
+| `AllowedHosts` | `*` | Host filtering configuration |
 | `NuciLoggerSettings` | `logFilePath` | Path to the log output file |
-| `NuciLoggerSettings` | `isFileOutputEnabled` | Whether to write logs to a file |
+| `NuciLoggerSettings` | `isFileOutputEnabled` | Whether file logging is enabled |
 
-## Development
+## 🌍 Localisation
+
+Translations are located in the project's localisation resources. The subsequent languages are currently supported:
+
+| Language | Code | Status |
+|----------|------|--------|
+| English | `en` | Complete |
+| Romanian | `ro-RO` | Complete |
+
+## 🛠️ Development
 
 ### Requirements
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+
+### Setup
 
 All NuGet dependencies are restored automatically by `dotnet restore`.
 
@@ -158,24 +123,6 @@ This script downloads and executes an external release helper from `https://raw.
 
 **Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
 
-## Project Structure
-
-The solution contains the following projects:
-
-- **NuciSearch**: The main ASP.NET Core Blazor Server application
-- **NuciSearch.UnitTests**: Unit tests for the application
-
-Key directories inside `NuciSearch/`:
-
-| Directory | Purpose |
-|-----------|---------|
-| `Components/` | Blazor components (pages and layout) |
-| `Localisation/` | IP-based culture detection |
-| `Logging/` | Logging keys and operation constants |
-| `Resources/` | Localisation resource files |
-| `Services/` | Business logic and search URL generation |
-| `wwwroot/` | Static web assets (CSS, favicon, OpenSearch XML) |
-
 ### Dependencies
 
 | Package | Purpose |
@@ -184,19 +131,45 @@ Key directories inside `NuciSearch/`:
 | `NuciLog.Core` | Core logging abstractions |
 | `NuciText.Obfuscation` | Query deobfuscation |
 
-## Contributing
+## 🗂️ Project Structure
 
-Contributions are welcome. Please:
-- Keep changes cross-platform
-- Keep the existing public API intact unless a breaking change is intentional
-- Keep pull requests focused and consistent with the existing code style
-- Update documentation when behaviour changes
+The solution contains the subsequent projects:
 
-## Support
+- `NuciSearch`: The primary ASP.NET Core Blazor Server application
+- `NuciSearch.UnitTests`: Unit tests for the application services
 
-If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or giving a ⭐️ on GitHub!
+The key directories inside `NuciSearch/` are:
 
-## License
+| Directory | Purpose |
+|-----------|---------|
+| `Components/` | Blazor components, routes, layout, and pages |
+| `Localisation/` | IP-based culture provider |
+| `Logging/` | Logging operation names and log keys |
+| `Resources/` | Localised resource files |
+| `Services/` | Search routing and geolocation logic |
+| `wwwroot/` | Static assets, styles, and OpenSearch descriptor |
 
-Licensed under the **GNU General Public License v3.0** or later.
-See [LICENSE](./LICENSE) for details.
+## 🤝 Contributing
+
+You are welcome to submit any suggestion, feedback, or modification to this project.
+
+When doing so, please:
+- Maintain cross-platform compatibility
+- Maintain the pull requests as focused and consistent with the existing code style
+- Maintain your branch up-to-date with `master`
+- Revise the documentation when behaviour changes
+- Properly test all changes, including edge cases and error conditions
+- Add unit tests for any new or changed functionality
+
+## 💝 Supporting the Project
+
+Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/nucisearch/issues)!
+
+If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or starring ⭐️ it on GitHub!
+
+[![Donate](https://raw.githubusercontent.com/hmlendea/readme-assets/master/donate_generic.png)](https://hmlendea.go.ro/funding)
+
+## 📄 License
+
+This project is being distributed under the `GNU General Public License v3.0` or later.
+See [LICENSE](./LICENSE) for further information.
