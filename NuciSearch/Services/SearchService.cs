@@ -40,6 +40,10 @@ namespace NuciSearch.Services
             @"\b(?:osrs|runescape)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex stellarisKeywordsPattern = new(
+            @"\b(?:stellaris)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex aSongOfIceAndFireWikiKeywordsPattern = new(
             @"\b(?:asoiaf|a\s*song\s*of\s*ice\s*and\s*fire|game\s*of\s*thrones"
                 + @"|house\s*of\s*the\s*dragon)\b",
@@ -448,6 +452,11 @@ namespace NuciSearch.Services
                 query += " -site:iceandfire.fandom.com";
                 query += " -site:listofdeaths.fandom.com";
                 query += " -site:wikiofthrones.com";
+            }
+
+            if (stellarisKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:stellaris.fandom.com";
             }
 
             return query;

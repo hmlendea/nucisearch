@@ -896,6 +896,18 @@ namespace NuciSearch.UnitTests.Services
                 Does.Contain("fandom"));
 
         [Test]
+        public void GivenStellarisQuery_WhenGettingTextSearchUrl_ThenIncludesStellarisFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("stellaris", "text"),
+                Does.Contain("stellaris.fandom.com"));
+
+        [Test]
+        public void GivenStellarisQuery_WhenGettingAutoSearchUrl_ThenIncludesStellarisFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("stellaris", "auto"),
+                Does.Contain("stellaris.fandom.com"));
+
+        [Test]
         public void GivenSkyrimQuery_WhenGettingTextSearchUrl_ThenIncludesFextralifeBlacklist()
             => Assert.That(
                 searchService.GetSearchUrl("skyrim archery build", "text"),
