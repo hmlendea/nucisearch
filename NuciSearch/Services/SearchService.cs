@@ -44,6 +44,10 @@ namespace NuciSearch.Services
             @"\b(?:stellaris)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex heartsOfIronKeywordsPattern = new(
+            @"\b(?:hoi\s*(?:4|iv)|hearts?\s*of\s*iron\s*(?:4|iv))\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex aSongOfIceAndFireWikiKeywordsPattern = new(
             @"\b(?:asoiaf|a\s*song\s*of\s*ice\s*and\s*fire|game\s*of\s*thrones"
                 + @"|house\s*of\s*the\s*dragon)\b",
@@ -457,6 +461,11 @@ namespace NuciSearch.Services
             if (stellarisKeywordsPattern.IsMatch(query))
             {
                 query += " -site:stellaris.fandom.com";
+            }
+
+            if (heartsOfIronKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:heartsofiron.fandom.com";
             }
 
             return query;

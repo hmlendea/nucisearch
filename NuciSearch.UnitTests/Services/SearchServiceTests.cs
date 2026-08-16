@@ -908,6 +908,24 @@ namespace NuciSearch.UnitTests.Services
                 Does.Contain("stellaris.fandom.com"));
 
         [Test]
+        public void GivenHoi4Query_WhenGettingTextSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hoi4 template", "text"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
+        public void GivenHeartsOfIron4Query_WhenGettingTextSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hearts of iron 4 italy guide", "text"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
+        public void GivenHeartsOfIronIvQuery_WhenGettingAutoSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hearts of iron iv navy guide", "auto"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
         public void GivenSkyrimQuery_WhenGettingTextSearchUrl_ThenIncludesFextralifeBlacklist()
             => Assert.That(
                 searchService.GetSearchUrl("skyrim archery build", "text"),
