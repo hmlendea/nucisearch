@@ -950,6 +950,26 @@ namespace NuciSearch.UnitTests.Services
                 Does.Contain("fandom"));
 
         [Test]
+        public void GivenGtaQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("gta mission guide", "text"),
+                Does.Contain("grandtheftwiki.com")
+                    .And.Contain("gta.fandom.com")
+                    .And.Contain("wikigta.org")
+                    .And.Contain("gtastarsandstripes.miraheze.org")
+                    .And.Contain("neoseeker.com")
+                    .And.Contain("rockstargames.fandom.com")
+                    .And.Contain("gtaboom.com")
+                    .And.Contain("sportskeeda.com")
+                    .And.Contain("gta5wiki.com"));
+
+        [Test]
+        public void GivenGrandTheftAutoQuery_WhenGettingTextSearchUrl_ThenIncludesGtaBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("grand theft auto cheats", "text"),
+                Does.Contain("grandtheftwiki.com"));
+
+        [Test]
         public void GivenAsoiafWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
             => Assert.That(
                 searchService.GetSearchUrl("asoiaf wiki targaryen", "text"),

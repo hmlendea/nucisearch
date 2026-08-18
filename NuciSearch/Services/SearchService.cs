@@ -48,6 +48,10 @@ namespace NuciSearch.Services
             @"\b(?:hoi\s*(?:4|iv)|hearts?\s*of\s*iron\s*(?:4|iv))\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex gtaKeywordsPattern = new(
+            @"\b(?:gta|grand\s*theft\s*auto|grand\s*theft)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex aSongOfIceAndFireWikiKeywordsPattern = new(
             @"\b(?:asoiaf|a\s*song\s*of\s*ice\s*and\s*fire|game\s*of\s*thrones"
                 + @"|house\s*of\s*the\s*dragon)\b",
@@ -466,6 +470,19 @@ namespace NuciSearch.Services
             if (heartsOfIronKeywordsPattern.IsMatch(query))
             {
                 query += " -site:heartsofiron.fandom.com";
+            }
+
+            if (gtaKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:grandtheftwiki.com";
+                query += " -site:gta.fandom.com";
+                query += " -site:gta5wiki.com";
+                query += " -site:gtaboom.com";
+                query += " -site:gtastarsandstripes.miraheze.org";
+                query += " -site:neoseeker.com";
+                query += " -site:rockstargames.fandom.com";
+                query += " -site:sportskeeda.com";
+                query += " -site:wikigta.org";
             }
 
             return query;
