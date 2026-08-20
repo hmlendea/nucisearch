@@ -970,6 +970,26 @@ namespace NuciSearch.UnitTests.Services
                 Does.Contain("grandtheftwiki.com"));
 
         [Test]
+        public void GivenKcdQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("kcd quest guide", "text"),
+                Does.Contain("kingdom-come-deliverance.fandom.com")
+                    .And.Contain("kingdomcomedeliverance.wiki.fextralife.com")
+                    .And.Contain("kingdom-come-deliverance.vidyawiki.com"));
+
+        [Test]
+        public void GivenKingdomComeDeliveranceIiQuery_WhenGettingTextSearchUrl_ThenIncludesKcdBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("kingdom come deliverance ii build", "text"),
+                Does.Contain("kingdom-come-deliverance.fandom.com"));
+
+        [Test]
+        public void GivenKingdomComeColonDeliverance2Query_WhenGettingTextSearchUrl_ThenIncludesKcdBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("kingdom come: deliverance 2 map", "text"),
+                Does.Contain("kingdomcomedeliverance.wiki.fextralife.com"));
+
+        [Test]
         public void GivenAsoiafWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
             => Assert.That(
                 searchService.GetSearchUrl("asoiaf wiki targaryen", "text"),
