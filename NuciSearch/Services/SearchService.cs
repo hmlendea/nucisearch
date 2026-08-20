@@ -40,6 +40,22 @@ namespace NuciSearch.Services
             @"\b(?:osrs|runescape)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex stellarisKeywordsPattern = new(
+            @"\b(?:stellaris)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex heartsOfIronKeywordsPattern = new(
+            @"\b(?:hoi\s*(?:4|iv)|hearts?\s*of\s*iron\s*(?:4|iv))\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex gtaKeywordsPattern = new(
+            @"\b(?:gta|grand\s*theft\s*auto|grand\s*theft)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex kingdomComeDeliveranceKeywordsPattern = new(
+            @"\b(?:kcd(?:\s*2|\s*ii)?|kingdom\s*come(?::)?\s*deliverance(?:\s*(?:2|ii))?)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static readonly Regex aSongOfIceAndFireWikiKeywordsPattern = new(
             @"\b(?:asoiaf|a\s*song\s*of\s*ice\s*and\s*fire|game\s*of\s*thrones"
                 + @"|house\s*of\s*the\s*dragon)\b",
@@ -448,6 +464,36 @@ namespace NuciSearch.Services
                 query += " -site:iceandfire.fandom.com";
                 query += " -site:listofdeaths.fandom.com";
                 query += " -site:wikiofthrones.com";
+            }
+
+            if (stellarisKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:stellaris.fandom.com";
+            }
+
+            if (heartsOfIronKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:heartsofiron.fandom.com";
+            }
+
+            if (gtaKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:grandtheftwiki.com";
+                query += " -site:gta.fandom.com";
+                query += " -site:gta5wiki.com";
+                query += " -site:gtaboom.com";
+                query += " -site:gtastarsandstripes.miraheze.org";
+                query += " -site:neoseeker.com";
+                query += " -site:rockstargames.fandom.com";
+                query += " -site:sportskeeda.com";
+                query += " -site:wikigta.org";
+            }
+
+            if (kingdomComeDeliveranceKeywordsPattern.IsMatch(query))
+            {
+                query += " -site:kingdom-come-deliverance.fandom.com";
+                query += " -site:kingdom-come-deliverance.vidyawiki.com";
+                query += " -site:kingdomcomedeliverance.wiki.fextralife.com";
             }
 
             return query;

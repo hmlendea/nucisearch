@@ -896,6 +896,36 @@ namespace NuciSearch.UnitTests.Services
                 Does.Contain("fandom"));
 
         [Test]
+        public void GivenStellarisQuery_WhenGettingTextSearchUrl_ThenIncludesStellarisFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("stellaris", "text"),
+                Does.Contain("stellaris.fandom.com"));
+
+        [Test]
+        public void GivenStellarisQuery_WhenGettingAutoSearchUrl_ThenIncludesStellarisFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("stellaris", "auto"),
+                Does.Contain("stellaris.fandom.com"));
+
+        [Test]
+        public void GivenHoi4Query_WhenGettingTextSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hoi4 template", "text"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
+        public void GivenHeartsOfIron4Query_WhenGettingTextSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hearts of iron 4 italy guide", "text"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
+        public void GivenHeartsOfIronIvQuery_WhenGettingAutoSearchUrl_ThenIncludesHeartsOfIronFandomBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("hearts of iron iv navy guide", "auto"),
+                Does.Contain("heartsofiron.fandom.com"));
+
+        [Test]
         public void GivenSkyrimQuery_WhenGettingTextSearchUrl_ThenIncludesFextralifeBlacklist()
             => Assert.That(
                 searchService.GetSearchUrl("skyrim archery build", "text"),
@@ -918,6 +948,46 @@ namespace NuciSearch.UnitTests.Services
             => Assert.That(
                 searchService.GetSearchUrl("baldur paladin guide", "text"),
                 Does.Contain("fandom"));
+
+        [Test]
+        public void GivenGtaQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("gta mission guide", "text"),
+                Does.Contain("grandtheftwiki.com")
+                    .And.Contain("gta.fandom.com")
+                    .And.Contain("wikigta.org")
+                    .And.Contain("gtastarsandstripes.miraheze.org")
+                    .And.Contain("neoseeker.com")
+                    .And.Contain("rockstargames.fandom.com")
+                    .And.Contain("gtaboom.com")
+                    .And.Contain("sportskeeda.com")
+                    .And.Contain("gta5wiki.com"));
+
+        [Test]
+        public void GivenGrandTheftAutoQuery_WhenGettingTextSearchUrl_ThenIncludesGtaBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("grand theft auto cheats", "text"),
+                Does.Contain("grandtheftwiki.com"));
+
+        [Test]
+        public void GivenKcdQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
+            => Assert.That(
+                searchService.GetSearchUrl("kcd quest guide", "text"),
+                Does.Contain("kingdom-come-deliverance.fandom.com")
+                    .And.Contain("kingdomcomedeliverance.wiki.fextralife.com")
+                    .And.Contain("kingdom-come-deliverance.vidyawiki.com"));
+
+        [Test]
+        public void GivenKingdomComeDeliveranceIiQuery_WhenGettingTextSearchUrl_ThenIncludesKcdBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("kingdom come deliverance ii build", "text"),
+                Does.Contain("kingdom-come-deliverance.fandom.com"));
+
+        [Test]
+        public void GivenKingdomComeColonDeliverance2Query_WhenGettingTextSearchUrl_ThenIncludesKcdBlacklist()
+            => Assert.That(
+                searchService.GetSearchUrl("kingdom come: deliverance 2 map", "text"),
+                Does.Contain("kingdomcomedeliverance.wiki.fextralife.com"));
 
         [Test]
         public void GivenAsoiafWikiQuery_WhenGettingTextSearchUrl_ThenIncludesRequestedDomainBlacklists()
