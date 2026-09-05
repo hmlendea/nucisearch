@@ -951,13 +951,24 @@ namespace NuciSearch.Services
         }
 
         private static bool ContainsKeyword(IEnumerable<string> words, string keyword)
-            => words.Any(word =>
-                string.Equals(word, keyword, StringComparison.OrdinalIgnoreCase));
+            => words.Any(word => KeywordsAreEqual(word, keyword));
 
         private static string StripKeyword(IEnumerable<string> words, string keyword)
             => string.Join(
                 " ",
-                words.Where(word =>
-                    !string.Equals(word, keyword, StringComparison.OrdinalIgnoreCase)));
+                words.Where(word => !KeywordsAreEqual(word, keyword)));
+
+        private static bool KeywordsAreEqual(string firstKeyword, string secondKeyword)
+            => string.Equals(
+                RemoveDiacritics(firstKeyword),
+                RemoveDiacritics(secondKeyword),
+                StringComparison.OrdinalIgnoreCase);
+
+        private static string RemoveDiacritics(string value)
+            => string.Concat(
+                value.Normalize(NormalizationForm.FormD)
+                .Where(character =>
+                    CharUnicodeInfo.GetUnicodeCategory(character) != UnicodeCategory.NonSpacingMark))
+                .Normalize(NormalizationForm.FormC);
     }
 }
