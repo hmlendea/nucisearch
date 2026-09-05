@@ -311,6 +311,12 @@ namespace NuciSearch.UnitTests.Services
                 Is.EqualTo("https://altex.ro/cauta/?q=laptop"));
 
         [Test]
+        public void GivenAnimaxKeyword_WhenGettingSearchUrl_ThenReturnsAnimaxUrl()
+            => Assert.That(
+                searchService.GetSearchUrl("animax test 1", "auto"),
+                Is.EqualTo("https://animax.ro/search?q=test+1"));
+
+        [Test]
         public void GivenAppstoreKeyword_WhenGettingSearchUrl_ThenReturnsAppStoreUrl()
             => Assert.That(
                 searchService.GetSearchUrl("appstore spotify", "auto"),

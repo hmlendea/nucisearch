@@ -167,6 +167,10 @@ namespace NuciSearch.Services
         private static string GetAltexUrl(string query)
             => $"https://altex.ro/cauta/?q={Uri.EscapeDataString(query)}";
 
+        private static string GetAnimaxUrl(string query)
+            => "https://animax.ro/search?q="
+                + Uri.EscapeDataString(query).Replace("%20", "+", StringComparison.Ordinal);
+
         private static string GetAppStoreUrl(string query)
             => $"https://apple.com/uk/search/{Uri.EscapeDataString(query)}?src=globalnav";
 
@@ -601,6 +605,10 @@ namespace NuciSearch.Services
                 return GetAltexUrl(query
                     .Replace("altex", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Trim());
+            }
+            else if (ContainsKeyword(words, "animax"))
+            {
+                return GetAnimaxUrl(StripKeyword(words, "animax"));
             }
             else if (ContainsKeyword(words, "appstore") ||
                 ContainsKeyword(words, "app store") ||
