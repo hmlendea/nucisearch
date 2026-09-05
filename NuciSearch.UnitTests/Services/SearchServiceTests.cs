@@ -519,6 +519,14 @@ namespace NuciSearch.UnitTests.Services
                 searchService.GetSearchUrl("moddb half-life", "auto"),
                 Is.EqualTo("https://moddb.com/search?q=half-life"));
 
+        [TestCase("mömax test 2")]
+        [TestCase("momax test 2")]
+        [TestCase("moemax test 2")]
+        public void GivenMoemaxKeyword_WhenGettingSearchUrl_ThenReturnsMoemaxUrl(string query)
+            => Assert.That(
+                searchService.GetSearchUrl(query, "auto"),
+                Is.EqualTo("https://moemax.ro/s/?s=test%202"));
+
         [Test]
         public void GivenMcWikiKeyword_WhenGettingSearchUrl_ThenReturnsMinecraftWikiUrl()
             => Assert.That(

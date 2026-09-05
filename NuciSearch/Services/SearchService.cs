@@ -299,6 +299,9 @@ namespace NuciSearch.Services
         private static string GetModDbUrl(string query)
             => $"https://moddb.com/search?q={Uri.EscapeDataString(query)}";
 
+        private static string GetMoemaxUrl(string query)
+            => $"https://moemax.ro/s/?s={Uri.EscapeDataString(query)}";
+
         private static string GetNameMcUrl(string query)
             => $"https://namemc.com/search?q={Uri.EscapeDataString(query)}";
 
@@ -747,6 +750,10 @@ namespace NuciSearch.Services
             {
                 return GetModDbUrl(StripKeyword(words, "moddb"));
             }
+            else if (ContainsKeyword(words, "momax"))
+            {
+                return GetMoemaxUrl(StripKeyword(words, "momax"));
+            }
             else if (query.Contains("mc wiki", StringComparison.OrdinalIgnoreCase) ||
                 query.Contains("minecraft wiki", StringComparison.OrdinalIgnoreCase))
             {
@@ -960,15 +967,16 @@ namespace NuciSearch.Services
 
         private static bool KeywordsAreEqual(string firstKeyword, string secondKeyword)
             => string.Equals(
-                RemoveDiacritics(firstKeyword),
-                RemoveDiacritics(secondKeyword),
+                NormaliseKeyword(firstKeyword),
+                NormaliseKeyword(secondKeyword),
                 StringComparison.OrdinalIgnoreCase);
 
-        private static string RemoveDiacritics(string value)
+        private static string NormaliseKeyword(string value)
             => string.Concat(
                 value.Normalize(NormalizationForm.FormD)
                 .Where(character =>
                     CharUnicodeInfo.GetUnicodeCategory(character) != UnicodeCategory.NonSpacingMark))
-                .Normalize(NormalizationForm.FormC);
+                .Normalize(NormalizationForm.FormC)
+                .Replace("oe", "o", StringComparison.OrdinalIgnoreCase);
     }
 }
