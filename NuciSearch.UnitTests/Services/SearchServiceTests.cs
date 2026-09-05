@@ -576,6 +576,12 @@ namespace NuciSearch.UnitTests.Services
                 Is.EqualTo("https://nexusmods.com/search?keyword=skyrim"));
 
         [Test]
+        public void GivenNuGetKeyword_WhenGettingSearchUrl_ThenReturnsNuGetUrl()
+            => Assert.That(
+                searchService.GetSearchUrl("nuget nuciapi middleware", "auto"),
+                Is.EqualTo("https://nuget.org/packages?q=nuciapi%20middleware"));
+
+        [Test]
         public void GivenOdyseeKeyword_WhenGettingSearchUrl_ThenReturnsOdyseeUrl()
             => Assert.That(
                 searchService.GetSearchUrl("odysee cooking", "auto"),
