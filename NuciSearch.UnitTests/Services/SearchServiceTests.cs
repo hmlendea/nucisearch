@@ -341,6 +341,13 @@ namespace NuciSearch.UnitTests.Services
                 Is.EqualTo("https://carturesti.ro/product/search/dune"));
 
         [Test]
+        public void GivenCarturestiKeywordWithDiacritics_WhenGettingSearchUrl_ThenReturnsCarturestiUrl()
+            => Assert.That(
+                searchService.GetSearchUrl("Cărturești lord\u00A0of\u00A0the\u00A0rings", "auto"),
+                Is.EqualTo(
+                    "https://carturesti.ro/product/search/lord%20of%20the%20rings"));
+
+        [Test]
         public void GivenDecathlonKeyword_WhenGettingSearchUrl_ThenReturnsDecathlonUrl()
             => Assert.That(
                 searchService.GetSearchUrl("decathlon bike", "auto"),
