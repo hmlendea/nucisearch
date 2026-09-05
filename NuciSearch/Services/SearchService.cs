@@ -308,6 +308,9 @@ namespace NuciSearch.Services
         private static string GetNexusModsUrl(string query)
             => $"https://nexusmods.com/search?keyword={Uri.EscapeDataString(query)}";
 
+        private static string GetNuGetUrl(string query)
+            => $"https://nuget.org/packages?q={Uri.EscapeDataString(query)}";
+
         private static string GetOdyseeUrl(string query)
             => $"https://odysee.com/$/search?q={Uri.EscapeDataString(query)}";
 
@@ -813,6 +816,10 @@ namespace NuciSearch.Services
                 return GetNexusModsUrl(StripKeyword(words, "nexusmods")
                     .Replace("nexus mods", string.Empty, StringComparison.OrdinalIgnoreCase)
                     .Trim());
+            }
+            else if (ContainsKeyword(words, "nuget"))
+            {
+                return GetNuGetUrl(StripKeyword(words, "nuget"));
             }
             else if (ContainsKeyword(words, "odysee"))
             {
