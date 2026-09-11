@@ -300,6 +300,11 @@ namespace NuciSearch.Services
         private static string GetMinecraftWikiUrl(string query)
             => $"https://minecraft.wiki/?search={Uri.EscapeDataString(query)}";
 
+        private static string GetMicroWikiUrl(string query)
+            => "https://micronations.wiki/index.php?search="
+                + Uri.EscapeDataString(query)
+                + "&title=Special%3ASearch&go=Go";
+
         private static string GetModDbUrl(string query)
             => $"https://moddb.com/search?q={Uri.EscapeDataString(query)}";
 
@@ -777,6 +782,10 @@ namespace NuciSearch.Services
                     .Trim();
 
                 return GetMinecraftWikiUrl(searchQuery);
+            }
+            else if (ContainsKeyword(words, "microwiki"))
+            {
+                return GetMicroWikiUrl(StripKeyword(words, "microwiki"));
             }
             else if (query.Contains("mc head", StringComparison.OrdinalIgnoreCase) ||
                 query.Contains("minecraft head", StringComparison.OrdinalIgnoreCase))

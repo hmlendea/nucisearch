@@ -778,6 +778,30 @@ namespace NuciSearch.UnitTests.Services
                     + "&search=elodia&go=Go"));
 
         [Test]
+        public void GivenMicroWikiKeyword_WhenGettingSearchUrl_ThenReturnsMicroWikiUrl()
+            => Assert.That(
+                searchService.GetSearchUrl("microwiki Nucilandia", "auto"),
+                Is.EqualTo(
+                    "https://micronations.wiki/index.php?search=Nucilandia"
+                    + "&title=Special%3ASearch&go=Go"));
+
+        [Test]
+        public void GivenUppercaseMicroWikiKeyword_WhenGettingSearchUrl_ThenReturnsMicroWikiUrl()
+            => Assert.That(
+                searchService.GetSearchUrl("MICROWIKI Nucilandia", "auto"),
+                Is.EqualTo(
+                    "https://micronations.wiki/index.php?search=Nucilandia"
+                    + "&title=Special%3ASearch&go=Go"));
+
+        [Test]
+        public void GivenMicroWikiKeywordWithMultipleWords_WhenGettingSearchUrl_ThenEscapesTheQuery()
+            => Assert.That(
+                searchService.GetSearchUrl("microwiki Roman Empire", "auto"),
+                Is.EqualTo(
+                    "https://micronations.wiki/index.php?search=Roman%20Empire"
+                    + "&title=Special%3ASearch&go=Go"));
+
+        [Test]
         [SetUICulture("en-GB")]
         public void GivenFirefoxExtensionsPluralKeyword_WhenGettingSearchUrl_ThenReturnsFirefoxExtensionsUrl()
             => Assert.That(
