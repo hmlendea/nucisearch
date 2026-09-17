@@ -92,6 +92,17 @@ namespace NuciSearch.UnitTests.Services
         [TestCase("wallpaper")]
         [TestCase("background")]
         [TestCase("picture")]
+        [TestCase("photo")]
+        [TestCase("photos")]
+        [TestCase("photograph")]
+        [TestCase("photographs")]
+        [TestCase("illustration")]
+        [TestCase("illustrations")]
+        [TestCase("icon")]
+        [TestCase("icons")]
+        [TestCase("clipart")]
+        [TestCase("thumbnail")]
+        [TestCase("thumbnails")]
         [TestCase("LOGO")]
         public void GivenAnAutomaticImageIntentQuery_WhenGettingSearchUrl_ThenReturnsDuckDuckGoImagesUrl(
             string imageKeyword)

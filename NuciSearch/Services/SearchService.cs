@@ -85,7 +85,8 @@ namespace NuciSearch.Services
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static readonly Regex imageSearchKeywordsPattern = new(
-            @"\b(?:logo|portrait|image|wallpaper|background|picture)\b",
+            @"\b(?:logo|portrait|image|wallpaper|background|picture|photo|photos|photograph"
+                + @"|photographs|illustration|illustrations|icon|icons|clipart|thumbnail|thumbnails)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public string GetSearchUrl(string rawQuery, string searchType)
