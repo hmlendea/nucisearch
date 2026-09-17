@@ -84,6 +84,10 @@ namespace NuciSearch.Services
             @"^(?:my|current)\s+ip(?:\s+address)?$",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        private static readonly Regex imageSearchKeywordsPattern = new(
+            @"\b(?:logo|portrait|image|wallpaper|background|picture)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         public string GetSearchUrl(string rawQuery, string searchType)
         {
             IEnumerable<LogInfo> logInfos =
@@ -537,6 +541,11 @@ namespace NuciSearch.Services
         private static string GetAutoUrl(string query)
         {
             IEnumerable<string> words = query.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            if (imageSearchKeywordsPattern.IsMatch(query))
+            {
+                return GetDuckDuckGoImagesUrl(query);
+            }
 
             if (jiraPattern.IsMatch(query))
             {
