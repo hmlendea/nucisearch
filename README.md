@@ -24,6 +24,7 @@ NuciSearch is a lightweight self-hosted search wrapper that routes a query to an
   - [Release](#release)
   - [Dependencies](#dependencies)
 - [Project Structure](#project-structure)
+- [Architecture](#architecture)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Supporting the Project](#supporting-the-project)
@@ -149,6 +150,10 @@ The key directories inside `NuciSearch/` are:
 | `Resources/` | Localised resource files |
 | `Services/` | Search routing and geolocation logic |
 | `wwwroot/` | Static assets, styles, and OpenSearch descriptor |
+
+## 🏗️ Architecture
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the system architecture documentation, including component diagrams, data flows, and design decisions.
 
 ## 🗺️ Roadmap
 
