@@ -26,6 +26,7 @@ NuciSearch is a lightweight self-hosted search wrapper that routes a query to an
 - [Project Structure](#project-structure)
 - [Architecture](#architecture)
 - [Security](#security)
+- [Privacy](#privacy)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Supporting the Project](#supporting-the-project)
@@ -159,6 +160,10 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for the system architecture documentati
 ## 🛡️ Security
 
 See [SECURITY.md](./SECURITY.md) for the security policy, including supported versions, vulnerability reporting, and disclosure policy.
+
+## 🔒 Privacy
+
+See [PRIVACY.md](./PRIVACY.md) for the data-handling documentation, including data categories, processing, storage, and external integrations.
 
 ## 🗺️ Roadmap
 
