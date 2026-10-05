@@ -3,23 +3,36 @@
 This document describes the current architecture of the NuciSearch search wrapper application.
 
 ## 📑 Table of Contents
-- [🎯 Purpose](#-purpose)
-- [🌐 System Context](#-system-context)
-- [🏗️ Architectural Style](#-architectural-style)
-- [🔄 Runtime Flow](#-runtime-flow)
-- [🗂️ Architectural Areas](#-architectural-areas)
-- [💾 Data Architecture](#-data-architecture)
-- [🔌 Interfaces and Integrations](#-interfaces-and-integrations)
-- [🔀 Key Flows](#-key-flows)
-- [🧵 Cross-Cutting Concerns](#-cross-cutting-concerns)
-- [🧭 Dependency Direction and Rules](#-dependency-direction-and-rules)
-- [📦 External Dependencies](#-external-dependencies)
-- [🚀 Deployment and Operations](#-deployment-and-operations)
-- [🛡️ Compatibility Contracts](#-compatibility-contracts)
-- [✅ Testing and Verification](#-testing-and-verification)
-- [⚠️ Design Constraints](#-design-constraints)
-- [🔧 Extension Points](#-extension-points)
-- [📚 Related Documentation](#-related-documentation)
+- [Purpose](#-purpose)
+- [System Context](#-system-context)
+- [Architectural Style](#-architectural-style)
+- [Runtime Flow](#-runtime-flow)
+- [Architectural Areas](#-architectural-areas)
+  - [Presentation](#presentation)
+  - [Application](#application)
+- [Data Architecture](#-data-architecture)
+- [Interfaces and Integrations](#-interfaces-and-integrations)
+- [Key Flows](#-key-flows)
+  - [Query Processing Flow](#query-processing-flow)
+  - [Geolocation Lookup Flow](#geolocation-lookup-flow)
+- [Cross-Cutting Concerns](#-cross-cutting-concerns)
+  - [Security and Privacy](#security-and-privacy)
+  - [Error Handling](#error-handling)
+  - [Observability](#observability)
+  - [Configuration](#configuration)
+  - [Concurrency and Resource Use](#concurrency-and-resource-use)
+- [Dependency Direction and Rules](#-dependency-direction-and-rules)
+- [External Dependencies](#-external-dependencies)
+- [Deployment and Operations](#-deployment-and-operations)
+- [Compatibility Contracts](#-compatibility-contracts)
+- [Testing and Verification](#-testing-and-verification)
+- [Design Constraints](#-design-constraints)
+- [Extension Points](#-extension-points)
+  - [Search Service Extension](#search-service-extension)
+  - [Geolocation Service Extension](#geolocation-service-extension)
+  - [Localization Extension](#localization-extension)
+- [Source Map](#-source-map)
+- [Related Documentation](#-related-documentation)
 
 ## 🎯 Purpose
 NuciSearch is a lightweight self-hosted search wrapper that routes a query to an appropriate specialised engine based on the selected mode and query pattern. The architecture is designed to be modular, maintainable, and extensible for adding new search providers or modifying routing logic. The primary audience is developers and operators who wish to understand, modify, or deploy the application.
@@ -431,6 +444,19 @@ The extension must preserve the asynchronous nature and return type of `GetCount
 3. Update `Program.cs` to include new cultures in `supportedCultures` array.
 
 The extension must preserve the existing cultures (en-GB, ro-RO) and ensure resource files are properly formatted. Missing resources will fall back to default culture.
+
+## 🗺️ Source Map
+
+| Area | Path |
+|------|------|
+| Solution Root | `NuciSearch.slnx` |
+| Main Application | `NuciSearch/` |
+| Presentation Layer | `NuciSearch/Components/` |
+| Application Layer | `NuciSearch/Services/`, `NuciSearch/Localisation/`, `NuciSearch/Logging/` |
+| Resources | `NuciSearch/Resources/` |
+| Static Assets | `NuciSearch/wwwroot/` |
+| Unit Tests | `NuciSearch.UnitTests/` |
+| Test Services | `NuciSearch.UnitTests/Services/` |
 
 ## 📚 Related Documentation
 - [README.md](README.md) - Overall project overview, usage instructions, and development guidelines
