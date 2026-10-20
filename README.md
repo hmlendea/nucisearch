@@ -29,6 +29,7 @@ NuciSearch is a lightweight self-hosted search wrapper that routes a query to an
 - [Privacy](#privacy)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
 - [Supporting the Project](#supporting-the-project)
 - [License](#license)
 
@@ -182,6 +183,10 @@ When doing so, please:
 - Add unit tests for any new or changed functionality
 
 Consult [ROADMAP.md](./ROADMAP.md) for planned work and forthcoming changes.
+
+## 📜 Code of Conduct
+
+See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
 
 ## 💝 Supporting the Project
 
