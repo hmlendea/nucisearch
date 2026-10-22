@@ -9,7 +9,7 @@ namespace NuciSearch.UnitTests.Services
     [TestFixture]
     public sealed class SearchServiceTests
     {
-        SearchService searchService;
+        private SearchService searchService;
 
         [SetUp]
         public void SetUp()
