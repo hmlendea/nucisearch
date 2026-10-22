@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="NuciSearch/NuciSearch.csproj" />
+  <Project Path="NuciSearch.ArchitectureTests/NuciSearch.ArchitectureTests.csproj" />
   <Project Path="NuciSearch.UnitTests/NuciSearch.UnitTests.csproj" />
 </Solution>
