@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -13,11 +14,15 @@ namespace NuciSearch.Services
         IMemoryCache cache,
         ILogger logger) : IGeolocationService
     {
+        private static string DefaultCountryCode => "GB";
+
+        private static string LocalCountryCode => "RO";
+
         public async Task<string> GetCountryCodeAsync(string ipAddress)
         {
             if (IsPrivateOrLoopback(ipAddress))
             {
-                return "RO";
+                return LocalCountryCode;
             }
 
             string? cachedCode = cache.Get<string>(ipAddress);
@@ -33,7 +38,7 @@ namespace NuciSearch.Services
                 IpWhoIsResponse? response = await client.GetFromJsonAsync<IpWhoIsResponse>(
                     $"https://ipwho.is/{Uri.EscapeDataString(ipAddress)}?fields=country_code");
 
-                string countryCode = "GB";
+                string countryCode = DefaultCountryCode;
 
                 if (response is not null && !string.IsNullOrEmpty(response.CountryCode))
                 {
@@ -52,33 +57,36 @@ namespace NuciSearch.Services
                     exception,
                     [new(NuciSearchLogInfoKey.IpAddress, ipAddress)]);
 
-                return "GB";
+                return DefaultCountryCode;
             }
         }
 
         private static bool IsPrivateOrLoopback(string ipAddress)
         {
-            if (string.IsNullOrEmpty(ipAddress))
+            if (!IPAddress.TryParse(ipAddress, out IPAddress? parsedAddress))
             {
                 return true;
             }
 
-            if (string.Equals(ipAddress, "::1") || string.Equals(ipAddress, "127.0.0.1"))
+            if (IPAddress.IsLoopback(parsedAddress))
             {
                 return true;
             }
 
-            if (ipAddress.StartsWith("192.168.", StringComparison.Ordinal))
+            byte[] addressBytes = parsedAddress.GetAddressBytes();
+
+            if (addressBytes.Length == 4 && addressBytes[0] == 10)
             {
                 return true;
             }
 
-            if (ipAddress.StartsWith("10.", StringComparison.Ordinal))
+            if (addressBytes.Length == 4 && addressBytes[0] == 192 && addressBytes[1] == 168)
             {
                 return true;
             }
 
-            if (ipAddress.StartsWith("172.", StringComparison.Ordinal))
+            if (addressBytes.Length == 4 && addressBytes[0] == 172 &&
+                addressBytes[1] >= 16 && addressBytes[1] <= 31)
             {
                 return true;
             }
