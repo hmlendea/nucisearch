@@ -176,13 +176,14 @@ You are welcome to submit any suggestion, feedback, or modification to this proj
 
 When doing so, please:
 - Maintain cross-platform compatibility
-- Maintain the pull requests as focused and consistent with the existing code style
-- Maintain your branch up-to-date with `master`
-- Revise the documentation when behaviour changes
-- Properly test all changes, including edge cases and error conditions
-- Add unit tests for any new or changed functionality
+- Submit focused pull requests that conform to the existing code style
+- Maintain your branch synchronised with `master`
+- Revise the documentation when functionality changes
+- Properly test all modifications, including edge cases and error conditions
+- Include tests for additional or modified functionality
+- Raise a new [issue](https://github.com/hmlendea/nucisearch/issues) for problems or suggestions
 
-Consult [ROADMAP.md](./ROADMAP.md) for planned work and forthcoming changes.
+See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
 
 ## 📜 Code of Conduct
 
