@@ -1,6 +1,7 @@
 [![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/nucisearch)](https://github.com/hmlendea/nucisearch/releases/latest)
 [![Build Status](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nucisearch/actions/workflows/dotnet.yml)
+[![Security Scan](https://github.com/hmlendea/nucisearch/actions/workflows/security.yml/badge.svg)](https://github.com/hmlendea/nucisearch/actions/workflows/security.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gnu.org/licenses/gpl-3.0)
 
 # NuciSearch
@@ -161,6 +162,16 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for the system architecture documentati
 ## 🛡️ Security
 
 See [SECURITY.md](./SECURITY.md) for the security policy, including supported versions, vulnerability reporting, and disclosure policy.
+
+### Security Scan Workflow
+
+The repository includes a GitHub Actions workflow (`.github/workflows/security.yml`) that runs automated security scans:
+
+- **Triggers:** Push to `master`, pull requests to `master`, and weekly on Sundays
+- **Checks:**
+  - Vulnerable NuGet package detection (`dotnet list package --vulnerable --include-transitive`)
+  - CodeQL static analysis for C# code
+- **Permissions:** Requires `security-events: write` for CodeQL SARIF upload
 
 ## 🔒 Privacy
 
