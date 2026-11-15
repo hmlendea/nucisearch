@@ -14,12 +14,12 @@ NuciSearch.UnitTests/
 ### Dependencies
 
 ```xml
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-<PackageReference Include="NUnit" Version="4.3.2" />
-<PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
-<PackageReference Include="Moq" Version="4.20.72" />
-<PackageReference Include="NuciLog.Core" Version="3.0.0" />
-<PackageReference Include="NuciText.Obfuscation" Version="1.1.1" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
+<PackageReference Include="NUnit" Version="5.0.0" />
+<PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
+<PackageReference Include="Moq" Version="4.21.0" />
+<PackageReference Include="NuciLog.Core" Version="3.1.1" />
+<PackageReference Include="NuciText.Obfuscation" Version="1.1.2" />
 ```
 
 ## 2. Test Organisation

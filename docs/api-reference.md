@@ -423,7 +423,7 @@ app.UseExceptionHandler("/Error");
 
 | NuciSearch | .NET | NuciLog | NuciText.Obfuscation |
 |------------|------|---------|---------------------|
-| 1.x | 10.0 | 3.0.0 | 1.1.1 |
+| 1.x | 10.0 | 3.1.1 | 1.1.2 |
 
 **Breaking Changes:** None in 1.x series. Major version bump for breaking changes.
 
